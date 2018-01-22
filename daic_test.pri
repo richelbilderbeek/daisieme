@@ -1,4 +1,4 @@
-INCLUDEPATH += ../pbdmms
+INCLUDEPATH += ../daisie_project
 
 SOURCES += \
     $$PWD/daic_species_status_test.cpp \

@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(daic_input_row_operator_stream_out_has_three_tabs)
 BOOST_AUTO_TEST_CASE(daic_input_row_workaround_correct)
 {
   //DAISIE cannot handle an input_row of only a 0.0
-  //https://github.com/richelbilderbeek/pbdmms/issues/187
+  //https://github.com/richelbilderbeek/daisie_project/issues/187
   //Check correct behavior
   std::string measured;
   {
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(daic_input_row_workaround_correct)
 BOOST_AUTO_TEST_CASE(daic_input_row_workaround_corrected)
 {
   //DAISIE cannot handle an input_row of only a 0.0
-  //https://github.com/richelbilderbeek/pbdmms/issues/187
+  //https://github.com/richelbilderbeek/daisie_project/issues/187
   std::string measured;
   {
     std::stringstream s;

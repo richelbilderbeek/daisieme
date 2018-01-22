@@ -54,7 +54,7 @@ std::ostream& daic::operator<<(std::ostream& os, const input_row& r) noexcept
   for(double branching_time_raw: v)
   {
     //If there is one branching time that is zero, set it to 0.000001,
-    //Due to https://github.com/richelbilderbeek/pbdmms/issues/187
+    //Due to https://github.com/richelbilderbeek/daisie_project/issues/187
     const double branching_time{
       branching_time_raw == 0.0 ? 0.000001 : branching_time_raw
     };

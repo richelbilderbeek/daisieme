@@ -1,4 +1,4 @@
-INCLUDEPATH += ../pbdmms
+INCLUDEPATH += ../daisie_project
 
 SOURCES += \
     $$PWD/elly_carrying_capacity_test.cpp \
