@@ -231,7 +231,7 @@ bool elly::is_on(const species& s, const location any_location) noexcept
     case location::mainland: return is_on_mainland(s);
     case location::mainland_only: return is_on_mainland_only(s);
   }
-  assert(!"species must be on a known location");
+  assert(!"species must be on a known location"); //!OCLINT accepted idiom
   return false;
 }
 
