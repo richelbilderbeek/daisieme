@@ -13,10 +13,10 @@ Richel|Feb 2018-April 2019|4
 
 ## Pictures
 
-![](pics/elly_gui_1.png)
-
-![](pics/elly_gui_2.png)
+![](pics/elly_gui_4.png)
 
 ![](pics/elly_gui_3.png)
 
-![](pics/elly_gui_4.png)
+![](pics/elly_gui_2.png)
+
+![](pics/elly_gui_1.png)
