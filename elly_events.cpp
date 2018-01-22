@@ -19,7 +19,7 @@ std::string elly::to_str(const event e) noexcept //!OCLINT cannot make this less
     case event::migration_to_island: return "migration_to_island";
   }
   assert(!"Should not get here"); //!OCLINT accepted idiom
-  throw std::logic_error("Cannot convert event to std::string");
+  return "";
 }
 
 std::vector<elly::event> elly::collect_all_events() noexcept

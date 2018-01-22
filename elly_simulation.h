@@ -15,6 +15,8 @@
 
 namespace elly {
 
+/// Performs the events that happen to species,
+/// periodically measuring the state of the populations
 class simulation
 {
 public:

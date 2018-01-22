@@ -26,7 +26,7 @@ std::string elly::to_str(const location any_location) noexcept
     case location::both: return "both";
   }
   assert(!"Should not get here"); //!OCLINT accepted idiom, see Meyers' Effective C++
-  throw std::logic_error("Unimplemented location");
+  return "";
 }
 
 std::ostream& elly::operator<<(std::ostream& os, const location any_location) noexcept
