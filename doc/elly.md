@@ -8,14 +8,14 @@ It can happen that the island is colonized twice by different
 species from the same clade. The program detects this and
 throws an exception. These events are assumed to be rare. 
 
-See [Issue 203](https://github.com/richelbilderbeek/daisie_project/issues/203)
+See [Issue 203](https://github.com/richelbilderbeek/pbdmms/issues/203)
 
 ## Time units of branching times
 
 In this simulation, we use 'time since stem age in million years' as a time unit.
 There are hints that DAISIE uses 'time before present in million years' as a time unit.
 
-[Issue 212](https://github.com/richelbilderbeek/daisie_project/issues/212) describes the problem
+[Issue 212](https://github.com/richelbilderbeek/pbdmms/issues/212) describes the problem
 
 ## Potential bug in DAISIE
 
@@ -23,9 +23,9 @@ There may be a bug in DAISIE.
 
 We used a bleeding-edge and untested version of DAISIE.
 
-[Issue 190](https://github.com/richelbilderbeek/daisie_project/issues/190) signalled the problem
+[Issue 190](https://github.com/richelbilderbeek/pbdmms/issues/190) signalled the problem
 
-[Issue 221](https://github.com/richelbilderbeek/daisie_project/issues/211) failed to replicate the problem,
+[Issue 221](https://github.com/richelbilderbeek/pbdmms/issues/211) failed to replicate the problem,
 as there were higher priorities than write a bug report.
 
 It is unknown what the consequences of this bug are. It is expected these are small, as it happened
