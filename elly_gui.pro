@@ -1,10 +1,11 @@
 # C++14
 CONFIG += c++14
+QMAKE_CXXFLAGS += -std=c++14
 
 # High warning levels
 # Qt and Qwt do not go well with -Weffc++
 # -Wshadow does not go well with Qwt
-QMAKE_CXXFLAGS += -std=c++14 -Wall -Wextra -Wnon-virtual-dtor -pedantic -Werror
+QMAKE_CXXFLAGS += -Wall -Wextra -Wnon-virtual-dtor -pedantic -Werror
 
 # Debug and release mode
 CONFIG += debug_and_release

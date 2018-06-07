@@ -5,14 +5,21 @@
 #include <vector>
 
 ///Here lambda c is an estimated parameter for per species cladogenesis on island,
-/// mu is the estimated parameter for extinction rate per species, K is the value determining
-/// the carrying capacity for a clade of species on the island, gamma is a per species rate of
-/// immigration, lambda a is a per species rate of anagenesis.
+/// mu is the estimated parameter for extinction rate per species,
+/// K is the value determining
+/// the carrying capacity for a clade of species on the island,
+/// gamma is a per species rate of immigration,
+/// lambda a is a per species rate of anagenesis.
 namespace daic {
 
 struct output
 {
   ///Same order as DAISIE
+  /// @param lambda_c estimated cladogenesis rate on island
+  /// @param mu estimated extiction rate per species
+  /// @param k the carrying capacity for a clade of species on the island
+  /// @param gamma per species rate of immigration
+  /// @param lambda_a per species rate of anagenesis
   output(
     const double lambda_c = 0.0,
     const double mu = 0.0,
@@ -24,21 +31,42 @@ struct output
     const bool conv = 0
   );
 
+  /// Get the estimated cladogenesis rate on island
   auto get_lambda_c() const noexcept { return m_lambda_c; }
+
+  /// Get the estimated extiction rate per species
   auto get_mu() const noexcept { return m_mu; }
+
+  /// Get the carrying capacity for a clade of species on the island
   auto get_k() const noexcept { return m_k; }
+
+  /// Get the gamma per species rate of immigration
   auto get_gamma() const noexcept { return m_gamma; }
+
+  /// Get the per species rate of anagenesis
   auto get_lambda_a() const noexcept { return m_lambda_a; }
+
+  /// Get the log likelihood
   auto get_loglik() const noexcept { return m_loglik; }
+
+  /// Get the degrees of freedom
   auto get_df() const noexcept { return m_df; }
+
+  /// Get if the algorithm reached convergence
   auto get_conv() const noexcept { return m_conv; }
 
   private:
   ///Same order as DAISIE
+
+  /// estimated cladogenesis rate on island
   double m_lambda_c;
+  /// estimated extiction rate per species
   double m_mu;
+  /// the carrying capacity for a clade of species on the island
   double m_k;
+  /// per species rate of immigration
   double m_gamma;
+  /// per species rate of anagenesis
   double m_lambda_a;
   double m_loglik;
   int m_df;
