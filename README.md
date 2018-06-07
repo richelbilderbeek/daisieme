@@ -7,6 +7,7 @@ develop|[![Build Status](https://travis-ci.org/richelbilderbeek/daisie_project.s
 
 DAISIE project.
 
+
 ## Collaborators
 
 Name|Possible period|Time investment (days per week)
