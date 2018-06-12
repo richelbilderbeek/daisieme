@@ -7,6 +7,9 @@ QMAKE_CXXFLAGS += -std=c++14
 # -Wshadow does not go well with Qwt
 QMAKE_CXXFLAGS += -Wall -Wextra -Wnon-virtual-dtor -pedantic -Werror
 
+# Fix error: unrecognized option '--push-state--no-as-needed'
+QMAKE_LFLAGS += -fuse-ld=gold
+
 # Debug and release mode
 CONFIG += debug_and_release
 
