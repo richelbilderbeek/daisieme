@@ -12,6 +12,18 @@
 
 using namespace elly;
 
+///Must match the results in the R code
+BOOST_AUTO_TEST_CASE(elly_calc_anagenesis_r)
+{
+  const per_species_rate anagenesis_rate{0.3};
+  const int n_immigrants{5};
+  const double expected{1.5};
+  const double measured{
+    calc_anagenesis(anagenesis_rate, n_immigrants).get()
+  };
+  BOOST_CHECK_CLOSE(expected, measured, 0.0001);
+}
+
 BOOST_AUTO_TEST_CASE(elly_calc_anagenesis)
 {
   {
@@ -64,6 +76,45 @@ BOOST_AUTO_TEST_CASE(elly_calc_cladogenesis_main)
     };
     BOOST_CHECK_CLOSE(expected, measured, 0.0001);
   }
+}
+
+///Must match the results in the R code
+BOOST_AUTO_TEST_CASE(elly_calc_extinction_r)
+{
+  const per_species_rate extinction_rate_island{0.2};
+  const int n_species_on_island{4};
+  const double expected{0.8};
+  const double measured{
+    calc_islands_ext_rate_on_island(
+      extinction_rate_island,
+      n_species_on_island
+    ).get()
+  };
+  BOOST_CHECK_CLOSE(expected, measured, 0.0001);
+}
+
+///Must match the results in the R code
+BOOST_AUTO_TEST_CASE(elly_calc_glob_clad_island_r)
+{
+  /*
+  const per_species_rate clado_rate_is{0.2}
+  const n_species n_species_clade{5}
+  const carrying_capacity carrying_cap_is{10}
+  const n_species n_island{}
+
+    const per_species_rate clad_rate_is{0.2};
+    const int n_species_within_clade_d{5};
+    const carrying_capacity carrying_cap_is{10};
+    const double expected{0.5};
+    const double measured{
+      calc_glob_clad_island(
+        clad_rate_is,
+        n_species_within_clade_d,
+        carrying_cap_is
+      ).get()
+    };
+    BOOST_CHECK_CLOSE(expected, measured, 0.001);
+  */
 }
 
 BOOST_AUTO_TEST_CASE(elly_calc_glob_clad_is)
