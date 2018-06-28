@@ -47,7 +47,7 @@ public:
   rate get_clad_island_only() const noexcept {  return m_clad_island_only;  }
 
   ///Rate at which cladogenesis takes place with mainland-only species
-  rate get_clad_main_only() const noexcept { return m_clad_main_only; }\
+  rate get_clad_main_only() const noexcept { return m_clad_main_only; }
 
   ///Rate at which extinction takes place with an species
   /// that occurs at both locations, and will happen on the island

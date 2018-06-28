@@ -422,9 +422,11 @@ void elly::both_extinction_island(
   const species& s)
 {
   if(is_on_island_only(s) || is_on_mainland_only(s))
-    {
-      throw std::logic_error("event::ext_glob_on_island can only happen with global species");
-    }
+  {
+    throw std::logic_error(
+      "event::ext_glob_on_island can only happen with global species"
+    );
+  }
   species focal_species = p.extract_species(s);
   focal_species.go_extinct(time, location::island);
   p.add_species(focal_species);

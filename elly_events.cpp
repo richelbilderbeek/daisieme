@@ -24,7 +24,8 @@ std::string elly::to_str(const event e) noexcept //!OCLINT cannot make this less
 
 std::vector<elly::event> elly::collect_all_events() noexcept
 {
-  return {
+  return
+  {
     event::ana,
     event::clad_glob_on_island,
     event::clad_glob_on_main,
