@@ -1,6 +1,6 @@
 language: cpp
+dist: xenial
 compiler: gcc
-dist: trusty
 
 before_install:
   - echo $TRAVIS_BRANCH
