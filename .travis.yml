@@ -5,7 +5,7 @@ dist: xenial
 sudo: false
 cache: packages
 
-before_install:
+#before_install:
   #- echo $TRAVIS_BRANCH
   # C++14
   #- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test

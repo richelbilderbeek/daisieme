@@ -4,10 +4,12 @@
 \alias{dme_create_params_file_cpp}
 \title{Create a parameter file.}
 \usage{
-dme_create_params_file_cpp(filename)
+dme_create_params_file_cpp(filename, ana_psr)
 }
 \arguments{
 \item{filename}{name of the file}
+
+\item{ana_psr}{anagenesis per-species rate}
 }
 \value{
 nothing

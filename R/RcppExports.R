@@ -3,10 +3,11 @@
 
 #' Create a parameter file.
 #' @param filename name of the file
+#' @param ana_psr anagenesis per-species rate
 #' @return nothing
 #' @author Richel J.C. Bilderbeek
 #' @export
-dme_create_params_file_cpp <- function(filename) {
-    invisible(.Call(`_daisieme_dme_create_params_file_cpp`, filename))
+dme_create_params_file_cpp <- function(filename, ana_psr) {
+    invisible(.Call(`_daisieme_dme_create_params_file_cpp`, filename, ana_psr))
 }
 

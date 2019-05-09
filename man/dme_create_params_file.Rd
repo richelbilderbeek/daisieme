@@ -4,10 +4,12 @@
 \alias{dme_create_params_file}
 \title{Creates a daisieme parameter file}
 \usage{
-dme_create_params_file(filename)
+dme_create_params_file(filename, ana_psr)
 }
 \arguments{
 \item{filename}{name of the file}
+
+\item{ana_psr}{anagenesis per-species rate}
 }
 \description{
 Creates a daisieme parameter file
