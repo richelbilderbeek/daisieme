@@ -32,28 +32,28 @@ struct output
   );
 
   /// Get the estimated cladogenesis rate on island
-  auto get_lambda_c() const noexcept { return m_lambda_c; }
+  double get_lambda_c() const noexcept { return m_lambda_c; }
 
   /// Get the estimated extiction rate per species
-  auto get_mu() const noexcept { return m_mu; }
+  double get_mu() const noexcept { return m_mu; }
 
   /// Get the carrying capacity for a clade of species on the island
-  auto get_k() const noexcept { return m_k; }
+  double get_k() const noexcept { return m_k; }
 
   /// Get the gamma per species rate of immigration
-  auto get_gamma() const noexcept { return m_gamma; }
+  double get_gamma() const noexcept { return m_gamma; }
 
   /// Get the per species rate of anagenesis
-  auto get_lambda_a() const noexcept { return m_lambda_a; }
+  double get_lambda_a() const noexcept { return m_lambda_a; }
 
   /// Get the log likelihood
-  auto get_loglik() const noexcept { return m_loglik; }
+  double get_loglik() const noexcept { return m_loglik; }
 
   /// Get the degrees of freedom
-  auto get_df() const noexcept { return m_df; }
+  int get_df() const noexcept { return m_df; }
 
   /// Get if the algorithm reached convergence
-  auto get_conv() const noexcept { return m_conv; }
+  bool get_conv() const noexcept { return m_conv; }
 
   private:
   ///Same order as DAISIE

@@ -25,15 +25,15 @@ public:
     const location location_of_birth
   );
 
-  auto get_clade_id() const noexcept { return m_clade_id; }
-  auto get_location_of_birth() const noexcept {  return m_location_of_birth; }
-  auto get_parent_id() const noexcept {  return m_parent_id;  }
-  auto get_species_id() const noexcept {  return m_species_id; }
-  auto get_time_of_birth() const noexcept {  return m_time_of_birth; }
+  clade_id get_clade_id() const noexcept { return m_clade_id; }
+  location get_location_of_birth() const noexcept {  return m_location_of_birth; }
+  species_id get_parent_id() const noexcept {  return m_parent_id;  }
+  species_id get_species_id() const noexcept {  return m_species_id; }
+  double get_time_of_birth() const noexcept {  return m_time_of_birth; }
 
   const std::vector<double>& get_times_of_colonization() const noexcept;
-  auto get_time_of_extinction_mainland() const noexcept { return m_time_of_extinction_main; }
-  auto get_time_of_extinction_island() const noexcept { return m_time_of_extinction_is; }
+  double get_time_of_extinction_mainland() const noexcept { return m_time_of_extinction_main; }
+  double get_time_of_extinction_island() const noexcept { return m_time_of_extinction_is; }
 
   ///@param location_of_ext location where extinction of species takes places
   void go_extinct(

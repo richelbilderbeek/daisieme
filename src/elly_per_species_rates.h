@@ -19,12 +19,12 @@ public:
     const per_species_rate mig_to_is = per_species_rate(0.0)
   );
 
-  auto get_ana() const noexcept { return m_ana; }
-  auto get_clado_is() const noexcept { return m_clado_is; }
-  auto get_clado_main() const noexcept { return m_clado_main; }
-  auto get_ext_is() const noexcept { return m_ext_is; }
-  auto get_ext_main() const noexcept { return m_ext_main; }
-  auto get_mig_to_is() const noexcept { return m_mig_to_is; }
+  per_species_rate get_ana() const noexcept { return m_ana; }
+  per_species_rate get_clado_is() const noexcept { return m_clado_is; }
+  per_species_rate get_clado_main() const noexcept { return m_clado_main; }
+  per_species_rate get_ext_is() const noexcept { return m_ext_is; }
+  per_species_rate get_ext_main() const noexcept { return m_ext_main; }
+  per_species_rate get_mig_to_is() const noexcept { return m_mig_to_is; }
 
 private:
 
