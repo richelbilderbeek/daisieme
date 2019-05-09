@@ -4,12 +4,21 @@
 \alias{dme_create_params_file_cpp}
 \title{Create a parameter file.}
 \usage{
-dme_create_params_file_cpp(filename, ana_psr)
+dme_create_params_file_cpp(filename, ana_psr, clado_is_psr, clado_main_psr,
+  ext_is_psr, ext_main_psr)
 }
 \arguments{
 \item{filename}{name of the file}
 
-\item{ana_psr}{anagenesis per-species rate}
+\item{ana_psr}{anagenesis, per-species rate}
+
+\item{clado_is_psr}{cladogenesis on island, per-species rate}
+
+\item{clado_main_psr}{cladogenesis on mainland, per-species rate}
+
+\item{ext_is_psr}{extinction rate on island, per-species rate}
+
+\item{ext_main_psr}{extinction rate on mainland, per-species rate}
 }
 \value{
 nothing

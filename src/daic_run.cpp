@@ -63,7 +63,9 @@ void daic::run_r_script(const std::string& r_script_filename)
   };
   if (!error_number)
   {
-    std::cerr << "run_r_script has finished with error " << error_number << '\n';
+    std::stringstream s;
+    s << "run_r_script has finished with error " << error_number << '\n';
+    throw std::runtime_error(s.str());
   }
 }
 

@@ -13,7 +13,7 @@ SOURCES += \
     $$PWD/../src/elly_location.cpp \
     $$PWD/../src/elly_measurement.cpp \
     $$PWD/../src/elly_measurements.cpp \
-    $$PWD/../src/elly_menu.cpp \
+    $$PWD/elly_menu.cpp \
     $$PWD/../src/elly_n_species.cpp \
     $$PWD/../src/elly_parameters.cpp \
     $$PWD/../src/elly_per_species_rate.cpp \
@@ -40,7 +40,7 @@ HEADERS += \
     $$PWD/../src/elly_location.h \
     $$PWD/../src/elly_measurement.h \
     $$PWD/../src/elly_measurements.h \
-    $$PWD/../src/elly_menu.h \
+    $$PWD/elly_menu.h \
     $$PWD/../src/elly_n_species.h \
     $$PWD/../src/elly_parameters.h \
     $$PWD/../src/elly_per_species_rate.h \
