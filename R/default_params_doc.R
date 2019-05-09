@@ -4,6 +4,8 @@
 #' @param ana_psr anagenesis, per-species rate
 #' @param clado_is_psr cladogenesis on island, per-species rate
 #' @param clado_main_psr cladogenesis on mainland, per-species rate
+#' @param crown_age crown age, time units
+#' @param dme_params_filename name of the file with the daisieme parameters
 #' @param ext_is_psr extinction rate on island, per-species rate
 #' @param ext_main_psr extinction rate on mainland, per-species rate
 #' @param mig_to_is_psr migratrion to island, per-species rate
@@ -12,7 +14,6 @@
 #' @param rng_seed RNG seed
 #' @param init_n_main_clades initial number of mainland clades
 #' @param init_n_main_sps initial number of mainland species
-#' @param crown_age crown age, time units
 #' @author Richèl J.C. Bilderbeek
 #' @note This is an internal function, so it should be marked with
 #'   \code{@noRd}. This is not done, as this will disallow all
@@ -22,6 +23,8 @@ default_params_doc <- function(
   ana_psr,
   clado_is_psr,
   clado_main_psr,
+  crown_age,
+  dme_params_filename,
   ext_is_psr,
   ext_main_psr,
   mig_to_is_psr,
@@ -29,8 +32,7 @@ default_params_doc <- function(
   carry_cap_main,
   rng_seed,
   init_n_main_clades,
-  init_n_main_sps,
-  crown_age
+  init_n_main_sps
 ) {
   # Nothing
 }

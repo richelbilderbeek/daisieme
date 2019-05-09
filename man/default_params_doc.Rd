@@ -6,8 +6,9 @@
 documentation.}
 \usage{
 default_params_doc(filename, ana_psr, clado_is_psr, clado_main_psr,
-  ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main,
-  rng_seed, init_n_main_clades, init_n_main_sps, crown_age)
+  crown_age, dme_params_filename, ext_is_psr, ext_main_psr, mig_to_is_psr,
+  carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades,
+  init_n_main_sps)
 }
 \arguments{
 \item{filename}{name of the file}
@@ -17,6 +18,10 @@ default_params_doc(filename, ana_psr, clado_is_psr, clado_main_psr,
 \item{clado_is_psr}{cladogenesis on island, per-species rate}
 
 \item{clado_main_psr}{cladogenesis on mainland, per-species rate}
+
+\item{crown_age}{crown age, time units}
+
+\item{dme_params_filename}{name of the file with the daisieme parameters}
 
 \item{ext_is_psr}{extinction rate on island, per-species rate}
 
@@ -33,8 +38,6 @@ default_params_doc(filename, ana_psr, clado_is_psr, clado_main_psr,
 \item{init_n_main_clades}{initial number of mainland clades}
 
 \item{init_n_main_sps}{initial number of mainland species}
-
-\item{crown_age}{crown age, time units}
 }
 \description{
 This function does nothing. It is intended to inherit is parameters'

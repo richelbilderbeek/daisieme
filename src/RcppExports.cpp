@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// dme_create_daisie_input_cpp
+void dme_create_daisie_input_cpp(const std::string& dme_params_filename, const std::string& daisie_input_ideal_filename, const std::string& daisie_input_reality_filename);
+RcppExport SEXP _daisieme_dme_create_daisie_input_cpp(SEXP dme_params_filenameSEXP, SEXP daisie_input_ideal_filenameSEXP, SEXP daisie_input_reality_filenameSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::string& >::type dme_params_filename(dme_params_filenameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type daisie_input_ideal_filename(daisie_input_ideal_filenameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type daisie_input_reality_filename(daisie_input_reality_filenameSEXP);
+    dme_create_daisie_input_cpp(dme_params_filename, daisie_input_ideal_filename, daisie_input_reality_filename);
+    return R_NilValue;
+END_RCPP
+}
 // dme_create_params_file_cpp
 void dme_create_params_file_cpp(const std::string& filename, const double ana_psr, const double clado_is_psr, const double clado_main_psr, const double ext_is_psr, const double ext_main_psr, const double mig_to_is_psr, const int carry_cap_is, const int carry_cap_main, const int rng_seed, const int init_n_main_clades, const int init_n_main_sps, const double crown_age);
 RcppExport SEXP _daisieme_dme_create_params_file_cpp(SEXP filenameSEXP, SEXP ana_psrSEXP, SEXP clado_is_psrSEXP, SEXP clado_main_psrSEXP, SEXP ext_is_psrSEXP, SEXP ext_main_psrSEXP, SEXP mig_to_is_psrSEXP, SEXP carry_cap_isSEXP, SEXP carry_cap_mainSEXP, SEXP rng_seedSEXP, SEXP init_n_main_cladesSEXP, SEXP init_n_main_spsSEXP, SEXP crown_ageSEXP) {
@@ -29,6 +41,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_daisieme_dme_create_daisie_input_cpp", (DL_FUNC) &_daisieme_dme_create_daisie_input_cpp, 3},
     {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 13},
     {NULL, NULL, 0}
 };

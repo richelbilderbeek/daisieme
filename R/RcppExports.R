@@ -2,6 +2,19 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' Create a parameter file.
+#' @param dme_params_filename name of the file with the daisieme parameters
+#' @param daisie_input_ideal_filename name of the file to create with
+#'   a DAISIE input, based on ideal/omniscient observations
+#' @param daisie_input_ideal_filename name of the file to create with
+#'   a DAISIE input, based on realistic observations
+#' @return nothing
+#' @author Richel J.C. Bilderbeek
+#' @export
+dme_create_daisie_input_cpp <- function(dme_params_filename, daisie_input_ideal_filename, daisie_input_reality_filename) {
+    invisible(.Call(`_daisieme_dme_create_daisie_input_cpp`, dme_params_filename, daisie_input_ideal_filename, daisie_input_reality_filename))
+}
+
+#' Create a parameter file.
 #' @param filename name of the file
 #' @param ana_psr anagenesis, per-species rate
 #' @param clado_is_psr cladogenesis on island, per-species rate
