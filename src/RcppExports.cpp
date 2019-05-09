@@ -6,19 +6,20 @@
 using namespace Rcpp;
 
 // dme_create_params_file_cpp
-void dme_create_params_file_cpp(const std::string& filename, const double ana_psr);
-RcppExport SEXP _daisieme_dme_create_params_file_cpp(SEXP filenameSEXP, SEXP ana_psrSEXP) {
+void dme_create_params_file_cpp(const std::string& filename, const double ana_psr, const double clado_is_psr);
+RcppExport SEXP _daisieme_dme_create_params_file_cpp(SEXP filenameSEXP, SEXP ana_psrSEXP, SEXP clado_is_psrSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::string& >::type filename(filenameSEXP);
     Rcpp::traits::input_parameter< const double >::type ana_psr(ana_psrSEXP);
-    dme_create_params_file_cpp(filename, ana_psr);
+    Rcpp::traits::input_parameter< const double >::type clado_is_psr(clado_is_psrSEXP);
+    dme_create_params_file_cpp(filename, ana_psr, clado_is_psr);
     return R_NilValue;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 2},
+    {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 3},
     {NULL, NULL, 0}
 };
 
