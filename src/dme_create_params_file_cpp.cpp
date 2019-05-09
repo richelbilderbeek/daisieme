@@ -53,5 +53,5 @@ void dme_create_params_file_cpp(
     crown_age
   );
   std::ofstream f(filename.c_str());
-  f << "STUB";
+  f << p;
 }
