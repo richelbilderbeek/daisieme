@@ -9,6 +9,7 @@
 //' @param clado_is_psr cladogenesis on island, per-species rate
 //' @param clado_main_psr cladogenesis on mainland, per-species rate
 //' @param ext_is_psr extinction rate on island, per-species rate
+//' @param ext_main_psr extinction rate on mainland, per-species rate
 //' @return nothing
 //' @author Richel J.C. Bilderbeek
 //' @export
@@ -18,7 +19,8 @@ void dme_create_params_file_cpp(
   const double ana_psr,
   const double clado_is_psr,
   const double clado_main_psr,
-  const double ext_is_psr
+  const double ext_is_psr,
+  const double ext_main_psr
 );
 
 #endif // DME_CREATE_PARAMS_FILE_CPP_H

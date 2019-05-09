@@ -7,6 +7,7 @@ test_that("use", {
   clado_is_psr <- 2.34
   clado_main_psr <- 3.45
   ext_is_psr <- 0.12
+  ext_main_psr <- 0.23
 
   expect_silent(
     dme_create_params_file(
@@ -14,7 +15,8 @@ test_that("use", {
       ana_psr = ana_psr,
       clado_is_psr = clado_is_psr,
       clado_main_psr = clado_main_psr,
-      ext_is_psr = ext_is_psr
+      ext_is_psr = ext_is_psr,
+      ext_main_psr = ext_main_psr
     )
   )
   expect_true(file.exists(filename))
@@ -40,4 +42,10 @@ test_that("use", {
       pattern = paste0("ext_is: ", ext_is_psr)))
     )
   )
+  expect_equal(1,
+    sum(!is.na(stringr::str_match(string = readLines(filename),
+      pattern = paste0("ext_main: ", ext_main_psr)))
+    )
+  )
+
 })

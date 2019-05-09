@@ -13,14 +13,15 @@ void dme_create_params_file_cpp(
   const double ana_psr,
   const double clado_is_psr,
   const double clado_main_psr,
-  const double ext_is_psr
+  const double ext_is_psr,
+  const double ext_main_psr
 )
 {
   const elly::per_species_rate ana = elly::per_species_rate(ana_psr);
   const elly::per_species_rate clado_is = elly::per_species_rate(clado_is_psr);
   const elly::per_species_rate clado_main = elly::per_species_rate(clado_main_psr);
   const elly::per_species_rate ext_is = elly::per_species_rate(ext_is_psr);
-  const elly::per_species_rate ext_main = elly::per_species_rate(0.0);
+  const elly::per_species_rate ext_main = elly::per_species_rate(ext_main_psr);
   const elly::per_species_rate mig_to_is = elly::per_species_rate(0.0);
   const elly::per_species_rates rates(
     ana,
