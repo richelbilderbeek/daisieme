@@ -1,17 +1,5 @@
 #' Creates a daisieme parameter file
-#' @param filename name of the file
-#' @param ana_psr anagenesis, per-species rate
-#' @param clado_is_psr cladogenesis on island, per-species rate
-#' @param clado_main_psr cladogenesis on mainland, per-species rate
-#' @param ext_is_psr extinction rate on island, per-species rate
-#' @param ext_main_psr extinction rate on mainland, per-species rate
-#' @param mig_to_is_psr migratrion to island, per-species rate
-#' @param carry_cap_is carrying capacity of the island, number of species
-#' @param carry_cap_main carrying capacity of the mainland, number of species
-#' @param rng_seed RNG seed
-#' @param init_n_main_clades initial number of mainland clades
-#' @param init_n_main_sps initial number of mainland species
-#' @param crown_age crown age, time units
+#' @inheritParams default_params_doc
 #' @export
 dme_create_params_file <- function(
   filename,

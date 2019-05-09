@@ -4,7 +4,35 @@
 \alias{dme_sim}
 \title{daisieme sim}
 \usage{
-dme_sim()
+dme_sim(ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr,
+  mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed,
+  init_n_main_clades, init_n_main_sps, crown_age = crown_age,
+  dme_params_filename = tempfile())
+}
+\arguments{
+\item{ana_psr}{anagenesis, per-species rate}
+
+\item{clado_is_psr}{cladogenesis on island, per-species rate}
+
+\item{clado_main_psr}{cladogenesis on mainland, per-species rate}
+
+\item{ext_is_psr}{extinction rate on island, per-species rate}
+
+\item{ext_main_psr}{extinction rate on mainland, per-species rate}
+
+\item{mig_to_is_psr}{migratrion to island, per-species rate}
+
+\item{carry_cap_is}{carrying capacity of the island, number of species}
+
+\item{carry_cap_main}{carrying capacity of the mainland, number of species}
+
+\item{rng_seed}{RNG seed}
+
+\item{init_n_main_clades}{initial number of mainland clades}
+
+\item{init_n_main_sps}{initial number of mainland species}
+
+\item{crown_age}{crown age, time units}
 }
 \description{
 daisieme sim
