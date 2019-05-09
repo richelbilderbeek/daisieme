@@ -29,7 +29,7 @@ std::vector<elly::rate> elly::collect(
     std::begin(v),
     std::end(v),
     std::back_inserter(w),
-    [e](const auto& p)
+    [e](const measurement& p)
     {
       return p.get_event_rates().get(e);
     }

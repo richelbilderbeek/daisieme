@@ -11,6 +11,7 @@ test_that("use", {
   mig_to_is_psr <- 4.56
   carry_cap_is <- 42
   carry_cap_main <- 314
+  rng_seed <- 227
 
   expect_silent(
     dme_create_params_file(
@@ -22,7 +23,8 @@ test_that("use", {
       ext_main_psr = ext_main_psr,
       mig_to_is_psr = mig_to_is_psr,
       carry_cap_is = carry_cap_is,
-      carry_cap_main = carry_cap_main
+      carry_cap_main = carry_cap_main,
+      rng_seed = rng_seed
     )
   )
   expect_true(file.exists(filename))
@@ -68,6 +70,9 @@ test_that("use", {
       pattern = paste0("carryingcap_main: ", carry_cap_main)))
     )
   )
-
-
+  expect_equal(1,
+    sum(!is.na(stringr::str_match(string = readLines(filename),
+      pattern = paste0("rng_seed: ", rng_seed)))
+    )
+  )
 })
