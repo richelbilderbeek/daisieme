@@ -6,14 +6,17 @@
 using namespace Rcpp;
 
 // dme_create_daisie_input_cpp
-void dme_create_daisie_input_cpp(const std::string& dme_params_filename, const std::string& daisie_input_ideal_filename, const std::string& daisie_input_reality_filename);
-RcppExport SEXP _daisieme_dme_create_daisie_input_cpp(SEXP dme_params_filenameSEXP, SEXP daisie_input_ideal_filenameSEXP, SEXP daisie_input_reality_filenameSEXP) {
+void dme_create_daisie_input_cpp(const std::string& dme_params_filename, const std::string& daisie_sim_results_filename, const std::string& daisie_input_ideal_filename, const std::string& daisie_input_reality_filename, const std::string& daisie_output_ideal_filename, const std::string& daisie_output_reality_filename);
+RcppExport SEXP _daisieme_dme_create_daisie_input_cpp(SEXP dme_params_filenameSEXP, SEXP daisie_sim_results_filenameSEXP, SEXP daisie_input_ideal_filenameSEXP, SEXP daisie_input_reality_filenameSEXP, SEXP daisie_output_ideal_filenameSEXP, SEXP daisie_output_reality_filenameSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::string& >::type dme_params_filename(dme_params_filenameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type daisie_sim_results_filename(daisie_sim_results_filenameSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type daisie_input_ideal_filename(daisie_input_ideal_filenameSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type daisie_input_reality_filename(daisie_input_reality_filenameSEXP);
-    dme_create_daisie_input_cpp(dme_params_filename, daisie_input_ideal_filename, daisie_input_reality_filename);
+    Rcpp::traits::input_parameter< const std::string& >::type daisie_output_ideal_filename(daisie_output_ideal_filenameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type daisie_output_reality_filename(daisie_output_reality_filenameSEXP);
+    dme_create_daisie_input_cpp(dme_params_filename, daisie_sim_results_filename, daisie_input_ideal_filename, daisie_input_reality_filename, daisie_output_ideal_filename, daisie_output_reality_filename);
     return R_NilValue;
 END_RCPP
 }
@@ -41,7 +44,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_daisieme_dme_create_daisie_input_cpp", (DL_FUNC) &_daisieme_dme_create_daisie_input_cpp, 3},
+    {"_daisieme_dme_create_daisie_input_cpp", (DL_FUNC) &_daisieme_dme_create_daisie_input_cpp, 6},
     {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 13},
     {NULL, NULL, 0}
 };

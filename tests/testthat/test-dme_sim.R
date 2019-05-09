@@ -8,13 +8,18 @@ test_that("use", {
   clado_main_psr <- 3.45
   ext_is_psr <- 0.12
   ext_main_psr <- 0.23
-  mig_to_is_psr <- 4.56
+  mig_to_is_psr <- 0.001
   carry_cap_is <- 42
   carry_cap_main <- 314
   rng_seed <- 227
   init_n_main_clades <- 1
   init_n_main_sps <- 9
   crown_age <- 12.34
+  daisie_sim_results_filename <- tempfile()
+  daisie_input_ideal_filename <- tempfile()
+  daisie_input_reality_filename <- tempfile()
+  daisie_output_ideal_filename <- tempfile()
+  daisie_output_reality_filename <- tempfile()
 
   expect_silent(
     dme_sim(
@@ -30,8 +35,18 @@ test_that("use", {
       init_n_main_clades = init_n_main_clades,
       init_n_main_sps = init_n_main_sps,
       crown_age = crown_age,
-      dme_params_filename = dme_params_filename
+      dme_params_filename = dme_params_filename,
+      daisie_sim_results_filename = daisie_sim_results_filename,
+      daisie_input_ideal_filename = daisie_input_ideal_filename,
+      daisie_input_reality_filename = daisie_input_reality_filename,
+      daisie_output_ideal_filename = daisie_output_ideal_filename,
+      daisie_output_reality_filename = daisie_output_reality_filename
     )
   )
   expect_true(file.exists(dme_params_filename))
+  expect_true(file.exists(daisie_sim_results_filename))
+  expect_true(file.exists(daisie_input_ideal_filename))
+  expect_true(file.exists(daisie_input_reality_filename))
+  expect_true(file.exists(daisie_output_ideal_filename))
+  expect_true(file.exists(daisie_output_reality_filename))
 })

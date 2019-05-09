@@ -14,7 +14,12 @@ dme_sim <- function(
   init_n_main_clades,
   init_n_main_sps,
   crown_age = crown_age,
-  dme_params_filename = tempfile()
+  dme_params_filename = tempfile(),
+  daisie_sim_results_filename,
+  daisie_input_ideal_filename,
+  daisie_input_reality_filename,
+  daisie_output_ideal_filename,
+  daisie_output_reality_filename
 ) {
   dme_create_params_file(
     filename = dme_params_filename,
@@ -30,5 +35,13 @@ dme_sim <- function(
     init_n_main_clades = init_n_main_clades,
     init_n_main_sps = init_n_main_sps,
     crown_age = crown_age
+  )
+  dme_create_daisie_input_cpp(
+    dme_params_filename = dme_params_filename,
+    daisie_sim_results_filename = daisie_sim_results_filename,
+    daisie_input_ideal_filename = daisie_input_ideal_filename,
+    daisie_input_reality_filename = daisie_input_reality_filename,
+    daisie_output_ideal_filename = daisie_output_ideal_filename,
+    daisie_output_reality_filename = daisie_output_reality_filename
   )
 }

@@ -5,6 +5,16 @@
 #' @param clado_is_psr cladogenesis on island, per-species rate
 #' @param clado_main_psr cladogenesis on mainland, per-species rate
 #' @param crown_age crown age, time units
+#' @param daisie_sim_results_filename name of the file to save
+#'   the simulation results to
+#' @param daisie_input_ideal_filename name of the file to create with
+#'   a DAISIE input, based on ideal/omniscient observations
+#' @param daisie_input_reality_filename name of the file to create with
+#'   a DAISIE input, based on realistic observations
+#' @param daisie_output_ideal_filename name of the file to create with
+#'   DAISIE output, based on input with ideal/omniscient observations
+#' @param daisie_output_reality_filename name of the file to create with
+#'   DAISIE output, based on realistic observations
 #' @param dme_params_filename name of the file with the daisieme parameters
 #' @param ext_is_psr extinction rate on island, per-species rate
 #' @param ext_main_psr extinction rate on mainland, per-species rate
@@ -24,6 +34,11 @@ default_params_doc <- function(
   clado_is_psr,
   clado_main_psr,
   crown_age,
+  daisie_sim_results_filename,
+  daisie_input_ideal_filename,
+  daisie_input_reality_filename,
+  daisie_output_ideal_filename,
+  daisie_output_reality_filename,
   dme_params_filename,
   ext_is_psr,
   ext_main_psr,
