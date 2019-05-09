@@ -34,9 +34,8 @@ void dme_create_params_file_cpp(
     mig_to_is
   );
   assert(carry_cap_is > 0);
-  const elly::carrying_capacity carryingcap_is(
-    elly::n_species(carry_cap_is)
-  );
+  const elly::n_species carry_cap_is_n_species(carry_cap_is);
+  const elly::carrying_capacity carryingcap_is(carry_cap_is_n_species);
   const elly::carrying_capacity carryingcap_main(
     elly::n_species(1)
   );
