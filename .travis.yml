@@ -5,6 +5,10 @@ dist: xenial
 sudo: false
 cache: packages
 
+r_packages:
+  - Rcpp
+  - testthat
+
 #before_install:
   #- echo $TRAVIS_BRANCH
   # C++14
