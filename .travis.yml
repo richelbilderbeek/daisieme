@@ -53,28 +53,28 @@ script:
   # Build and run the tests
   ###############################################
   # elly_test
-  - qmake elly_test.pro; make debug; ./elly_test
+  - qmake elly_test.pro; make debug --silent; ./elly_test
   ###############################################
   # Build and run (when possible) the command line applications
   ###############################################
   # daic
-  - qmake daic.pro; make debug; ./daic
+  - qmake daic.pro; make debug --silent; ./daic
   # elly
-  - qmake elly.pro; make debug; ./elly --create
-  - qmake elly.pro; make debug; ./elly
+  - qmake elly.pro; make debug --silent; ./elly --create
+  - qmake elly.pro; make debug --silent; ./elly
   ###############################################
   # Build (not run) the GUIs
   ###############################################
   # elly
   - qmake -qt=qt5 elly_gui.pro
-  - time make debug
+  - time make debug --silent
   - (./elly_gui --run &) 
   ###############################################
   # Profiling, requires a rebuild in release mode
   ###############################################
   # elly
   - qmake elly.pro
-  - make release
+  - make release --silent
   - time ./elly --profile
   - gprof elly > gprof.log
   - head gprof.log
