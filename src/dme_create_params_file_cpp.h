@@ -16,6 +16,7 @@
 //' @param rng_seed RNG seed
 //' @param init_n_main_clades initial number of mainland clades
 //' @param init_n_main_sps initial number of mainland species
+//' @param crown_age crown age, time units
 //' @return nothing
 //' @author Richel J.C. Bilderbeek
 //' @export
@@ -32,7 +33,8 @@ void dme_create_params_file_cpp(
   const int carry_cap_main,
   const int rng_seed,
   const int init_n_main_clades,
-  const int init_n_main_sps
+  const int init_n_main_sps,
+  const double crown_age
 );
 
 #endif // DME_CREATE_PARAMS_FILE_CPP_H

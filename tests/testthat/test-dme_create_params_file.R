@@ -14,6 +14,7 @@ test_that("use", {
   rng_seed <- 227
   init_n_main_clades <- 1
   init_n_main_sps <- 9
+  crown_age <- 12.34
 
   expect_silent(
     dme_create_params_file(
@@ -28,7 +29,8 @@ test_that("use", {
       carry_cap_main = carry_cap_main,
       rng_seed = rng_seed,
       init_n_main_clades = init_n_main_clades,
-      init_n_main_sps = init_n_main_sps
+      init_n_main_sps = init_n_main_sps,
+      crown_age = crown_age
     )
   )
   expect_true(file.exists(filename))
@@ -87,6 +89,11 @@ test_that("use", {
   expect_equal(1,
     sum(!is.na(stringr::str_match(string = readLines(filename),
       pattern = paste0("init_n_main_sps: ", init_n_main_sps)))
+    )
+  )
+  expect_equal(1,
+    sum(!is.na(stringr::str_match(string = readLines(filename),
+      pattern = paste0("crown_age: ", crown_age)))
     )
   )
 

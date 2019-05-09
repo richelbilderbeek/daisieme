@@ -11,6 +11,7 @@
 #' @param rng_seed RNG seed
 #' @param init_n_main_clades initial number of mainland clades
 #' @param init_n_main_sps initial number of mainland species
+#' @param crown_age crown age, time units
 #' @export
 dme_create_params_file <- function(
   filename,
@@ -24,7 +25,8 @@ dme_create_params_file <- function(
   carry_cap_main,
   rng_seed,
   init_n_main_clades,
-  init_n_main_sps
+  init_n_main_sps,
+  crown_age
 ) {
   dme_create_params_file_cpp(
     filename = filename,
@@ -38,6 +40,7 @@ dme_create_params_file <- function(
     carry_cap_main = carry_cap_main,
     rng_seed = rng_seed,
     init_n_main_clades = init_n_main_clades,
-    init_n_main_sps = init_n_main_sps
+    init_n_main_sps = init_n_main_sps,
+    crown_age = crown_age
   )
 }
