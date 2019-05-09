@@ -9,6 +9,7 @@
 #' @param carry_cap_is carrying capacity of the island, number of species
 #' @param carry_cap_main carrying capacity of the mainland, number of species
 #' @param rng_seed RNG seed
+#' @param init_n_main_clades initial number of mainland clades
 #' @export
 dme_create_params_file <- function(
   filename,
@@ -20,7 +21,8 @@ dme_create_params_file <- function(
   mig_to_is_psr,
   carry_cap_is,
   carry_cap_main,
-  rng_seed
+  rng_seed,
+  init_n_main_clades
 ) {
   dme_create_params_file_cpp(
     filename = filename,
@@ -32,6 +34,7 @@ dme_create_params_file <- function(
     mig_to_is_psr = mig_to_is_psr,
     carry_cap_is = carry_cap_is,
     carry_cap_main = carry_cap_main,
-    rng_seed = rng_seed
+    rng_seed = rng_seed,
+    init_n_main_clades = init_n_main_clades
   )
 }

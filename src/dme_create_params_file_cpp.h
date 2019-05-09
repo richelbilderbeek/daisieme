@@ -14,6 +14,7 @@
 //' @param carry_cap_is carrying capacity of the island, number of species
 //' @param carry_cap_main carrying capacity of the mainland, number of species
 //' @param rng_seed RNG seed
+//' @param init_n_main_clades initial number of mainland clades
 //' @return nothing
 //' @author Richel J.C. Bilderbeek
 //' @export
@@ -28,7 +29,8 @@ void dme_create_params_file_cpp(
   const double mig_to_is_psr,
   const int carry_cap_is,
   const int carry_cap_main,
-  const int rng_seed
+  const int rng_seed,
+  const int init_n_main_clades
 );
 
 #endif // DME_CREATE_PARAMS_FILE_CPP_H

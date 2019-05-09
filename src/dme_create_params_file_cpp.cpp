@@ -18,7 +18,8 @@ void dme_create_params_file_cpp(
   const double mig_to_is_psr,
   const int carry_cap_is,
   const int carry_cap_main,
-  const int rng_seed
+  const int rng_seed,
+  const int init_n_main_clades
 )
 {
   const elly::per_species_rate ana = elly::per_species_rate(ana_psr);
@@ -43,7 +44,6 @@ void dme_create_params_file_cpp(
   const elly::n_species carry_cap_main_n_species(carry_cap_main);
   const elly::carrying_capacity carryingcap_main(carry_cap_main_n_species);
 
-  const int init_n_main_clades = 1;
   assert(init_n_main_clades > 0);
 
   const int init_n_main_sps = 1;

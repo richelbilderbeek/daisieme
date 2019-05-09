@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // dme_create_params_file_cpp
-void dme_create_params_file_cpp(const std::string& filename, const double ana_psr, const double clado_is_psr, const double clado_main_psr, const double ext_is_psr, const double ext_main_psr, const double mig_to_is_psr, const int carry_cap_is, const int carry_cap_main, const int rng_seed);
-RcppExport SEXP _daisieme_dme_create_params_file_cpp(SEXP filenameSEXP, SEXP ana_psrSEXP, SEXP clado_is_psrSEXP, SEXP clado_main_psrSEXP, SEXP ext_is_psrSEXP, SEXP ext_main_psrSEXP, SEXP mig_to_is_psrSEXP, SEXP carry_cap_isSEXP, SEXP carry_cap_mainSEXP, SEXP rng_seedSEXP) {
+void dme_create_params_file_cpp(const std::string& filename, const double ana_psr, const double clado_is_psr, const double clado_main_psr, const double ext_is_psr, const double ext_main_psr, const double mig_to_is_psr, const int carry_cap_is, const int carry_cap_main, const int rng_seed, const int init_n_main_clades);
+RcppExport SEXP _daisieme_dme_create_params_file_cpp(SEXP filenameSEXP, SEXP ana_psrSEXP, SEXP clado_is_psrSEXP, SEXP clado_main_psrSEXP, SEXP ext_is_psrSEXP, SEXP ext_main_psrSEXP, SEXP mig_to_is_psrSEXP, SEXP carry_cap_isSEXP, SEXP carry_cap_mainSEXP, SEXP rng_seedSEXP, SEXP init_n_main_cladesSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::string& >::type filename(filenameSEXP);
@@ -20,13 +20,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const int >::type carry_cap_is(carry_cap_isSEXP);
     Rcpp::traits::input_parameter< const int >::type carry_cap_main(carry_cap_mainSEXP);
     Rcpp::traits::input_parameter< const int >::type rng_seed(rng_seedSEXP);
-    dme_create_params_file_cpp(filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed);
+    Rcpp::traits::input_parameter< const int >::type init_n_main_clades(init_n_main_cladesSEXP);
+    dme_create_params_file_cpp(filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades);
     return R_NilValue;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 10},
+    {"_daisieme_dme_create_params_file_cpp", (DL_FUNC) &_daisieme_dme_create_params_file_cpp, 11},
     {NULL, NULL, 0}
 };
 
