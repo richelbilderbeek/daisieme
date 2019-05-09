@@ -9,3 +9,4 @@ cd SurfacePlotter; git pull; cd ..
 cd RibiClasses; git pull; cd ..
 cd RibiLibraries; git pull; cd ..
 cd RibiUnits; git pull; cd ..
+cd daisieme
