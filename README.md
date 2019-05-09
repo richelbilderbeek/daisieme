@@ -7,6 +7,16 @@ develop|[![Build Status](https://travis-ci.org/richelbilderbeek/daisieme.svg?bra
 
 DAISIE project.
 
+## Installation
+
+```
+usethis::install_github("richelbilderbeek/daisieme")
+```
+
+## Usage
+
+Take a look at the vignette.
+
 ## Pictures
 
 ![](pics/elly_gui_4.png)
