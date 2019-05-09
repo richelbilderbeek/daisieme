@@ -68,7 +68,10 @@ before_script:
   # daic
   #- qmake daic.pro; make debug --silent; ./daic
   # elly
-  - qmake elly.pro; make debug --silent; ./elly --create
+  - qmake elly.pro
+  - make debug --silent
+  - ./elly
+  - ./elly --create
   #- qmake elly.pro; make debug --silent; ./elly
   ###############################################
   # Build (not run) the GUIs
