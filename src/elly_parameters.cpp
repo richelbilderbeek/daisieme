@@ -239,7 +239,6 @@ std::string elly::get_parameters_heading() noexcept
   const parameters p = create_parameters_set2(); //Irrelevant
   s << p;
   std::string t = s.str();
-  //std::cerr << "t: " << t << '\n';
   const std::string to_erase{
     "0123456789.:"
   };
