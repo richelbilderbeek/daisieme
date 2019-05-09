@@ -35,6 +35,12 @@ void dme_create_daisie_input_cpp(
     f << e.get_input_reality() << '\n';
   }
 
+  if (daisie_output_ideal_filename.empty()
+   && daisie_output_reality_filename.empty()
+  ) {
+    return;
+  }
+
   e.run_daisie();
 
   {
