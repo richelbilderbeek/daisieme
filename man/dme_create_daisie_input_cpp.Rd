@@ -5,16 +5,27 @@
 \title{Create a parameter file.}
 \usage{
 dme_create_daisie_input_cpp(dme_params_filename,
-  daisie_input_ideal_filename, daisie_input_reality_filename)
+  daisie_sim_results_filename, daisie_input_ideal_filename,
+  daisie_input_reality_filename, daisie_output_ideal_filename,
+  daisie_output_reality_filename)
 }
 \arguments{
 \item{dme_params_filename}{name of the file with the daisieme parameters}
 
+\item{daisie_sim_results_filename}{name of the file to save
+the simulation results to}
+
 \item{daisie_input_ideal_filename}{name of the file to create with
 a DAISIE input, based on ideal/omniscient observations}
 
-\item{daisie_input_ideal_filename}{name of the file to create with
+\item{daisie_input_reality_filename}{name of the file to create with
 a DAISIE input, based on realistic observations}
+
+\item{daisie_output_ideal_filename}{name of the file to create with
+DAISIE output, based on input with ideal/omniscient observations}
+
+\item{daisie_output_reality_filename}{name of the file to create with
+DAISIE output, based on realistic observations}
 }
 \value{
 nothing

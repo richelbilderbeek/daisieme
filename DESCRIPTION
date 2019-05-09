@@ -19,8 +19,11 @@ LazyData: true
 RoxygenNote: 6.1.1
 Suggests: 
     stringr,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 LinkingTo: 
     Rcpp
 Imports: 
     Rcpp
+VignetteBuilder: knitr

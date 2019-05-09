@@ -49,8 +49,9 @@ test_that("use, no call to DAISIE", {
   expect_false(file.exists(daisie_output_reality_filename))
 })
 
-test_that("use", {
+test_that("use, with DAISIE", {
 
+  skip("Takes too long")
   dme_params_filename <- tempfile()
   ana_psr <- 1.23
   clado_is_psr <- 2.34
