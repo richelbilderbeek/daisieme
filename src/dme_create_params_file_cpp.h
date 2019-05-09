@@ -12,6 +12,7 @@
 //' @param ext_main_psr extinction rate on mainland, per-species rate
 //' @param mig_to_is_psr migratrion to island, per-species rate
 //' @param carry_cap_is carrying capacity of the island, number of species
+//' @param carry_cap_main carrying capacity of the mainland, number of species
 //' @return nothing
 //' @author Richel J.C. Bilderbeek
 //' @export
@@ -24,7 +25,8 @@ void dme_create_params_file_cpp(
   const double ext_is_psr,
   const double ext_main_psr,
   const double mig_to_is_psr,
-  const int carry_cap_is
+  const int carry_cap_is,
+  const int carry_cap_main
 );
 
 #endif // DME_CREATE_PARAMS_FILE_CPP_H
