@@ -17,11 +17,12 @@ install:
   - sudo apt-get install r-base r-base-dev
   - sudo Rscript -e 'source("install_r_packages.R")'
   # C++14, do this after R
-  - sudo apt-get install -qq g++-5
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
+  #- sudo apt-get install -qq g++-5
+  #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
   # Qt5
-  - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+  - sudo apt-get install -qq qt5-qmake qt5-default
+  #- sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
+  #- export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   # gcov
   - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
   # cppcheck
