@@ -1,9 +1,9 @@
-# daisie_project
+# daisieme
 
 Branch|[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)|[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
 ---|---|---
-master|[![Build Status](https://travis-ci.org/richelbilderbeek/daisie_project.svg?branch=master)](https://travis-ci.org/richelbilderbeek/daisie_project) | [![codecov.io](https://codecov.io/github/richelbilderbeek/daisie_project/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/daisie_project?branch=master)
-develop|[![Build Status](https://travis-ci.org/richelbilderbeek/daisie_project.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/daisie_project) | [![codecov.io](https://codecov.io/github/richelbilderbeek/daisie_project/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/daisie_project?branch=develop)
+master|[![Build Status](https://travis-ci.org/richelbilderbeek/daisieme.svg?branch=master)](https://travis-ci.org/richelbilderbeek/daisieme) | [![codecov.io](https://codecov.io/github/richelbilderbeek/daisieme/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/daisieme?branch=master)
+develop|[![Build Status](https://travis-ci.org/richelbilderbeek/daisieme.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/daisieme) | [![codecov.io](https://codecov.io/github/richelbilderbeek/daisieme/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/daisieme?branch=develop)
 
 DAISIE project.
 
