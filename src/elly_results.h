@@ -18,7 +18,7 @@ class results
 public:
   results(const std::vector<result>& r = {});
 
-  const auto& get() const noexcept { return m_results; }
+  const std::vector<result>& get() const noexcept { return m_results; }
 
 private:
 

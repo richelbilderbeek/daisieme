@@ -15,7 +15,7 @@ public:
   explicit clade(
     const std::vector<species>& clade_species
   );
-  const auto& get_species() const noexcept { return m_clade_species; }
+  const std::vector<species>& get_species() const noexcept { return m_clade_species; }
   clade_id get_id() const;
 
   ///The current species is to be replaced with replacement

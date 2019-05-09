@@ -21,8 +21,8 @@ public:
   measurement(const measurement&) = default;
   measurement& operator=(const measurement&) = default;
 
-  const auto& get_event_rates() const noexcept { return m_r; }
-  const auto& get_populations() const noexcept { return m_p; }
+  const event_rates& get_event_rates() const noexcept { return m_r; }
+  const populations& get_populations() const noexcept { return m_p; }
   double get_time() const noexcept { return m_t; }
 
 private:

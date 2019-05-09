@@ -23,38 +23,38 @@ public:
 
   ///Get the simulation's measurements
   ///Will give something after having called run_sim
-  const auto& get_sim_measurements() const noexcept
+  const measurements& get_sim_measurements() const noexcept
   {
     return m_sim_measurements;
   }
 
   ///Get the simulation's results
   ///Will give something after having called run_sim
-  const auto& get_sim_results() const noexcept
+  const results& get_sim_results() const noexcept
   {
     return m_sim_results;
   }
 
   ///Get DAISIE input with mainland extinction
   ///Will give something after having called 'create_daisie_input'
-  const auto& get_input_ideal() const noexcept
+  const daic::input& get_input_ideal() const noexcept
   {
     return m_input_ideal;
   }
   ///Get DAISIE input without mainland extinction
   ///Will give something after having called 'create_daisie_input'
-  const auto& get_input_reality() const noexcept
+  const daic::input& get_input_reality() const noexcept
   {
     return m_input_reality;
   }
 
   ///Step 4/4: Get DAISIE output with mainland extinction
-  const auto& get_output_ideal() const noexcept
+  const daic::output& get_output_ideal() const noexcept
   {
     return m_output_ideal;
   }
   ///Step 4/4: Get DAISIE output without mainland extinction
-  const auto& get_output_reality() const noexcept
+  const daic::output& get_output_reality() const noexcept
   {
     return m_output_reality;
   }

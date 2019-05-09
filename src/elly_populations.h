@@ -25,7 +25,7 @@ public:
   void add_species(const species& s);
 
   ///Just collect all species, every species present only once
-  const auto& get_species() const noexcept { return m_species; }
+  const std::vector<species>& get_species() const noexcept { return m_species; }
 
   ///Count the number of extinct species
   int count_extinct_species() const noexcept;

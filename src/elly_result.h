@@ -13,7 +13,7 @@ class result
 public:
   result(const species& s);
 
-  const auto& get_species() const noexcept { return m_s; }
+  const species& get_species() const noexcept { return m_s; }
 
 private:
   const species m_s;

@@ -51,7 +51,7 @@ public:
   /// @param s the species. Throws if species is absent
   void do_next_event(const double t_to_event, const event e, const species& s);
 
-  const auto& get_measurements() const noexcept { return m_measurements; }
+  const measurements& get_measurements() const noexcept { return m_measurements; }
 
   populations& get_populations() noexcept { return m_populations; }
   const populations& get_populations() const noexcept { return m_populations; }
