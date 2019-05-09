@@ -10,7 +10,7 @@ std::vector<double> elly::collect_ts(const measurements& v) noexcept
     std::begin(v),
     std::end(v),
     std::back_inserter(w),
-    [](const auto& m)
+    [](const measurement& m)
     {
       return m.get_time();
     }
@@ -83,7 +83,7 @@ std::vector<double> elly::to_raw(const std::vector<rate>& v) noexcept
     std::begin(v),
     std::end(v),
     std::back_inserter(w),
-    [](const auto r)
+    [](const rate& r)
     {
       return r.get();
     }

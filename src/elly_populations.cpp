@@ -62,7 +62,7 @@ int elly::count_extinct(const std::vector<species>& p) noexcept
   return std::count_if(
     std::begin(p),
     std::end(p),
-    [](const auto& s)
+    [](const species& s)
     {
       return is_extinct(s);
     }

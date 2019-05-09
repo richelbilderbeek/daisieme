@@ -15,7 +15,8 @@ void dme_create_params_file_cpp(
   const double clado_main_psr,
   const double ext_is_psr,
   const double ext_main_psr,
-  const double mig_to_is_psr
+  const double mig_to_is_psr,
+  const int carry_cap_is
 )
 {
   const elly::per_species_rate ana = elly::per_species_rate(ana_psr);
@@ -32,8 +33,9 @@ void dme_create_params_file_cpp(
     ext_main,
     mig_to_is
   );
+  assert(carry_cap_is > 0);
   const elly::carrying_capacity carryingcap_is(
-    elly::n_species(1)
+    elly::n_species(carry_cap_is)
   );
   const elly::carrying_capacity carryingcap_main(
     elly::n_species(1)

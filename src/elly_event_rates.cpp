@@ -59,7 +59,10 @@ std::vector<double> elly::to_doubles(const event_rates& r) noexcept
   w.reserve(v.size());
   std::transform(
     std::begin(v), std::end(v), std::back_inserter(w),
-    [](const auto& p) { return p.second.get(); }
+    [](const std::pair<elly::event, elly::rate>& p)
+    {
+      return p.second.get();
+    }
   );
   assert(v.size() == w.size());
   return w;

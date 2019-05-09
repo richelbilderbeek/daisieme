@@ -64,7 +64,7 @@ std::vector<elly::species> elly::collect_colonists(const clade& c) noexcept
     std::begin(s),
     std::end(s),
     std::back_inserter(colonists),
-    [](const auto& t)
+    [](const species& t)
     {
       return is_colonist(t);
     }
@@ -82,7 +82,7 @@ int elly::count_colonists(const std::vector<species>& community) noexcept
   return std::count_if(
     std::begin(community),
     std::end(community),
-    [](const auto& t)
+    [](const species& t)
     {
       return is_colonist(t);
     }
@@ -95,7 +95,7 @@ int elly::count_mainlanders(const clade& c) noexcept
   return std::count_if(
     std::begin(s),
     std::end(s),
-    [](const auto& t)
+    [](const species& t)
     {
       return is_mainlander(t);
     }
