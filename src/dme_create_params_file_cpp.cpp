@@ -5,6 +5,7 @@
 #include "elly_per_species_rate.h"
 #include "elly_per_species_rates.h"
 
+#include <cassert>
 #include <fstream>
 
 void dme_create_params_file_cpp(
@@ -27,15 +28,20 @@ void dme_create_params_file_cpp(
     mig_to_is
   );
   const elly::carrying_capacity carryingcap_is(
-    elly::n_species(0)
+    elly::n_species(1)
   );
   const elly::carrying_capacity carryingcap_main(
-    elly::n_species(0)
+    elly::n_species(1)
   );
   const int rng_seed = 0;
-  const int init_n_main_clades = 0;
-  const int init_n_main_sps = 0;
-  const double crown_age = 0.0;
+  const int init_n_main_clades = 1;
+  assert(init_n_main_clades > 0);
+
+  const int init_n_main_sps = 1;
+  assert(init_n_main_sps > 0);
+
+  const double crown_age = 1.0;
+  assert(crown_age > 0.0);
 
   const elly::parameters p(
     rates,
