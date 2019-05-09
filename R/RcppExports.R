@@ -13,10 +13,11 @@
 #' @param carry_cap_main carrying capacity of the mainland, number of species
 #' @param rng_seed RNG seed
 #' @param init_n_main_clades initial number of mainland clades
+#' @param init_n_main_sps initial number of mainland species
 #' @return nothing
 #' @author Richel J.C. Bilderbeek
 #' @export
-dme_create_params_file_cpp <- function(filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades) {
-    invisible(.Call(`_daisieme_dme_create_params_file_cpp`, filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades))
+dme_create_params_file_cpp <- function(filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades, init_n_main_sps) {
+    invisible(.Call(`_daisieme_dme_create_params_file_cpp`, filename, ana_psr, clado_is_psr, clado_main_psr, ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed, init_n_main_clades, init_n_main_sps))
 }
 
