@@ -3,6 +3,6 @@
 #' @export
 dme_create_params_file <- function(filename) {
   dme_create_params_file_cpp(
-    filenename = filename
+    filename = filename
   )
 }
