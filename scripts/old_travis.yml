@@ -1,0 +1,99 @@
+language: r
+dist: xenial
+compiler: gcc
+
+before_install:
+  - echo $TRAVIS_BRANCH
+  # C++14
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+  # R
+  - sudo add-apt-repository -y ppa:marutter/rrutter
+  - sudo apt-get update -qq
+
+install: 
+  # R (including package prerequisites), do this before C++
+  - sudo apt-get install gfortran libssh2-1-dev
+  - sudo apt-get install r-base r-base-dev
+  - sudo Rscript -e 'source("install_r_packages.R")'
+  # C++14, do this after R
+  #- sudo apt-get install -qq g++-5
+  #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
+  # Qt5
+  - sudo apt-get install -qq qt5-qmake qt5-default
+  #- sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
+  #- export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+  # gcov
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
+  # cppcheck
+  - sudo apt-get install -qq cppcheck
+  # Codecov
+  - sudo pip install codecov
+  # GSL
+  - my_github=${PWD##*/}  
+  - cd ..
+  - git clone https://github.com/Microsoft/GSL
+  - cd $my_github
+  # OCLint
+  - ./install_oclint
+  # GraphViz
+  - sudo apt-get install -qq graphviz
+
+# Boost
+addons: 
+  apt: 
+    packages: libboost-all-dev
+
+# Xenial
+services:
+ - xvfb
+
+script: 
+  - ./download_other_githubs
+  ###############################################
+  # Build and run the tests
+  ###############################################
+  # elly_test
+  - qmake elly_test.pro; make debug --silent; ./elly_test
+  ###############################################
+  # Build and run (when possible) the command line applications
+  ###############################################
+  # daic
+  - qmake daic.pro; make debug --silent; ./daic
+  # elly
+  - qmake elly.pro; make debug --silent; ./elly --create
+  - qmake elly.pro; make debug --silent; ./elly
+  ###############################################
+  # Build (not run) the GUIs
+  ###############################################
+  # elly
+  - qmake -qt=qt5 elly_gui.pro
+  - time make debug --silent
+  - (./elly_gui --run &) 
+  ###############################################
+  # Profiling, requires a rebuild in release mode
+  ###############################################
+  # elly
+  - qmake elly.pro
+  - make release --silent
+  - time ./elly --profile
+  - gprof elly > gprof.log
+  - head gprof.log
+  ###############################################
+  # cppcheck
+  ###############################################
+  # cppcheck
+  - cppcheck --quiet --error-exitcode=1 . 
+  ###############################################
+  # Code coverage
+  ###############################################
+  - ./get_code_cov >/dev/null
+  - codecov >/dev/null
+  ###############################################
+  # OCLint
+  ###############################################
+  - ./do_oclint
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
