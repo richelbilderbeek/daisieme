@@ -5,7 +5,8 @@
 \title{Create a parameter file.}
 \usage{
 dme_create_params_file_cpp(filename, ana_psr, clado_is_psr, clado_main_psr,
-  ext_is_psr, ext_main_psr)
+  ext_is_psr, ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main,
+  rng_seed, init_n_main_clades, init_n_main_sps)
 }
 \arguments{
 \item{filename}{name of the file}
@@ -19,6 +20,18 @@ dme_create_params_file_cpp(filename, ana_psr, clado_is_psr, clado_main_psr,
 \item{ext_is_psr}{extinction rate on island, per-species rate}
 
 \item{ext_main_psr}{extinction rate on mainland, per-species rate}
+
+\item{mig_to_is_psr}{migratrion to island, per-species rate}
+
+\item{carry_cap_is}{carrying capacity of the island, number of species}
+
+\item{carry_cap_main}{carrying capacity of the mainland, number of species}
+
+\item{rng_seed}{RNG seed}
+
+\item{init_n_main_clades}{initial number of mainland clades}
+
+\item{init_n_main_sps}{initial number of mainland species}
 }
 \value{
 nothing

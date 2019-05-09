@@ -167,7 +167,7 @@ std::vector<elly::species> elly::collect_kids(
     std::begin(population),
     std::end(population),
     std::back_inserter(kids),
-    [ids](const auto& kid)
+    [ids](const species& kid)
     {
       return ids.count(kid.get_parent_id());
     }
