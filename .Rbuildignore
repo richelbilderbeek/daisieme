@@ -1,0 +1,9 @@
+^\.travis\.yml$
+^daisieme\.Rproj$
+^\.Rproj\.user$
+^CONTRIBUTING\.md$
+^code_of_conduct\.md$
+^cpp$
+^doc$
+^pics$
+^scripts$
