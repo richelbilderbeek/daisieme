@@ -72,6 +72,9 @@ before_script:
   - make debug --silent
   - ./elly
   - ./elly --create
+  - cat parameters_1.txt
+  - cat parameters_2.txt
+  - cat parameters_3.txt
   #- qmake elly.pro; make debug --silent; ./elly
   ###############################################
   # Build (not run) the GUIs
