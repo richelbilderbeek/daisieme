@@ -1,7 +1,7 @@
 #!/bin/bash
-# Run from its folder
+# Run from root folder
 
-cd ../..
+cd ..
 
 if [ ! -d boost_graph_cookbook_1 ]; then
   git clone https://github.com/richelbilderbeek/boost_graph_cookbook_1
