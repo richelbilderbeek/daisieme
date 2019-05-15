@@ -1,9 +1,10 @@
 #!/bin/bash
+# Run from its folder
 
-cd ..
+cd ../..
 
-if [ ! -d BoostGraphTutorial ]; then
-  git clone https://github.com/richelbilderbeek/BoostGraphTutorial
+if [ ! -d boost_graph_cookbook_1 ]; then
+  git clone https://github.com/richelbilderbeek/boost_graph_cookbook_1
 fi
 
 if [ ! -d GSL ]; then

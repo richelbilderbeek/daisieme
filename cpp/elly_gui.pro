@@ -8,7 +8,7 @@ QMAKE_CXXFLAGS += -std=c++14
 QMAKE_CXXFLAGS += -Wall -Wextra -Wnon-virtual-dtor -pedantic -Werror
 
 # Fix error: unrecognized option '--push-state--no-as-needed'
-QMAKE_LFLAGS += -fuse-ld=gold
+# QMAKE_LFLAGS += -fuse-ld=gold
 
 # Debug and release mode
 CONFIG += debug_and_release
@@ -68,9 +68,9 @@ QMAKE_CXXFLAGS += -Wno-unused-result
 include(daic.pri)
 include(elly.pri)
 include(elly_gui.pri)
-include(../RibiLibraries/Qwt.pri)
+# include(../RibiLibraries/Qwt.pri)
 
-# LIBS += -lqwt
+LIBS += -lqwt-qt5
 
 SOURCES += elly_qtmain.cpp
 
