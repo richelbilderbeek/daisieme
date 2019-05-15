@@ -31,6 +31,8 @@ after_install:
   - sudo apt-get install -qq qt5-qmake qt5-default
   #- sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   #- export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+  # Qwt
+  - sudo apt-get install -qq libqwt-qt5-dev
   # gcov
   #- sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
   # cppcheck
