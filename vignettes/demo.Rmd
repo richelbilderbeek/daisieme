@@ -82,7 +82,7 @@ dme_sim(
 daisieme parameters:
 
 ```{r}
-cat(dme_params_filename)
+readLines(dme_params_filename)
 ```
 
 daisieme sim results:
