@@ -65,12 +65,13 @@ QMAKE_CXXFLAGS += -Wno-unused-variable
 #                                 ^
 QMAKE_CXXFLAGS += -Wno-unused-result
 
+# Qwt
+LIBS += -lqwt-qt5
+
 include(daic.pri)
 include(elly.pri)
 include(elly_gui.pri)
-# include(../RibiLibraries/Qwt.pri)
 
-LIBS += -lqwt-qt5
 
 SOURCES += elly_qtmain.cpp
 
