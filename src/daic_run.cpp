@@ -58,10 +58,12 @@ void daic::run_r_script(const std::string& r_script_filename)
 {
   std::stringstream cmd;
   cmd << "Rscript " << r_script_filename;
+  //An error number of zero means success
+  //A non-zero error number means an actual error
   const int error_number{
     std::system(cmd.str().c_str())
   };
-  if (!error_number)
+  if (error_number)
   {
     std::stringstream s;
     s << "run_r_script has finished with error " << error_number << '\n';
