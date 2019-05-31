@@ -3,6 +3,9 @@ dist: xenial
 sudo: true
 cache: packages
 
+r_packages:
+  - devtools
+
 after_install: 
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
