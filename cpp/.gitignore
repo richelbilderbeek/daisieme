@@ -3,3 +3,8 @@
 *.dll
 *.pro.user
 *.pro.user.*
+.qmake.stash
+Makefile
+Makefile.*
+*_plugin_import.cpp
+ui_*.h
