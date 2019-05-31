@@ -7,10 +7,13 @@ develop|[![Build Status](https://travis-ci.org/richelbilderbeek/daisieme.svg?bra
 
 DAISIE project.
 
+## Downloads
+
+ * [Windows executable](http://richelbilderbeek.nl/daisieme_exe.zip)
+
 ## Video's
 
- * [YouTube](https://youtu.be/TYWVCDtduZ8)
- * [Download (OGV)](http://richelbilderbeek.nl/daisieme.ogv)
+ * `daisieme` introduction: [YouTube](https://youtu.be/TYWVCDtduZ8) [download (OGV)](http://richelbilderbeek.nl/daisieme.ogv)
 
 ## Installation
 
