@@ -6,6 +6,7 @@ cache: packages
 after_install: 
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
+  - sudo apt-get install -qq libqt5svg5-dev
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
   # gcov
@@ -34,6 +35,7 @@ services:
  - xvfb
 
 before_script:
+  - Rscript -e 'devtools::install_github("rsetienne/DAISIE")'
   - ./scripts/download_other_githubs
   ###############################################
   # Go into the C++ folder
@@ -43,7 +45,7 @@ before_script:
   # Build and run the tests
   ###############################################
   # elly_test
-  #- qmake elly_test.pro; make debug --silent; ./elly_test
+  - qmake elly_test.pro; make debug --silent; ./elly_test
   ###############################################
   # Build and run (when possible) the command line applications
   ###############################################
