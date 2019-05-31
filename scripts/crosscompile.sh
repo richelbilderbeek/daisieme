@@ -8,6 +8,7 @@
 #
 DESKTOP_PRO=elly_gui.pro
 
+# To daisieme/cpp
 cd ../cpp
 
 if [ ! -e $DESKTOP_PRO ]
@@ -17,9 +18,11 @@ then
 fi
 i686-w64-mingw32.static-qmake-qt5 $DESKTOP_PRO
 make
+
+# To daisieme
 cd ..
 
-DESKTOP_EXE=./../cpp/release/elly_gui.exe
+DESKTOP_EXE=cpp/release/elly_gui.exe
 
 if [ ! -e $DESKTOP_EXE ]
 then
@@ -30,3 +33,5 @@ fi
 
 
 mv $DESKTOP_EXE daisieme.exe
+
+zip daisieme_exe.zip daisieme.exe

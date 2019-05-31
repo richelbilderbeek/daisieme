@@ -65,8 +65,16 @@ QMAKE_CXXFLAGS += -Wno-unused-variable
 #                                 ^
 QMAKE_CXXFLAGS += -Wno-unused-result
 
+
 # Qwt
+# Normal compiling
 LIBS += -lqwt-qt5
+INCLUDEPATH += /usr/include/qwt
+
+# For crosscompiling
+#INCLUDEPATH += /home/richel/GitHubs/RibiLibraries/mxe/usr/i686-w64-mingw32.static/qt5/include
+#LIBS += -lqwt
+#QT += svg
 
 include(daic.pri)
 include(elly.pri)

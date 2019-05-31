@@ -7,12 +7,12 @@
 #include <QVBoxLayout>
 #include <cassert>
 #include <chrono>
-#include <qwt/qwt_legend.h>
-#include <qwt/qwt_plot.h>
-#include <qwt/qwt_point_data.h>
-#include <qwt/qwt_plot_zoomer.h>
-#include <qwt/qwt_text.h>
-#include <qwt/qwt_plot_curve.h>
+#include <qwt_legend.h>
+#include <qwt_plot.h>
+#include <qwt_point_data.h>
+#include <qwt_plot_zoomer.h>
+#include <qwt_text.h>
+#include <qwt_plot_curve.h>
 #include <sstream>
 
 #include "elly_experiment.h"

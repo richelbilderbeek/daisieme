@@ -30,3 +30,6 @@ inst/doc
 .Rproj.user
 build-*
 .Rhistory
+*.exe
+*.zip
+cpp/release/
