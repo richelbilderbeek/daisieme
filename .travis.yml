@@ -40,12 +40,6 @@ after_install:
   # GraphViz
   #- sudo apt-get install -qq graphviz
 
-# Boost
-addons: 
-  apt: 
-    packages: libboost-all-dev
-
-# Xenial
 services:
  - xvfb
 
