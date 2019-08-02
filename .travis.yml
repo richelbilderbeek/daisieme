@@ -25,8 +25,6 @@ after_install:
   - sudo apt-get install -qq libqt5svg5-dev
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
-  # gcov
-  #- sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
   # cppcheck
   #- sudo apt-get install -qq cppcheck
   # Codecov
