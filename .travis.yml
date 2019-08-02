@@ -6,6 +6,7 @@ r_packages:
   - devtools
   - DDD
   - DAISIE
+  - knitr
 
 before_install:
   # ImageMagick
