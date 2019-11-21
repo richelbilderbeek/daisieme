@@ -19,7 +19,7 @@ install:
   # Boost
   - sudo apt install -qq libboost-all-dev
   # R packages
-  - sudo apt install r-cran-knitr
+  - sudo apt install -qq r-cran-knitr r-cran-rcpp
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
   - sudo apt-get install -qq libqt5svg5-dev
