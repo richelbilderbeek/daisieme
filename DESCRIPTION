@@ -21,6 +21,7 @@ Imports:
     dplyr,
     knitr
 Suggests: 
+    knitr,
     stringr,
     testthat,
     rmarkdown
@@ -29,3 +30,4 @@ LinkingTo:
 Imports: 
     Rcpp
 VignetteBuilder: knitr
+
