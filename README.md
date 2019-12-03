@@ -18,7 +18,7 @@ DAISIE project.
 ## Installation
 
 ```
-usethis::install_github("richelbilderbeek/daisieme")
+remotes::install_github("richelbilderbeek/daisieme")
 ```
 
 ## Usage
