@@ -2,13 +2,6 @@ language: R
 dist: bionic
 cache: packages
 
-r_packages:
-  - devtools
-  - dplyr
-  - DDD
-  - DAISIE
-  - knitr
-
 install: 
   # Needs to be done on bionic for now
   - sudo apt update -qq
