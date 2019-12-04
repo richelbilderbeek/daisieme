@@ -21,10 +21,7 @@
 #include "elly_location.h"
 #include "elly_results.h"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Weffc++"
 #include "ui_elly_qtmaindialog.h"
-#pragma GCC diagnostic pop
 
 const int row_clado_is{0};
 const int row_clado_main{row_clado_is + 1};
@@ -60,7 +57,8 @@ elly::qtmaindialog::qtmaindialog(QWidget *parent)
       m_parameters{new QPlainTextEdit},
       m_plot_pop_sizes{new QwtPlot(QwtText("Community composition in time"), this)},
       m_plot_rates{new QwtPlot(QwtText("Rates in time"), this)},
-      m_sim_results{new QPlainTextEdit}
+      m_sim_results{new QPlainTextEdit},
+      m_svg{new QSvgWidget}
 {
   ui->setupUi(this);
 
@@ -129,6 +127,7 @@ void elly::qtmaindialog::add_widgets_to_ui() noexcept
   ui->widget_right->layout()->addWidget(m_plot_pop_sizes);
   ui->widget_right->layout()->addWidget(m_plot_rates);
   ui->widget_right->layout()->addWidget(m_parameters);
+  ui->widget_right->layout()->addWidget(m_svg);
   ui->widget_right->layout()->addWidget(m_sim_results);
   ui->widget_right->layout()->addWidget(m_daic_inputs);
   ui->widget_right->layout()->addWidget(m_daic_outputs);
@@ -221,12 +220,12 @@ int elly::qtmaindialog::get_rng_seed() const
 
 int elly::qtmaindialog::get_init_n_main_cls() const
 {
-  return ui->parameters->item(row_init_n_main_cls, 0)->text().toDouble();
+  return ui->parameters->item(row_init_n_main_cls, 0)->text().toInt();
 }
 
 int elly::qtmaindialog::get_init_n_main_sps() const
 {
-  return ui->parameters->item(row_init_n_main_sps, 0)->text().toDouble();
+  return ui->parameters->item(row_init_n_main_sps, 0)->text().toInt();
 }
 
 double elly::qtmaindialog::get_crown_age() const
@@ -506,6 +505,9 @@ void elly::qtmaindialog::setup_widgets() noexcept
   m_parameters->setFont(QFont("Monospace"));
   m_parameters->setMinimumHeight(400);
   m_parameters->setReadOnly(true);
+  m_svg->setMinimumHeight(400);
+
+  m_svg->load(QString("my.svg"));
   m_plot_pop_sizes->setMinimumHeight(400);
   m_plot_rates->setMinimumHeight(400);
   m_sim_results->setFont(QFont("Monospace"));

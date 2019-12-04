@@ -12,6 +12,7 @@
 #include "elly_per_species_rates.h"
 #include "daic_input.h"
 #include <QDialog>
+#include <QtSvg/QSvgWidget>
 #pragma GCC diagnostic pop
 
 struct QwtPlot;
@@ -109,6 +110,7 @@ private:
   QwtPlot * const m_plot_pop_sizes;
   QwtPlot * const m_plot_rates;
   QPlainTextEdit * const m_sim_results;
+  QSvgWidget * const m_svg;
 };
 
 std::array<QwtPlotCurve *, 6> create_initial_curves_pop_sizes() noexcept;
