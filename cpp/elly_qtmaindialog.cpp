@@ -266,9 +266,6 @@ void elly::qtmaindialog::on_start_clicked()
   {
     using my_clock = std::chrono::high_resolution_clock;
 
-    // get the clock time before operation.
-    // note that this is a static function, and
-    // we don't actually create a clock object
     const auto start_time = my_clock::now();
 
     const parameters p{get_parameters()};
