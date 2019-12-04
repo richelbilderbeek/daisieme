@@ -99,7 +99,13 @@ private:
   void plot_daic_outputs(const experiment& e);
   void plot_event_rates(const measurements& v);
   void plot_pop_sizes(const measurements& v);
+
+  /// Show the events as text
   void plot_sim_results(const results& v);
+
+  /// Show the events as figure
+  void plot_sim_results_as_figure(const results& v);
+
   void setup_widgets() noexcept;
 
   std::array<QwtPlotCurve *, 6> m_curves_pop_sizes;

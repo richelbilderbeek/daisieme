@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <cassert>
 #include <chrono>
+#include <fstream>
 #include <qwt_legend.h>
 #include <qwt_plot.h>
 #include <qwt_point_data.h>
@@ -285,6 +286,7 @@ void elly::qtmaindialog::on_start_clicked()
     plot_event_rates(measurements);
     plot_daic_input(get_results(s));
     plot_sim_results(get_results(s));
+    plot_sim_results_as_figure(get_results(s));
 
     const auto end_time = my_clock::now();
     const auto diff = end_time - start_time;
@@ -403,6 +405,12 @@ void elly::qtmaindialog::plot_sim_results(const results& v)
   m_sim_results->setPlainText(s.str().c_str());
 }
 
+void elly::qtmaindialog::plot_sim_results_as_figure(const results& r)
+{
+  const std::string s = to_svg(r);
+  m_svg->load(QByteArray(s.c_str()));
+}
+
 
 void elly::qtmaindialog::set_clad_is(const per_species_rate clado_is) noexcept
 {
@@ -503,8 +511,6 @@ void elly::qtmaindialog::setup_widgets() noexcept
   m_parameters->setMinimumHeight(400);
   m_parameters->setReadOnly(true);
   m_svg->setMinimumHeight(400);
-
-  m_svg->load(QString("my.svg"));
   m_plot_pop_sizes->setMinimumHeight(400);
   m_plot_rates->setMinimumHeight(400);
   m_sim_results->setFont(QFont("Monospace"));
@@ -557,6 +563,7 @@ void elly::qtmaindialog::on_run_daisie_clicked()
     plot_event_rates(e.get_sim_measurements());
     plot_daic_input(e.get_sim_results());
     plot_sim_results(e.get_sim_results());
+    plot_sim_results_as_figure(e.get_sim_results());
     plot_daic_inputs(e);
     plot_daic_outputs(e);
   }
