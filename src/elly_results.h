@@ -45,8 +45,6 @@ std::vector<clade> collect_clades_as_vector(const results& r);
 ///Collect all species that have migrated and diversified
 std::vector<species> collect_colonists(const std::vector<species>& s);
 
-//daic::species_status conclude_status(const std::vector<species> &s);
-
 bool multiple_times_colonisation(const std::vector<species>& colonists);
 
 daic::species_status conclude_status(const clade& s);
@@ -69,6 +67,9 @@ results get_results(const simulation& s);
 results get_results(const populations& s);
 
 bool is_empty(const results& r) noexcept;
+
+///Convert the results to the text of an SVG
+std::string to_svg(const results& r);
 
 std::ostream& operator<<(std::ostream& os, const results& r) noexcept;
 

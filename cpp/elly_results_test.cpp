@@ -952,5 +952,17 @@ BOOST_AUTO_TEST_CASE(elly_convert_reality_with_multiple_colonizations)
 }
 #endif // FIX_ISSUE_203
 
+BOOST_AUTO_TEST_CASE(elly_to_results_svg)
+{
+  //One species on mainland
+  {
+   species a = create_new_test_species(location::mainland);
+   const std::vector<species> population = {a};
+   const results sim_results = get_results(population);
+   const std::string svg = to_svg(sim_results);
+   BOOST_CHECK(!svg.empty());
+  }
+}
+
 
 #pragma GCC diagnostic pop
