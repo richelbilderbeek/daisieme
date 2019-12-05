@@ -959,7 +959,7 @@ BOOST_AUTO_TEST_CASE(elly_to_results_svg)
    species a = create_new_test_species(location::mainland);
    const std::vector<species> population = {a};
    const results sim_results = get_results(population);
-   const std::string svg = to_svg(sim_results);
+   const std::vector<std::string> svg = to_svg(sim_results);
    BOOST_CHECK(!svg.empty());
   }
 }
