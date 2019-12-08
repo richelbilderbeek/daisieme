@@ -68,8 +68,10 @@ results get_results(const populations& s);
 
 bool is_empty(const results& r) noexcept;
 
-///Convert the results to the text of an SVG
-std::string to_svg(const results& r);
+///Convert the results to the text of an SVG,
+///each element being a line of text.
+///First line will be the XML declarator
+std::vector<std::string> to_svg(const results& r);
 
 std::ostream& operator<<(std::ostream& os, const results& r) noexcept;
 

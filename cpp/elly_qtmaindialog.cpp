@@ -407,7 +407,9 @@ void elly::qtmaindialog::plot_sim_results(const results& v)
 
 void elly::qtmaindialog::plot_sim_results_as_figure(const results& r)
 {
-  const std::string s = to_svg(r);
+  const std::vector<std::string> v = to_svg(r);
+  std::string s;
+  for (const auto& i: v) { s += i; }
   m_svg->load(QByteArray(s.c_str()));
 }
 
