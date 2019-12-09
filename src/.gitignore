@@ -3,3 +3,5 @@
 *.dll
 *.pro.user
 *.pro.user.*
+*.vs
+*.vs\*
