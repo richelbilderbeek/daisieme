@@ -44,6 +44,9 @@ CONFIG(debug, debug|release) {
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+# SVG
+QT += svg
+
 # Fixes
 #/usr/include/boost/math/constants/constants.hpp:277: error: unable to find numeric literal operator 'operator""Q'
 #   BOOST_DEFINE_MATH_CONSTANT(half, 5.000000000000000000000000000000000000e-01, "5.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-01")
