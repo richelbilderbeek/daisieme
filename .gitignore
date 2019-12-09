@@ -33,3 +33,5 @@ build-*
 *.exe
 *.zip
 cpp/release/
+*.vs
+*.vs\*
