@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <cassert>
 #include <chrono>
+#include <fstream>
 #include <qwt_legend.h>
 #include <qwt_plot.h>
 #include <qwt_point_data.h>
@@ -21,10 +22,7 @@
 #include "elly_location.h"
 #include "elly_results.h"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Weffc++"
 #include "ui_elly_qtmaindialog.h"
-#pragma GCC diagnostic pop
 
 const int row_clado_is{0};
 const int row_clado_main{row_clado_is + 1};
@@ -60,7 +58,8 @@ elly::qtmaindialog::qtmaindialog(QWidget *parent)
       m_parameters{new QPlainTextEdit},
       m_plot_pop_sizes{new QwtPlot(QwtText("Community composition in time"), this)},
       m_plot_rates{new QwtPlot(QwtText("Rates in time"), this)},
-      m_sim_results{new QPlainTextEdit}
+      m_sim_results{new QPlainTextEdit},
+      m_svg{new QSvgWidget}
 {
   ui->setupUi(this);
 
@@ -129,6 +128,7 @@ void elly::qtmaindialog::add_widgets_to_ui() noexcept
   ui->widget_right->layout()->addWidget(m_plot_pop_sizes);
   ui->widget_right->layout()->addWidget(m_plot_rates);
   ui->widget_right->layout()->addWidget(m_parameters);
+  ui->widget_right->layout()->addWidget(m_svg);
   ui->widget_right->layout()->addWidget(m_sim_results);
   ui->widget_right->layout()->addWidget(m_daic_inputs);
   ui->widget_right->layout()->addWidget(m_daic_outputs);
@@ -221,12 +221,12 @@ int elly::qtmaindialog::get_rng_seed() const
 
 int elly::qtmaindialog::get_init_n_main_cls() const
 {
-  return ui->parameters->item(row_init_n_main_cls, 0)->text().toDouble();
+  return ui->parameters->item(row_init_n_main_cls, 0)->text().toInt();
 }
 
 int elly::qtmaindialog::get_init_n_main_sps() const
 {
-  return ui->parameters->item(row_init_n_main_sps, 0)->text().toDouble();
+  return ui->parameters->item(row_init_n_main_sps, 0)->text().toInt();
 }
 
 double elly::qtmaindialog::get_crown_age() const
@@ -267,9 +267,6 @@ void elly::qtmaindialog::on_start_clicked()
   {
     using my_clock = std::chrono::high_resolution_clock;
 
-    // get the clock time before operation.
-    // note that this is a static function, and
-    // we don't actually create a clock object
     const auto start_time = my_clock::now();
 
     const parameters p{get_parameters()};
@@ -289,6 +286,7 @@ void elly::qtmaindialog::on_start_clicked()
     plot_event_rates(measurements);
     plot_daic_input(get_results(s));
     plot_sim_results(get_results(s));
+    plot_sim_results_as_figure(get_results(s));
 
     const auto end_time = my_clock::now();
     const auto diff = end_time - start_time;
@@ -407,6 +405,14 @@ void elly::qtmaindialog::plot_sim_results(const results& v)
   m_sim_results->setPlainText(s.str().c_str());
 }
 
+void elly::qtmaindialog::plot_sim_results_as_figure(const results& r)
+{
+  const std::vector<std::string> v = to_svg(r);
+  std::string s;
+  for (const auto& i: v) { s += i; }
+  m_svg->load(QByteArray(s.c_str()));
+}
+
 
 void elly::qtmaindialog::set_clad_is(const per_species_rate clado_is) noexcept
 {
@@ -506,6 +512,7 @@ void elly::qtmaindialog::setup_widgets() noexcept
   m_parameters->setFont(QFont("Monospace"));
   m_parameters->setMinimumHeight(400);
   m_parameters->setReadOnly(true);
+  m_svg->setMinimumHeight(400);
   m_plot_pop_sizes->setMinimumHeight(400);
   m_plot_rates->setMinimumHeight(400);
   m_sim_results->setFont(QFont("Monospace"));
@@ -558,6 +565,7 @@ void elly::qtmaindialog::on_run_daisie_clicked()
     plot_event_rates(e.get_sim_measurements());
     plot_daic_input(e.get_sim_results());
     plot_sim_results(e.get_sim_results());
+    plot_sim_results_as_figure(e.get_sim_results());
     plot_daic_inputs(e);
     plot_daic_outputs(e);
   }
