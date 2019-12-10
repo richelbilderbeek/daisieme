@@ -31,10 +31,12 @@ CONFIG(debug, debug|release) {
   QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
   LIBS += -lgcov
 
-  # UBSAN
-  QMAKE_CXXFLAGS += -fsanitize=undefined
-  QMAKE_LFLAGS += -fsanitize=undefined
-  LIBS += -lubsan
+  unix{
+    # UBSAN
+    QMAKE_CXXFLAGS += -fsanitize=undefined
+    QMAKE_LFLAGS += -fsanitize=undefined
+    LIBS += -lubsan
+  }
 
   # Only in debug mode, Expects and Ensures do check
   DEFINES += GSL_THROW_ON_CONTRACT_VIOLATION
@@ -73,7 +75,7 @@ win32{
 
 # Qwt
 win32{
-  INCLUDEPATH += C:/Users/danie/cpp_libraries/qwt-6.1.4
+  INCLUDEPATH += C:/Users/danie/cpp_libraries/qwt-6.1.4/src
 }
 
 unix{
