@@ -98,6 +98,7 @@ int elly::populations::count_species(const clade_id& /* id */) const noexcept
 
 std::vector<elly::species> elly::create_initial_mainland_species(const parameters& p)
 {
+  // Create unique clade IDs, one per clade
   std::vector<clade_id> clade_ids;
   const int n_clades{p.get_init_n_main_cls()};
   for (int i=0; i!=n_clades; ++i)
@@ -105,13 +106,14 @@ std::vector<elly::species> elly::create_initial_mainland_species(const parameter
     clade_ids.push_back(create_new_clade_id());
   }
 
+  // Create species, assign these over the clades uniformly
   std::vector<species> pop;
   const int n_species{p.get_init_n_main_sps()};
   for (int i=0; i!=n_species; ++i)
   {
     const species s(
-      create_new_species_id(),
-      create_null_species_id(),
+      create_new_species_id(),  //Own ID
+      create_null_species_id(), //Parent ID
       clade_ids[i % n_clades],
       0.0,
       location::mainland

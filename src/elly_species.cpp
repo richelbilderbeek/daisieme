@@ -120,7 +120,8 @@ const std::vector<double>& elly::species::get_times_of_colonization() const noex
   return m_times_of_colonization;
 }
 
-void elly::species::go_extinct(
+void elly::species::
+(
   const double time_of_extinction,
   const location location_of_ext
 )
