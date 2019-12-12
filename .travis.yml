@@ -42,6 +42,11 @@ before_script:
   ###############################################
   - cd cpp
   ###############################################
+  # Build and run the tests for Damian and Dave
+  ###############################################
+  # elly_svg
+  - qmake elly_svg.pro; make debug --silent; ./elly_svg
+  ###############################################
   # Build and run the tests
   ###############################################
   # elly_test

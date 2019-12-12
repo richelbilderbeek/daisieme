@@ -1000,6 +1000,22 @@ BOOST_AUTO_TEST_CASE(elly_is_svg_close_tag)
   #endif // FIX_ISSUE_16
 }
 
+BOOST_AUTO_TEST_CASE(elly_is_svg_line)
+{
+  //Uncomment this line to start working on the test
+  //#define FIX_ISSUE_17
+  #ifdef FIX_ISSUE_17
+  BOOST_CHECK(
+    is_svg_line(
+      "<line x1=\"-1.2\" y1=\"1\" x2=\"3.4\" y2=\"1\" stroke=\"black\" />" // From https://en.wikipedia.org/wiki/Scalable_Vector_Graphics#Example
+    )
+  );
+  BOOST_CHECK(!is_svg_line("nonsense"));
+  BOOST_CHECK(!is_svg_line(""));
+  //If the test works, remove the preprocessor statements (#define, #ifdef, #endif)
+  #endif // FIX_ISSUE_17
+}
+
 BOOST_AUTO_TEST_CASE(elly_to_results_svg)
 {
   #ifdef FIX_ISSUE_14
@@ -1029,14 +1045,17 @@ BOOST_AUTO_TEST_CASE(elly_to_results_svg)
      BOOST_CHECK(is_svg_close_tag(svg.back());
   }
   #endif // FIX_ISSUE_16
+  #ifdef FIX_ISSUE_17
+  //Depends on Issue 17
   //One species on mainland
   {
    species a = create_new_test_species(location::mainland);
    const std::vector<species> population = {a};
    const results sim_results = get_results(population);
    const std::vector<std::string> svg = to_svg(sim_results);
-   BOOST_CHECK(!svg.empty());
+   BOOST_CHECK(is_svg_line(svg[2]);
   }
+  #endif // FIX_ISSUE_17
 }
 
 
