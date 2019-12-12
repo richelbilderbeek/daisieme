@@ -1,6 +1,7 @@
 #include "elly_svg_test.h"
 
 #include <vector>
+#include <cassert>
 #include "elly_clade.h"
 #include "elly_parameters.h"
 #include "elly_simulation.h"
@@ -10,7 +11,7 @@ void elly::svg_test() //!OCLINT tests may be long
   //elly_is_xml_declaration
   {
     //Uncomment this line to start working on the test
-    //#define FIX_ISSUE_14
+    #define FIX_ISSUE_14
     #ifdef FIX_ISSUE_14
     assert(
       is_xml_declaration(
@@ -25,7 +26,7 @@ void elly::svg_test() //!OCLINT tests may be long
   //elly_is_svg_start_tag
   {
     //Uncomment this line to start working on the test
-    //#define FIX_ISSUE_15
+    #define FIX_ISSUE_15
     #ifdef FIX_ISSUE_15
     assert(
       is_svg_start_tag(
@@ -40,7 +41,7 @@ void elly::svg_test() //!OCLINT tests may be long
   //elly_is_svg_close_tag
   {
     //Uncomment this line to start working on the test
-    //#define FIX_ISSUE_16
+    #define FIX_ISSUE_16
     #ifdef FIX_ISSUE_16
     assert(
       is_svg_close_tag(
@@ -55,7 +56,7 @@ void elly::svg_test() //!OCLINT tests may be long
   //elly_is_svg_line
   {
     //Uncomment this line to start working on the test
-    //#define FIX_ISSUE_17
+    #define FIX_ISSUE_17
     #ifdef FIX_ISSUE_17
     assert(
       is_svg_line(
@@ -74,8 +75,8 @@ void elly::svg_test() //!OCLINT tests may be long
     //First line of SVG must be an XML declaration
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(sim_results);
-       assert(is_xml_declaration(svg[0]);
+       const std::vector<std::string> svg = to_svg(no_results);
+       assert(is_xml_declaration(svg[0]));
     }
     #endif // FIX_ISSUE_14
     #ifdef FIX_ISSUE_15
@@ -83,8 +84,8 @@ void elly::svg_test() //!OCLINT tests may be long
     //Second line of SVG must be an SVG opening tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(sim_results);
-       assert(is_svg_start_tag(svg[1]);
+       const std::vector<std::string> svg = to_svg(no_results);
+       assert(is_svg_start_tag(svg[1]));
     }
     #endif // FIX_ISSUE_15
     #ifdef FIX_ISSUE_16
@@ -92,8 +93,8 @@ void elly::svg_test() //!OCLINT tests may be long
     //Last line of SVG must be an SVG closing tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(sim_results);
-       assert(is_svg_close_tag(svg.back());
+       const std::vector<std::string> svg = to_svg(no_results);
+       assert(is_svg_close_tag(svg.back()));
     }
     #endif // FIX_ISSUE_16
     #ifdef FIX_ISSUE_17
@@ -104,7 +105,7 @@ void elly::svg_test() //!OCLINT tests may be long
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
      const std::vector<std::string> svg = to_svg(sim_results);
-     assert(is_svg_line(svg[2]);
+     assert(is_svg_line(svg[2]));
     }
     #endif // FIX_ISSUE_17
   }
