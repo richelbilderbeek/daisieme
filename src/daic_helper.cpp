@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <boost/algorithm/string/split.hpp>
 
 std::vector<std::string> daic::file_to_vector(const std::string &filename)
 {
@@ -36,6 +37,7 @@ bool daic::is_regular_file(const std::string &filename) noexcept
 
 std::vector<std::string> daic::seperate_string(const std::string &input, const char seperator)
 {
+  #define HAS_BOOST
   #ifndef HAS_BOOST
   std::istringstream is(input);
   std::vector<std::string> v;
