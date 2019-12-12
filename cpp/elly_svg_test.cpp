@@ -6,6 +6,23 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 
+bool elly::is_xml_declaration(const std::string& s){
+    return s.substr(0,5) == "<?xml";}
+
+
+bool elly::is_svg_start_tag(const std::string& s){
+    return s.substr(0,4) == "<svg";}
+
+
+bool elly::is_svg_close_tag(const std::string& s){
+    return s.substr(0,6) == "</svg>";
+}
+
+bool elly::is_svg_line(const std::string& s){
+    return s.substr(0,5) == "<line";
+}
+
+
 void elly::svg_test() //!OCLINT tests may be long
 {
   //elly_is_xml_declaration
