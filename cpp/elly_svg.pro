@@ -7,7 +7,7 @@ SOURCES += elly_svg_main.cpp
 # C++17
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
-QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Weffc++ -Werror
+QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Werror
 
 # Debug and release mode
 CONFIG += console debug_and_release

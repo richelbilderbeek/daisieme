@@ -246,6 +246,10 @@ std::string elly::get_parameters_heading() noexcept
   {
     std::string tmp;
     tmp.push_back(c);
+    #define HAS_BOOST
+    #ifndef HAS_BOOST
+    t.erase(tmp.begin(), tmp.end()); //Not enough yet...
+    #else
     boost::algorithm::erase_all(t, tmp);
     boost::algorithm::replace_all(t, "\n", ",");
     boost::algorithm::erase_all(t, "species");
@@ -253,6 +257,7 @@ std::string elly::get_parameters_heading() noexcept
     boost::algorithm::erase_all(t, "time");
     boost::algorithm::erase_all(t, "unit");
     boost::algorithm::erase_all(t, " ");
+    #endif
   }
   return t;
 }
