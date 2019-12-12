@@ -6,8 +6,8 @@
 #include <stdexcept>
 #include <iostream>
 #include <cstdlib>
-#include <boost/algorithm/string/erase.hpp>
-#include <boost/algorithm/string/replace.hpp>
+//#include <boost/algorithm/string/erase.hpp>
+//#include <boost/algorithm/string/replace.hpp>
 
 elly::parameters::parameters(
   const per_species_rates& rates,
@@ -246,6 +246,9 @@ std::string elly::get_parameters_heading() noexcept
   {
     std::string tmp;
     tmp.push_back(c);
+    #ifndef HAS_BOOST
+    //?
+    #else
     boost::algorithm::erase_all(t, tmp);
     boost::algorithm::replace_all(t, "\n", ",");
     boost::algorithm::erase_all(t, "species");
@@ -253,6 +256,7 @@ std::string elly::get_parameters_heading() noexcept
     boost::algorithm::erase_all(t, "time");
     boost::algorithm::erase_all(t, "unit");
     boost::algorithm::erase_all(t, " ");
+    #endif
   }
   return t;
 }

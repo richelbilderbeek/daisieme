@@ -1,7 +1,8 @@
 #include "daic_helper.h"
-#include <boost/algorithm/string/split.hpp>
+#include <cassert>
 #include <cmath>
 #include <fstream>
+#include <sstream>
 
 std::vector<std::string> daic::file_to_vector(const std::string &filename)
 {
@@ -35,6 +36,18 @@ bool daic::is_regular_file(const std::string &filename) noexcept
 
 std::vector<std::string> daic::seperate_string(const std::string &input, const char seperator)
 {
+  #ifndef HAS_BOOST
+  std::istringstream is(input);
+  std::vector<std::string> v;
+  for (
+    std::string sub;
+    std::getline(is, sub, seperator);
+    v.push_back(sub))
+  {
+    //Empty for loop
+  }
+  return v;
+  #else
   std::vector<std::string> v;
   boost::algorithm::split(
       v,
@@ -42,5 +55,6 @@ std::vector<std::string> daic::seperate_string(const std::string &input, const c
       std::bind2nd(std::equal_to<char>(), seperator),
       boost::algorithm::token_compress_on);
   return v;
+  #endif
 }
 
