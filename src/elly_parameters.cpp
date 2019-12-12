@@ -247,7 +247,7 @@ std::string elly::get_parameters_heading() noexcept
     std::string tmp;
     tmp.push_back(c);
     #ifndef HAS_BOOST
-    //?
+    t.erase(tmp.begin(), tmp.end()); //Not enough yet...
     #else
     boost::algorithm::erase_all(t, tmp);
     boost::algorithm::replace_all(t, "\n", ",");
