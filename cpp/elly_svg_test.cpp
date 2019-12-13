@@ -114,16 +114,58 @@ void elly::svg_test() //!OCLINT tests may be long
        assert(is_svg_close_tag(svg.back()));
     }
     #endif // FIX_ISSUE_16
+
+    #ifdef FIX_ISSUE_100
+    //No species nowhere, must be an SVG of 3 lines, something like this:
+    {
+      /*
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <svg width="200" height="10" viewBox="-10 0 10 1" xmlns="http://www.w3.org/2000/svg">
+      <!-- other things, like timescale, sea, etc -->
+      </svg>
+      */
+      const std::vector<species> population;
+      const results sim_results = get_results(population);
+      const std::vector<std::string> svg = to_svg(sim_results);
+      assert(svg.size() >= 3);
+      assert(is_svg(svg)); //NEW: should use is_xml_declaration, is_svg_open_tag and is_svg_close_tag
+    }
+    #endif
+
+
     #ifdef FIX_ISSUE_17
     //Depends on Issue 17
     //One species on mainland
     {
-     species a = create_new_test_species(location::mainland);
+     const species a = create_new_test_species(location::mainland);
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
      const std::vector<std::string> svg = to_svg(sim_results);
      assert(is_svg_line(svg[2]));
     }
     #endif // FIX_ISSUE_17
+    // User can specify the crown age. By default this is 1.0
+    {
+     const species a = create_new_test_species(location::mainland);
+     const std::vector<species> population = {a};
+     const results sim_results = get_results(population);
+     const std::vector<std::string> svg = to_svg(sim_results);
+     assert(is_svg_line(svg[2]));
+    }
+    // An SVG needs a timescale
+    {
+      /*
+
+
+       --------------------------
+
+      */
+      /*
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <svg width="200" height="10" viewBox="-10 0 10 1" xmlns="http://www.w3.org/2000/svg">
+      <line x1="-1.2" y1="1" x2="3.4" y2="1" stroke="black" />
+      </svg>
+      */
+    }
   }
 }
