@@ -129,30 +129,122 @@ void elly::svg_test() //!OCLINT tests may be long
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
      const std::vector<std::string> svg = to_svg(sim_results);
-     assert(is_svg_line(svg[2]));
+     assert(is_svg_line(svg[2])); //Brittle test
     }
     // User can specify the crown age. By default this is 1.0
     {
-     const species a = create_new_test_species(location::mainland);
-     const std::vector<species> population = {a};
-     const results sim_results = get_results(population);
-     const std::vector<std::string> svg = to_svg(sim_results);
-     assert(is_svg_line(svg[2]));
+
     }
-    // An SVG needs a timescale
+    #ifdef FIX_ISSUE_28
+    // Get the width of the SVG
     {
-      /*
-
-
-       --------------------------
-
-      */
-      /*
-      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-      <svg width="200" height="10" viewBox="-10 0 10 1" xmlns="http://www.w3.org/2000/svg">
-      <line x1="-1.2" y1="1" x2="3.4" y2="1" stroke="black" />
-      </svg>
-      */
+      assert(get_svg_width(get_svg_example_1()) == 200);
     }
+    #endif // FIX_ISSUE_28
+    #ifdef FIX_ISSUE_29
+    // Get the height of the SVG
+    {
+      assert(get_svg_height(get_svg_example_1()) == 10);
+    }
+    #endif // FIX_ISSUE_29
+    #ifdef FIX_ISSUE_31
+    // Get the coordinats of the viewbox
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-10 0 10 1\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "</svg>"
+      };
+      assert(!get_svg_viewbox_x1(svg) == -10.0);
+      assert(!get_svg_viewbox_y1(svg) ==   0.0);
+      assert(!get_svg_viewbox_x2(svg) ==  10.0);
+      assert(!get_svg_viewbox_y2(svg) ==   1.0);
+    }
+    #endif // FIX_ISSUE_31
+    #ifdef FIX_ISSUE_30
+    // An empty SVG has no time scale line
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-10 0 10 1\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "</svg>"
+      };
+      assert(!has_time_scale_line(svg));
+    }
+    // A time scale must be in the viewbox
+    //
+    //  (-1,-1)---------------------+
+    //     |                        |
+    //     | Viewbox                |
+    //     |                        |
+    //     |   (0,0)------+         |
+    //     |     | Graph  |         |
+    //     |     +------(1,1)       |
+    //     |                        |
+    //     +----------------------(2,2)
+    //
+    //
+    // Time scale line at the bottom of graph, as a horizontal line:
+    //
+    //          (0,1)    (1,1)
+    //
+    //           +--------+
+    //
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<line x1=\"0\" y1=\"1\" x2=\"1\" y2=\"1\" stroke=\"black\" />",
+        "</svg>"
+      };
+      assert(has_time_scale_line(svg));
+    }
+    // Time scale must be at the bottom
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<line x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\" stroke=\"black\" />", //Changed y coordinats
+        "</svg>"
+      };
+      assert(!has_time_scale_line(svg));
+    }
+    // Left side of time scale line has an x (equals t) of zero
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<line x1=\"-123\" y1=\"0\" x2=\"1\" y2=\"0\" stroke=\"black\" />", //Changed x1 coordinat
+        "</svg>"
+      };
+      assert(!has_time_scale_line(svg));
+    }
+    // Right side of time scale line has an x (equals t) of the crown age of (by default) one
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<line x1=\"0\" y1=\"0\" x2=\"123\" y2=\"0\" stroke=\"black\" />", //Changed x2 coordinat
+        "</svg>"
+      };
+      assert(!has_time_scale_line(svg));
+    }
+    // Time scale must be black
+    {
+      const std::vector<std::string> svg = {
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
+        "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<line x1=\"0\" y1=\"1\" x2=\"1\" y2=\"1\" stroke=\"blue\" />", //Changed stroke
+        "</svg>"
+      };
+      assert(!has_time_scale_line(svg));
+    }
+    // to_svg must produce an SVG with a timescale line
+    {
+      const results no_results;
+      const std::vector<std::string> svg = to_svg(no_results);
+      assert(has_time_scale_line(svg));
+    }
+    #endif // FIX_ISSUE_30
   }
 }
