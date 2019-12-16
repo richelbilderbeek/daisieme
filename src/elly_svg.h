@@ -20,6 +20,12 @@ bool is_svg_line(const std::string& s);
 //tests if line is SVG start tag
 bool is_svg_start_tag(const std::string& s);
 
+//Test if svg follows the svg conventions
+bool is_svg(const std::vector<std::string>& svg);
+
+
+//Gives an example svg
+std::vector<std::string> get_example_svg_1();
 
 ///Functions to create an SVG of a list of DAISIE events
 

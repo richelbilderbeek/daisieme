@@ -71,13 +71,10 @@ void elly::svg_test() //!OCLINT tests may be long
        const std::vector<std::string> svg = to_svg(no_results);
        assert(is_svg_close_tag(svg.back()));
     }
-
-    #ifdef FIX_ISSUE_27
     //Example SVG 1 must be recognized as an SVG
     {
-      assert(is_svg(get_example_svg_1()));
+     assert(is_svg(get_example_svg_1()));
     }
-    #endif
     //Depends on Issue 17
     //One species on mainland
     {
