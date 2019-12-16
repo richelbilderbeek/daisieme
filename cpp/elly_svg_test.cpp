@@ -246,5 +246,18 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(has_time_scale_line(svg));
     }
     #endif // FIX_ISSUE_30
+    #ifdef FIX_ISSUE_32
+    // 1 mainland species, 1 clade ID, nothing happening
+    {
+      const auto species_id = create_new_species_id();
+      const auto parent_id = create_null_species_id();
+      const auto clade_id = create_new_clade_id();
+      const result r(species(species_id, parent_id, clade_id, 0.0, location::mainland));
+      const results rs( { r } );
+      const std::vector<std::string> svg = to_svg(rs);
+      assert(count_non_black_lines(svg) == 1);
+      assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
+    }
+    #endif // FIX_ISSUE_32
   }
 }
