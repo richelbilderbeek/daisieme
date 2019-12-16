@@ -103,8 +103,8 @@ private:
   /// Show the events as text
   void plot_sim_results(const results& v);
 
-  /// Show the events as figure
-  void plot_sim_results_as_figure(const results& v);
+  /// Show the results as an SVG
+  void show_results(const results& v);
 
   void setup_widgets() noexcept;
 
@@ -117,6 +117,7 @@ private:
   QwtPlot * const m_plot_rates;
   QPlainTextEdit * const m_sim_results;
   QSvgWidget * const m_svg;
+  QPlainTextEdit * const m_svg_text;
 };
 
 std::array<QwtPlotCurve *, 6> create_initial_curves_pop_sizes() noexcept;
