@@ -31,10 +31,12 @@ CONFIG(debug, debug|release) {
   QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
   LIBS += -lgcov
 
-  # UBSAN
-  QMAKE_CXXFLAGS += -fsanitize=undefined
-  QMAKE_LFLAGS += -fsanitize=undefined
-  LIBS += -lubsan
+  unix{
+    # UBSAN
+    QMAKE_CXXFLAGS += -fsanitize=undefined
+    QMAKE_LFLAGS += -fsanitize=undefined
+    LIBS += -lubsan
+  }
 
   # Only in debug mode, Expects and Ensures do check
   DEFINES += GSL_THROW_ON_CONTRACT_VIOLATION
@@ -66,11 +68,21 @@ QMAKE_CXXFLAGS += -Wno-unused-variable
 QMAKE_CXXFLAGS += -Wno-unused-result
 
 
-# Qwt
-# Normal compiling
-LIBS += -lqwt-qt5
-INCLUDEPATH += /usr/include/qwt
+# Boost
+win32{
+  INCLUDEPATH += C:/Users/danie/cpp_libraries/boost_1_71_0
+}
 
+# Qwt
+win32{
+  INCLUDEPATH += C:/Users/danie/cpp_libraries/qwt-6.1.4/src
+}
+
+unix{
+  # Normal compiling
+  LIBS += -lqwt-qt5
+  INCLUDEPATH += /usr/include/qwt
+}
 # For crosscompiling
 #INCLUDEPATH += /home/richel/GitHubs/RibiLibraries/mxe/usr/i686-w64-mingw32.static/qt5/include
 #LIBS += -lqwt
