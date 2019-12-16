@@ -249,9 +249,9 @@ void elly::svg_test() //!OCLINT tests may be long
     #ifdef FIX_ISSUE_32
     // 1 mainland species, 1 clade ID, nothing happening
     {
-      const auto species_id = create_new_species_id();
+      const auto species_id = create_new_species_id(); //217 in picture
       const auto parent_id = create_null_species_id();
-      const auto clade_id = create_new_clade_id();
+      const auto clade_id = create_new_clade_id(); // 57 in picture
       const result r(species(species_id, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r } );
       const std::vector<std::string> svg = to_svg(rs);
@@ -259,5 +259,37 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
     #endif // FIX_ISSUE_32
+    #ifdef FIX_ISSUE_33
+    // 2 mainland species, 1 clade ID, nothing happening
+    {
+      const auto species_id_1 = create_new_species_id(); //316 in picture
+      const auto species_id_2 = create_new_species_id(); //317 in picture
+      const auto parent_id = create_null_species_id();
+      const auto clade_id = create_new_clade_id(); // 80 in picture
+      const result r_1(species(species_id_1, parent_id, clade_id, 0.0, location::mainland));
+      const result r_2(species(species_id_2, parent_id, clade_id, 0.0, location::mainland));
+      const results rs( { r_1, r_2 } );
+      const std::vector<std::string> svg = to_svg(rs);
+      assert(count_non_black_lines(svg) == 2);
+      assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
+    }
+    #endif // FIX_ISSUE_33
+    #ifdef FIX_ISSUE_34
+    // 3 mainland species, 1 clade ID, 1 extinction
+    {
+      const auto species_id_1 = create_new_species_id(); //126 in picture
+      const auto species_id_2 = create_new_species_id(); //127 in picture
+      const auto species_id_3 = create_new_species_id(); //128 in picture
+      const auto parent_id = create_null_species_id();
+      const auto clade_id = create_new_clade_id(); // 45 in picture
+      const result r_1(species(species_id_1, parent_id, clade_id, 0.0, location::mainland));
+      const result r_2(species(species_id_2, parent_id, clade_id, 0.5, location::mainland));
+      const result r_3(species(species_id_3, parent_id, clade_id, 2.6, location::mainland));
+      const results rs( { r_1, r_2, r_3 } );
+      const std::vector<std::string> svg = to_svg(rs);
+      assert(count_non_black_lines(svg) == 3);
+      assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
+    }
+    #endif // FIX_ISSUE_34
   }
 }
