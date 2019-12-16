@@ -5,6 +5,7 @@
 #include "elly_clade.h"
 #include "elly_parameters.h"
 #include "elly_simulation.h"
+#include "elly_svg.h"
 
 bool elly::is_xml_declaration(const std::string& s){
     return s.substr(0,5) == "<?xml";}

@@ -28,6 +28,8 @@ Take a look at the vignette.
 
 ## Pictures
 
+![](pics/20191216.png)
+
 ![](pics/elly_gui_4.png)
 
 ![](pics/elly_gui_3.png)

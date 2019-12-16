@@ -24,7 +24,8 @@ SOURCES += \
     $$PWD/../src/elly_results.cpp \
     $$PWD/../src/elly_simulation.cpp \
     $$PWD/../src/elly_species.cpp \
-    $$PWD/../src/elly_species_id.cpp
+    $$PWD/../src/elly_species_id.cpp \
+    $$PWD/../src/elly_svg.cpp
 
 HEADERS += \
     $$PWD/../src/elly_carrying_capacity.h \
@@ -51,4 +52,5 @@ HEADERS += \
     $$PWD/../src/elly_results.h \
     $$PWD/../src/elly_simulation.h \
     $$PWD/../src/elly_species.h \
-    $$PWD/../src/elly_species_id.h
+    $$PWD/../src/elly_species_id.h \
+    $$PWD/../src/elly_svg.h

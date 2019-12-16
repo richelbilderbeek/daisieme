@@ -21,6 +21,7 @@
 #include "elly_simulation.h"
 #include "elly_location.h"
 #include "elly_results.h"
+#include "elly_svg.h"
 
 #include "ui_elly_qtmaindialog.h"
 
@@ -59,7 +60,8 @@ elly::qtmaindialog::qtmaindialog(QWidget *parent)
       m_plot_pop_sizes{new QwtPlot(QwtText("Community composition in time"), this)},
       m_plot_rates{new QwtPlot(QwtText("Rates in time"), this)},
       m_sim_results{new QPlainTextEdit},
-      m_svg{new QSvgWidget}
+      m_svg{new QSvgWidget},
+      m_svg_text{new QPlainTextEdit}
 {
   ui->setupUi(this);
 
@@ -129,6 +131,7 @@ void elly::qtmaindialog::add_widgets_to_ui() noexcept
   ui->widget_right->layout()->addWidget(m_plot_rates);
   ui->widget_right->layout()->addWidget(m_parameters);
   ui->widget_right->layout()->addWidget(m_svg);
+  ui->widget_right->layout()->addWidget(m_svg_text);
   ui->widget_right->layout()->addWidget(m_sim_results);
   ui->widget_right->layout()->addWidget(m_daic_inputs);
   ui->widget_right->layout()->addWidget(m_daic_outputs);
@@ -286,7 +289,7 @@ void elly::qtmaindialog::on_start_clicked()
     plot_event_rates(measurements);
     plot_daic_input(get_results(s));
     plot_sim_results(get_results(s));
-    plot_sim_results_as_figure(get_results(s));
+    show_results(get_results(s));
 
     const auto end_time = my_clock::now();
     const auto diff = end_time - start_time;
@@ -405,12 +408,13 @@ void elly::qtmaindialog::plot_sim_results(const results& v)
   m_sim_results->setPlainText(s.str().c_str());
 }
 
-void elly::qtmaindialog::plot_sim_results_as_figure(const results& r)
+void elly::qtmaindialog::show_results(const results& r)
 {
   const std::vector<std::string> v = to_svg(r);
   std::string s;
-  for (const auto& i: v) { s += i; }
+  for (const auto& i: v) { s += i + '\n'; }
   m_svg->load(QByteArray(s.c_str()));
+  m_svg_text->setPlainText(QString::fromStdString(s));
 }
 
 
@@ -512,12 +516,15 @@ void elly::qtmaindialog::setup_widgets() noexcept
   m_parameters->setFont(QFont("Monospace"));
   m_parameters->setMinimumHeight(400);
   m_parameters->setReadOnly(true);
-  m_svg->setMinimumHeight(400);
   m_plot_pop_sizes->setMinimumHeight(400);
   m_plot_rates->setMinimumHeight(400);
   m_sim_results->setFont(QFont("Monospace"));
   m_sim_results->setMinimumHeight(400);
   m_sim_results->setReadOnly(true);
+  m_svg_text->setFont(QFont("Monospace"));
+  m_svg_text->setMinimumHeight(400);
+  m_svg_text->setReadOnly(true);
+  m_svg->setMinimumHeight(400);
 }
 
 void elly::qtmaindialog::on_start_next_clicked()
@@ -565,7 +572,7 @@ void elly::qtmaindialog::on_run_daisie_clicked()
     plot_event_rates(e.get_sim_measurements());
     plot_daic_input(e.get_sim_results());
     plot_sim_results(e.get_sim_results());
-    plot_sim_results_as_figure(e.get_sim_results());
+    show_results(e.get_sim_results());
     plot_daic_inputs(e);
     plot_daic_outputs(e);
   }
