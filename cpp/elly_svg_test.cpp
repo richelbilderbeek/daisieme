@@ -6,37 +6,20 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 #include "elly_svg.h"
+#include <regex>
 
 int elly::get_svg_width(const std::vector<std::string>& svg){
-
-    //gets the size of the "width" declaration.
-    std::string width = "width= ";
-
-    //sets gives location for the end of the width statement
-    int width_end = svg[1].find("width=");
-
-    // same for start of height
-    int stop = svg[1].find("height") - 2;
-
-    //gives substring between width and height statement
-    std::string svg_width = svg[1].substr(width_end + width.size(), stop - (width_end + width.size()));
-
-    return std::stoi(svg[1].substr(width_end + width.size(), stop - (width_end + width.size())));
+    std::regex rgx(".*width=\"(.*?)\".*");
+    std::smatch width;
+    std::regex_search(svg[1], width , rgx);
+    return stoi(width[1]);
 }
 
 int elly::get_svg_height(const std::vector<std::string>& svg){
-
-    //gets the size of the "width" declaration.
-    std::string height = "height= ";
-
-    //sets gives location for the end of the width statement
-    int height_end = svg[1].find("height=");
-
-    // same for start of height
-    int stop = svg[1].find("viewBox") - 2;
-
-    //gives substring between width and height and converts to int
-    return std::stoi(svg[1].substr(height_end + height.size(), stop - (height_end + height.size())));;
+    std::regex rgx(".*height=\"(.*?)\".*");
+    std::smatch height;
+    std::regex_search(svg[1], height , rgx);
+    return stoi(height[1]);
 }
 
 void elly::svg_test() //!OCLINT tests may be long
