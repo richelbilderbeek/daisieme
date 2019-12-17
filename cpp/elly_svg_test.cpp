@@ -7,7 +7,37 @@
 #include "elly_simulation.h"
 #include "elly_svg.h"
 
+int elly::get_svg_width(const std::vector<std::string>& svg){
 
+    //gets the size of the "width" declaration.
+    std::string width = "width= ";
+
+    //sets gives location for the end of the width statement
+    int width_end = svg[1].find("width=");
+
+    // same for start of height
+    int stop = svg[1].find("height") - 2;
+
+    //gives substring between width and height statement
+    std::string svg_width = svg[1].substr(width_end + width.size(), stop - (width_end + width.size()));
+
+    return std::stoi(svg[1].substr(width_end + width.size(), stop - (width_end + width.size())));
+}
+
+int elly::get_svg_height(const std::vector<std::string>& svg){
+
+    //gets the size of the "width" declaration.
+    std::string height = "height= ";
+
+    //sets gives location for the end of the width statement
+    int height_end = svg[1].find("height=");
+
+    // same for start of height
+    int stop = svg[1].find("viewBox") - 2;
+
+    //gives substring between width and height and converts to int
+    return std::stoi(svg[1].substr(height_end + height.size(), stop - (height_end + height.size())));;
+}
 
 void elly::svg_test() //!OCLINT tests may be long
 {
@@ -88,16 +118,18 @@ void elly::svg_test() //!OCLINT tests may be long
     {
 
     }
+    #define FIX_ISSUE_28
     #ifdef FIX_ISSUE_28
     // Get the width of the SVG
     {
-      assert(get_svg_width(get_svg_example_1()) == 200);
+      assert(get_svg_width(get_example_svg_1()) == 200);
     }
     #endif // FIX_ISSUE_28
+    #define FIX_ISSUE_29
     #ifdef FIX_ISSUE_29
     // Get the height of the SVG
     {
-      assert(get_svg_height(get_svg_example_1()) == 10);
+      assert(get_svg_height(get_example_svg_1()) == 10);
     }
     #endif // FIX_ISSUE_29
     #ifdef FIX_ISSUE_31
