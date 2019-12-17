@@ -22,6 +22,44 @@ int elly::get_svg_height(const std::vector<std::string>& svg){
     return stoi(height[1]);
 }
 
+
+float elly::get_svg_viewbox_x1(const std::vector<std::string> &svg)
+{
+    std::regex rgx(".*viewBox=\"(.*?) (.*?) (.*?) (.*?)\".*");
+    std::smatch viewbox;
+    std::regex_search(svg[1], viewbox, rgx);
+
+    return stof(viewbox[1]);
+}
+
+float elly::get_svg_viewbox_y1(const std::vector<std::string> &svg)
+{
+    std::regex rgx(".*viewBox=\"(.*?) (.*?) (.*?) (.*?)\".*");
+    std::smatch viewbox;
+    std::regex_search(svg[1], viewbox, rgx);
+
+    return stof(viewbox[2]);
+}
+
+float elly::get_svg_viewbox_x2(const std::vector<std::string> &svg)
+{
+    std::regex rgx(".*viewBox=\"(.*?) (.*?) (.*?) (.*?)\".*");
+    std::smatch viewbox;
+    std::regex_search(svg[1], viewbox, rgx);
+
+    return stof(viewbox[3]);
+}
+
+float elly::get_svg_viewbox_y2(const std::vector<std::string> &svg)
+{
+    std::regex rgx(".*viewBox=\"(.*?) (.*?) (.*?) (.*?)\".*");
+    std::smatch viewbox;
+    std::regex_search(svg[1], viewbox, rgx);
+
+    return stof(viewbox[4]);
+}
+
+
 void elly::svg_test() //!OCLINT tests may be long
 {
   //elly_is_xml_declaration
@@ -115,6 +153,7 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(get_svg_height(get_example_svg_1()) == 10);
     }
     #endif // FIX_ISSUE_29
+    #define FIX_ISSUE_31
     #ifdef FIX_ISSUE_31
     // Get the coordinats of the viewbox
     {
@@ -123,10 +162,10 @@ void elly::svg_test() //!OCLINT tests may be long
         "<svg width=\"200\" height=\"10\" viewBox=\"-10 0 10 1\" xmlns=\"http://www.w3.org/2000/svg\">",
         "</svg>"
       };
-      assert(!get_svg_viewbox_x1(svg) == -10.0);
-      assert(!get_svg_viewbox_y1(svg) ==   0.0);
-      assert(!get_svg_viewbox_x2(svg) ==  10.0);
-      assert(!get_svg_viewbox_y2(svg) ==   1.0);
+      assert(get_svg_viewbox_x1(svg) == -10.0);
+      assert(get_svg_viewbox_y1(svg) ==   0.0);
+      assert(get_svg_viewbox_x2(svg) ==  10.0);
+      assert(get_svg_viewbox_y2(svg) ==   1.0);
     }
     #endif // FIX_ISSUE_31
     #ifdef FIX_ISSUE_30
