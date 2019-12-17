@@ -59,6 +59,100 @@ float elly::get_svg_viewbox_y2(const std::vector<std::string> &svg)
     return stof(viewbox[4]);
 }
 
+float elly::get_svg_line_x1(const std::string &svg)
+{
+    std::regex rgx(".*x1=\"(.*?)\".*");
+    std::smatch x1;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_line(svg))
+        {
+            std::regex_search(svg, x1, rgx);
+        }
+    }
+
+    return stof(x1[1]);
+}
+
+float elly::get_svg_line_y1(const std::string &svg)
+{
+    std::regex rgx(".*y1=\"(.*?)\".*");
+    std::smatch y1;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_line(svg))
+        {
+            std::regex_search(svg, y1, rgx);
+        }
+    }
+
+    return stof(y1[1]);
+}
+
+float elly::get_svg_line_x2(const std::string &svg)
+{
+    std::regex rgx(".*x2=\"(.*?)\".*");
+    std::smatch x2;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_line(svg))
+        {
+            std::regex_search(svg, x2, rgx);
+        }
+    }
+
+    return stof(x2[1]);
+}
+
+float elly::get_svg_line_y2(const std::string &svg)
+{
+    std::regex rgx(".*y2=\"(.*?)\".*");
+    std::smatch y2;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_line(svg))
+        {
+            std::regex_search(svg, y2, rgx);
+        }
+    }
+
+    return stof(y2[1]);
+}
+
+std::string elly::get_svg_line_colour(const std::string &svg)
+{
+    std::regex rgx(".*stroke=\"(.*?)\".*");
+    std::smatch colour;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_line(svg))
+        {
+            std::regex_search(svg, colour, rgx);
+        }
+    }
+
+    return colour[1];
+}
+
+
+
+bool elly::has_time_scale_line(const std::vector<std::string> &svg){
+    for(unsigned int i = 0; i < svg.size(); ++i){
+        if(is_svg_line(svg[i]) &&
+                get_svg_line_x1(svg[i]) == 0.0 &&
+                get_svg_line_y1(svg[i]) == 1.0 &&
+                get_svg_line_x2(svg[i]) == 1.0 &&     // can also add input to function (crown age variable?)
+                get_svg_line_y2(svg[i]) == 1.0 &&
+                get_svg_line_colour(svg[i]) == "black"){
+           return is_svg_line(svg[i]);
+        }
+    }
+  return false;
+}
+
+
+
+
 
 void elly::svg_test() //!OCLINT tests may be long
 {
@@ -168,6 +262,7 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(get_svg_viewbox_y2(svg) ==   1.0);
     }
     #endif // FIX_ISSUE_31
+    #define FIX_ISSUE_30
     #ifdef FIX_ISSUE_30
     // An empty SVG has no time scale line
     {

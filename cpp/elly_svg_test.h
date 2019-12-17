@@ -22,6 +22,17 @@ float get_svg_viewbox_x2(const std::vector<std::string> &svg);
 float get_svg_viewbox_y1(const std::vector<std::string> &svg);
 float get_svg_viewbox_y2(const std::vector<std::string> &svg);
 
+//gets x/y coords from a svg-line
+float get_svg_line_x1(const std::string &svg);
+float get_svg_line_y1(const std::string &svg);
+float get_svg_line_x2(const std::string &svg);
+float get_svg_line_y2(const std::string &svg);
+
+//gets colour of svg-line
+std::string get_svg_line_colour(const std::string &svg);
+
+//Checks if svg has a timescale line
+bool has_time_scale_line(const std::vector<std::string> &svg);
 
 
 } //~namespace elly
