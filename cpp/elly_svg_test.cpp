@@ -6,6 +6,7 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 #include "elly_svg.h"
+#include <regex>
 
 
 
@@ -88,19 +89,16 @@ void elly::svg_test() //!OCLINT tests may be long
     {
 
     }
-    #ifdef FIX_ISSUE_28
     // Get the width of the SVG
     {
-      assert(get_svg_width(get_svg_example_1()) == 200);
+      assert(get_svg_width(get_example_svg_1()) == 200);
     }
-    #endif // FIX_ISSUE_28
-    #ifdef FIX_ISSUE_29
+
     // Get the height of the SVG
     {
-      assert(get_svg_height(get_svg_example_1()) == 10);
+      assert(get_svg_height(get_example_svg_1()) == 10);
     }
-    #endif // FIX_ISSUE_29
-    #ifdef FIX_ISSUE_31
+
     // Get the coordinats of the viewbox
     {
       const std::vector<std::string> svg = {
@@ -108,13 +106,12 @@ void elly::svg_test() //!OCLINT tests may be long
         "<svg width=\"200\" height=\"10\" viewBox=\"-10 0 10 1\" xmlns=\"http://www.w3.org/2000/svg\">",
         "</svg>"
       };
-      assert(!get_svg_viewbox_x1(svg) == -10.0);
-      assert(!get_svg_viewbox_y1(svg) ==   0.0);
-      assert(!get_svg_viewbox_x2(svg) ==  10.0);
-      assert(!get_svg_viewbox_y2(svg) ==   1.0);
+      assert(get_svg_viewbox_x1(svg) == -10.0);
+      assert(get_svg_viewbox_y1(svg) ==   0.0);
+      assert(get_svg_viewbox_x2(svg) ==  10.0);
+      assert(get_svg_viewbox_y2(svg) ==   1.0);
     }
-    #endif // FIX_ISSUE_31
-    #ifdef FIX_ISSUE_30
+
     // An empty SVG has no time scale line
     {
       const std::vector<std::string> svg = {
@@ -198,7 +195,7 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(no_results);
       assert(has_time_scale_line(svg));
     }
-    #endif // FIX_ISSUE_30
+    //#define FIX_ISSUE_32
     #ifdef FIX_ISSUE_32
     // 1 mainland species, 1 clade ID, nothing happening
     {
