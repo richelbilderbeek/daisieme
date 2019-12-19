@@ -6,7 +6,7 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 #include "elly_svg.h"
-
+#include <fstream>
 
 
 void elly::svg_test() //!OCLINT tests may be long
@@ -82,7 +82,7 @@ void elly::svg_test() //!OCLINT tests may be long
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
      const std::vector<std::string> svg = to_svg(sim_results);
-     assert(is_svg_line(svg[2])); //Brittle test
+     assert(is_svg_line(svg[3])); //Brittle test
     }
     // User can specify the crown age. By default this is 1.0
     {
@@ -207,6 +207,20 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
+
+      #ifdef SHOW_32_OUTPUT
+        std::ofstream ofs("issue32.svg");
+           if (!ofs.is_open())
+            throw std::runtime_error("Unable to open or create the file. \n");
+
+        for(unsigned int i = 0; i < svg.size(); i++){
+            ofs << svg[i] << "\n";
+          }
+        ofs.close();
+
+        //change path to a suitable program to open .svg files
+        std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue32.svg");
+      #endif
     }
     // 2 mainland species, 1 clade ID, nothing happening
     {
@@ -220,6 +234,20 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 2);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
+
+      #ifdef SHOW_33_OUTPUT
+        std::ofstream ofs("issue33.svg");
+           if (!ofs.is_open())
+            throw std::runtime_error("Unable to open or create the file. \n");
+
+        for(unsigned int i = 0; i < svg.size(); i++){
+            ofs << svg[i] << "\n";
+          }
+        ofs.close();
+
+        //change path to a suitable program to open .svg files
+        std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue33.svg");
+      #endif
     }
     // 3 mainland species, 1 clade ID, 1 extinction
     {
@@ -234,8 +262,60 @@ void elly::svg_test() //!OCLINT tests may be long
       const results rs( { r_1, r_2, r_3 } );
       const std::vector<std::string> svg = to_svg(rs);
 
+    #ifdef SHOW_34_OUTPUT
+    std::ofstream ofs("issue34.svg");
+       if (!ofs.is_open())
+        throw std::runtime_error("Unable to open or create the file. \n");
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+        ofs << svg[i] << "\n";
+      }
+    ofs.close();
+
+    //change path to a suitable program to open .svg files
+    std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue34.svg");
+    #endif
+
+
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
+
+    #define FIX_ISSUE_35
+    #ifdef FIX_ISSUE_35
+    // 1 mainland species + 1 cladogenesis into 2 mainland species
+    {
+     elly::species parent = create_new_test_species(location::mainland);
+     parent.go_extinct(1.5, location::mainland);
+     elly::species focal1 = create_descendant(parent, 1.5, location::mainland);
+     elly::species focal2 = create_descendant(parent, 1.5, location::mainland);
+     elly::species newspec = create_new_test_species(location::mainland);
+     const result r_1(parent);
+     const result r_2(focal1);
+     const result r_3(focal2);
+     const results rs( { r_1, r_2, r_3 } );
+     const std::vector<std::string> svg = to_svg(rs);
+
+     assert(count_n_lines(svg) >= 4);   //At least 4, time scale and 3 species
+
+     #ifdef SHOW_35_OUTPUT
+            std::ofstream ofs("issue35.svg");
+               if (!ofs.is_open())
+                throw std::runtime_error("Unable to open or create the file. \n");
+
+            for(unsigned int i = 0; i < svg.size(); i++){
+                ofs << svg[i] << "\n";
+              }
+            ofs.close();
+
+     //change path to a suitable program to open .svg files
+     std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue35.svg");
+     #endif
+
+
+    }
+    #endif
+
   }
+
 }

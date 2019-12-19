@@ -71,7 +71,9 @@ int count_non_black_lines(const std::vector<std::string>& svg);
 //counts number of text elements (species_id/ clade_id etc.)
 int count_n_text_elements(const std::vector<std::string>& svg);
 
-
+//counts number of lines in svg
+//Should be n_species + Timescale
+int count_n_lines(const std::vector<std::string>& svg);
 
 
 } //~namespace elly
