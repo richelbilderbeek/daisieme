@@ -49,6 +49,7 @@ float get_svg_line_y2(const std::string &svg);
 std::string get_svg_line_colour(const std::string &svg);
 
 //Checks if svg has a timescale line
+//Needs to be modified once we implement crown age.
 bool has_time_scale_line(const std::vector<std::string> &svg);
 
 //Gives an example svg
@@ -61,6 +62,15 @@ std::vector<std::string> create_svg_object(const results&);
 ///each element being a line of text.
 ///First line will be the XML declarator
 std::vector<std::string> to_svg(const results& r);
+
+
+//checks number of black lines in the SVG
+//only timescale line is black
+int count_non_black_lines(const std::vector<std::string>& svg);
+
+//counts number of text elements (species_id/ clade_id etc.)
+int count_n_text_elements(const std::vector<std::string>& svg);
+
 
 
 

@@ -164,6 +164,15 @@ bool elly::has_time_scale_line(const std::vector<std::string> &svg){
                 get_svg_line_colour(svg[i]) == "black"){
            return is_svg_line(svg[i]);
         }
+        else if(is_svg_line(svg[i]) &&
+                        get_svg_line_x1(svg[i]) == 0.0 &&
+                        get_svg_line_y1(svg[i]) == 10.0 &&
+                        get_svg_line_x2(svg[i]) == 10.0 &&     // can also add input to function (crown age variable?)
+                        get_svg_line_y2(svg[i]) == 10.0 &&
+                        get_svg_line_colour(svg[i]) == "black")
+
+            //"<line x1=\"0\" y1=\"10\" x2=\"10\" y2=\"10\" stroke=\"black\"  stroke-width=\"0.2\"/>"
+            return is_svg_line(svg[i]);
     }
   return false;
 }
@@ -227,6 +236,29 @@ std::vector<std::string> elly::create_svg_object(const results& rs)
   }
   return svg;
 }
+
+int elly::count_non_black_lines(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+       if(is_svg_line(svg[i]) && get_svg_line_colour(svg[i]) != "black") count += 1;
+
+    }
+    return count;
+}
+
+int elly::count_n_text_elements(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+        if(is_svg_text(svg[i])){
+
+            count += 1;
+        }
+    }
+    return count;
+}
+
 
 std::vector<std::string> elly::get_example_svg_1(){
 return {

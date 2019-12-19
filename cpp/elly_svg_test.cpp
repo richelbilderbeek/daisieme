@@ -6,33 +6,6 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 #include "elly_svg.h"
-#include <fstream>
-
-int elly::count_non_black_lines(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-       if(is_svg_line(svg[i]) && get_svg_line_colour(svg[i]) != "black") count += 1;
-
-    }
-    return count;
-}
-
-int elly::count_n_text_elements(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-        if(is_svg_text(svg[i])){
-
-            count += 1;
-        }
-    }
-    return count;
-}
-
-
-
-
 
 
 
@@ -221,8 +194,6 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(no_results);
       assert(has_time_scale_line(svg));
     }
-    #define FIX_ISSUE_32
-    #ifdef FIX_ISSUE_32
     // 1 mainland species, 1 clade ID, nothing happening
     {
       const auto species_id = create_new_species_id(); //217 in picture
@@ -237,9 +208,6 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
-    #endif // FIX_ISSUE_32
-    #define FIX_ISSUE_33
-    #ifdef FIX_ISSUE_33
     // 2 mainland species, 1 clade ID, nothing happening
     {
       const auto species_id_1 = create_new_species_id(); //316 in picture
@@ -253,9 +221,6 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(count_non_black_lines(svg) == 2);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
-    #endif // FIX_ISSUE_33
-    #define FIX_ISSUE_34
-    #ifdef FIX_ISSUE_34
     // 3 mainland species, 1 clade ID, 1 extinction
     {
       const auto species_id_1 = create_new_species_id(); //126 in picture
@@ -269,17 +234,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const results rs( { r_1, r_2, r_3 } );
       const std::vector<std::string> svg = to_svg(rs);
 
-      std::ofstream ofs("test.svg");
-              if (!ofs.is_open())
-                  throw std::runtime_error("Unable to open or create the file. \n");
-      for(unsigned int i = 0; i < svg.size(); i++){
-          std::cout << svg[i] << "\n";
-
-      }
-      ofs.close();
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
-    #endif // FIX_ISSUE_34
   }
 }
