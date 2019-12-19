@@ -6,9 +6,16 @@
 
 namespace elly {
 ///The tests for the daisieme project by Damian and Dave.
+///
+int count_non_black_lines(const std::vector<std::string>& svg);
+
+int count_n_text_elements(const std::vector<std::string>& svg);
 
 
 void svg_test();
+
+
+
 
 
 } //~namespace elly

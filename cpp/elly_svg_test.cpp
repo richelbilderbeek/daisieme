@@ -6,7 +6,33 @@
 #include "elly_parameters.h"
 #include "elly_simulation.h"
 #include "elly_svg.h"
-#include <regex>
+#include <fstream>
+
+int elly::count_non_black_lines(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+       if(is_svg_line(svg[i]) && get_svg_line_colour(svg[i]) != "black") count += 1;
+
+    }
+    return count;
+}
+
+int elly::count_n_text_elements(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+        if(is_svg_text(svg[i])){
+
+            count += 1;
+        }
+    }
+    return count;
+}
+
+
+
+
 
 
 
@@ -103,13 +129,13 @@ void elly::svg_test() //!OCLINT tests may be long
     {
       const std::vector<std::string> svg = {
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
-        "<svg width=\"200\" height=\"10\" viewBox=\"-10 0 10 1\" xmlns=\"http://www.w3.org/2000/svg\">",
+        "<svg width=\"1200\" height=\"900\" viewBox=\"-1 -1 3 3\" xmlns=\"http://www.w3.org/2000/svg\">",
         "</svg>"
       };
-      assert(get_svg_viewbox_x1(svg) == -10.0);
-      assert(get_svg_viewbox_y1(svg) ==   0.0);
-      assert(get_svg_viewbox_x2(svg) ==  10.0);
-      assert(get_svg_viewbox_y2(svg) ==   1.0);
+      assert(get_svg_viewbox_xmin(svg) == -1.0);
+      assert(get_svg_viewbox_ymin(svg) == -1.0);
+      assert(get_svg_viewbox_width(svg) ==  3.0);
+      assert(get_svg_viewbox_height(svg) == 3.0);
     }
 
     // An empty SVG has no time scale line
@@ -195,7 +221,7 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(no_results);
       assert(has_time_scale_line(svg));
     }
-    //#define FIX_ISSUE_32
+    #define FIX_ISSUE_32
     #ifdef FIX_ISSUE_32
     // 1 mainland species, 1 clade ID, nothing happening
     {
@@ -204,11 +230,15 @@ void elly::svg_test() //!OCLINT tests may be long
       const auto clade_id = create_new_clade_id(); // 57 in picture
       const result r(species(species_id, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r } );
+      //const std::vector<std::string> svg = to_svg(rs);
+      create_svg_object(rs);
+      //uncomment to try test with rs ( need to figure out how to work with results )
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
     #endif // FIX_ISSUE_32
+    #define FIX_ISSUE_33
     #ifdef FIX_ISSUE_33
     // 2 mainland species, 1 clade ID, nothing happening
     {
@@ -224,6 +254,7 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
     #endif // FIX_ISSUE_33
+    #define FIX_ISSUE_34
     #ifdef FIX_ISSUE_34
     // 3 mainland species, 1 clade ID, 1 extinction
     {
@@ -237,6 +268,15 @@ void elly::svg_test() //!OCLINT tests may be long
       const result r_3(species(species_id_3, parent_id, clade_id, 2.6, location::mainland));
       const results rs( { r_1, r_2, r_3 } );
       const std::vector<std::string> svg = to_svg(rs);
+
+      std::ofstream ofs("test.svg");
+              if (!ofs.is_open())
+                  throw std::runtime_error("Unable to open or create the file. \n");
+      for(unsigned int i = 0; i < svg.size(); i++){
+          std::cout << svg[i] << "\n";
+
+      }
+      ofs.close();
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
