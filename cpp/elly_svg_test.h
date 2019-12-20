@@ -6,9 +6,12 @@
 
 namespace elly {
 ///The tests for the daisieme project by Damian and Dave.
-
+///
 
 void svg_test();
+
+
+
 
 
 } //~namespace elly
