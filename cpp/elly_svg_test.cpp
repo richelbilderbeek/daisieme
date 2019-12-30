@@ -143,7 +143,7 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = {
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>",
         "<svg width=\"200\" height=\"10\" viewBox=\"-1 -1 2 2\" xmlns=\"http://www.w3.org/2000/svg\">",
-        "<line x1=\"0\" y1=\"2\" x2=\"1\" y2=\"2\" id=\"-1\" stroke=\"black\" />",       // ID = -1 reserved for timescale
+        "<line x1=\"0\" y1=\"1.5\" x2=\"1\" y2=\"1.5\" id=\"-1\" stroke=\"black\" />",       // ID = -1 reserved for timescale
         "</svg>"
       };
       assert(has_time_scale_line(svg));
@@ -192,7 +192,7 @@ void elly::svg_test() //!OCLINT tests may be long
     {
       const results no_results;
       const std::vector<std::string> svg = to_svg(no_results);
-      assert(has_time_scale_line(svg));
+   assert(has_time_scale_line(svg));
     }
     // 1 mainland species, 1 clade ID, nothing happening
     {
@@ -303,6 +303,7 @@ void elly::svg_test() //!OCLINT tests may be long
      const std::vector<std::string> svg = to_svg(rs);
 
      assert(count_n_lines(svg) >= 4);   //At least 4, time scale and 3 species
+     assert(has_time_scale_line(svg));
 
      #define SHOW_35_OUTPUT
      #ifdef SHOW_35_OUTPUT
@@ -316,7 +317,7 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue35.svg");
+     std::system("firefox issue35.svg");
      #endif
 
 

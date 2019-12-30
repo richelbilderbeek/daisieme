@@ -172,17 +172,17 @@ bool elly::has_time_scale_line(const std::vector<std::string> &svg){
     for(unsigned int i = 0; i < svg.size(); ++i){
         if(is_svg_line(svg[i]) && get_svg_line_ID(svg[i]) == -1 &&
                 get_svg_line_colour(svg[i]) == "black" &&
-                get_svg_line_y1(svg[i]) == get_svg_viewbox_height(svg) &&
-                get_svg_line_y2(svg[i]) == get_svg_viewbox_height(svg) &&
-                get_svg_line_x1(svg[i]) >= get_svg_viewbox_xmin(svg) &&
-                get_svg_line_x2(svg[i]) <= get_svg_viewbox_width(svg)){
+                get_svg_line_y1(svg[i]) == get_svg_viewbox_height(svg) - 0.5 &&
+                get_svg_line_y2(svg[i]) == get_svg_viewbox_height(svg) - 0.5 &&
+                get_svg_line_x1(svg[i]) >= get_svg_viewbox_xmin(svg) + 0.5
+                ){
            return true;
         }
         else if(is_svg_line(svg[i]) &&
-                        get_svg_line_x1(svg[i]) == 0.5 &&
-                        get_svg_line_y1(svg[i]) == 1.0 &&
-                        get_svg_line_x2(svg[i]) == 2.0 &&     // can also add input to function (crown age variable?)
-                        get_svg_line_y2(svg[i]) == 1.0 &&
+                        get_svg_line_x1(svg[i]) == 0 &&
+                        get_svg_line_y1(svg[i]) == 1.5 &&
+                        get_svg_line_x2(svg[i]) == 1.0 &&     // can also add input to function (crown age variable?)
+                        get_svg_line_y2(svg[i]) == 1.5 &&
                         get_svg_line_colour(svg[i]) == "black")
 
             return is_svg_line(svg[i]);
@@ -217,19 +217,12 @@ std::vector<std::string> elly::to_svg(const results& rs)
   initialize_svg_size(svg, rs);
 
   std::vector<std::string> svg_object = create_svg_object(rs);
-
   for(unsigned int i = 0; i < svg_object.size(); i++){
-      svg.push_back(svg_object[i]);
-  }
+      svg.push_back(svg_object[i]);}
 
-  std::vector<std::string> time_scale = create_time_scale_line(rs);
-  for(unsigned int i = 0; i < time_scale.size(); i++){
-      svg.push_back(time_scale[i]);
-  }
-
+  create_time_scale_line(rs, svg);
   svg.push_back("</svg>");
   return svg;
-
   //STUB
   //return get_example_svg_1();
 }
@@ -240,10 +233,10 @@ std::vector<std::string> elly::create_svg_object(const results& rs)
   for(unsigned int i = 0; i < rs.get().size(); i++){
       std::stringstream ssline, ssid, ssclade;
 
-      //currently height of line and text is the same as species_id
-      //Need to find different system to be able to differentiate between mainland
-      //and island species
-          double ext_x = 10;
+    //currently height of line and text is the same as species_id
+    //Need to find different system to be able to differentiate between mainland
+    //and island species
+          double ext_x = 5;
           float y =  rs.get()[i].get_species().get_species_id().get_id();
 
          if(rs.get()[i].get_species().get_parent_id().get_id() != 0){
@@ -267,24 +260,24 @@ std::vector<std::string> elly::create_svg_object(const results& rs)
           if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0){
                ext_x = rs.get()[i].get_species().get_time_of_extinction_mainland();}
 
-         ssline << "<line x1=\"" << rs.get()[i].get_species().get_time_of_birth()
+         ssline << "<line x1=\"" << rs.get()[i].get_species().get_time_of_birth() + 0.5
                 << "\" y1=\"" << y
-                << "\" x2=\"" << ext_x
+                << "\" x2=\"" << ext_x + 0.5
                 << "\" y2=\"" << y
                 << "\" id=\"" << rs.get()[i].get_species().get_species_id()
                 << "\" stroke=\"blue\" "
                 << "stroke-width=\"0.2\" />";
 
-           ssid << "<text x=\"" << 10.5
-                << "\" y=\"" << y
+           ssid << "<text x=\"" << ext_x + 0.6
+                << "\" y=\"" << y + 0.1
                 << "\" font-family=\"sans-serif\" font-size=\"0.4px\" fill=\"black\">"
                 << rs.get()[i].get_species().get_species_id().get_id()
                 <<"</text>";
 
           if(rs.get()[i].get_species().get_parent_id().get_id() == 0){
-        ssclade << "<text x=\"" << -0.5
-                << "\" y=\"" << y
-                << "\" font-family=\"sans-serif\" font-size=\"0.4px\" fill=\"black\">"
+        ssclade << "<text x=\"" << - 0.5
+                << "\" y=\"" << y + 0.1
+                << "\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"0.4px\" fill=\"black\">"
                 << rs.get()[i].get_species().get_clade_id().get_id()
                 <<"</text>";
 
@@ -303,16 +296,77 @@ std::vector<std::string> elly::create_svg_object(const results& rs)
 
 
 //Timeline needs to be placed at bottom of viewbox
-std::vector<std::string> elly::create_time_scale_line(const results&){
-    std::vector<std::string> svg;
-    svg.push_back("<line x1=\"0.5\" y1=\"1\" x2=\"2\" y2=\"1\" stroke=\"black\" id=\"-1\" stroke-width=\"0.02\"/>");   // ID -1 reserved for timescale identification. id > 0 will be used for species ID
-    svg.push_back("<line x1=\"0.5\" x2=\"0.5\" y1=\"1.07\" y2=\"0.92\" stroke=\"black\" id=\"-2\" stroke-width=\"0.02\" />");
-    svg.push_back("<line x1=\"2\" x2=\"2\" y1=\"1.07\" y2=\"0.92\" stroke=\"black\" id=\"-2\" stroke-width=\"0.02\" />");
-    svg.push_back("<text x=\"0.40\" y=\"1.3\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">0</text>");
-    svg.push_back("<text x=\"1.98\" y=\"1.3\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">1</text>");
+void elly::create_time_scale_line(const results&, std::vector<std::string>& svg){
+    std::stringstream horizontal, vert_left, vert_right, left_digit, right_digit;
 
-    return svg;
+int crownage = 5;
+
+
+
+for(int i = 0; i < crownage; i++){
+
+    horizontal  << "<line x1=\"" << i + 0.5
+                << "\" x2=\"" << i + 1.5
+                << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.5
+                << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.5
+                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
+
+    vert_left   << "<line x1=\"" << i + 0.5
+                << "\" x2=\"" << i + 0.5
+                << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.57
+                << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.43
+                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
+
+    vert_right   << "<line x1=\"" << i + 1.5
+                << "\" x2=\"" << i +  1.5
+                << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.57
+                << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.43
+                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
+
+    left_digit  << "<text x=\"" << i + 0.4
+                << "\" y=\"" << get_svg_viewbox_height(svg) - 0.22
+                << "\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">"
+                << i
+                << "</text>";
+
+    if(i == crownage - 1){
+    right_digit     << "<text x=\"" << i + 1.4
+                    << "\" y=\"" << get_svg_viewbox_height(svg) - 0.22
+                    << "\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">"
+                    << i + 1
+                    << "</text>";
+
     }
+}
+
+    std::string s_horizontal = horizontal.str();
+    std::string s_vert_left = vert_left.str();
+    std::string s_vert_right = vert_right.str();
+    std::string s_left_digit = left_digit.str();
+    std::string s_right_digit = right_digit.str();
+
+    svg.push_back(s_horizontal);
+    svg.push_back(s_vert_left);
+    svg.push_back(s_vert_right);
+    svg.push_back(s_left_digit);
+    svg.push_back(s_right_digit);
+/*
+    //horizontal timeline
+    svg.push_back("<line x1=\"0.5\" y1=\"1\" x2=\"2\" y2=\"1\" stroke=\"black\" id=\"-1\" stroke-width=\"0.02\"/>");   // ID -1 reserved for timescale identification. id > 0 will be used for species ID
+
+    //vertical left
+    svg.push_back("<line x1=\"0.5\" x2=\"0.5\" y1=\"1.07\" y2=\"0.92\" stroke=\"black\" id=\"-2\" stroke-width=\"0.02\" />");
+
+    //vertical right
+    svg.push_back("<line x1=\"2\" x2=\"2\" y1=\"1.07\" y2=\"0.92\" stroke=\"black\" id=\"-2\" stroke-width=\"0.02\" />");
+
+    //left digit
+    svg.push_back("<text x=\"0.40\" y=\"1.3\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">0</text>");
+
+    // right digit
+    svg.push_back("<text x=\"1.98\" y=\"1.3\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">1</text>");
+*/
+}
 
 int elly::count_non_black_lines(const std::vector<std::string>& svg){
     int count = 0;

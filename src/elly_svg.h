@@ -62,7 +62,7 @@ void get_xml_declaration(std::vector<std::string>& svg);
 
 void initialize_svg_size(std::vector<std::string>& svg, const results& rs);
 
-std::vector<std::string> create_time_scale_line(const results&);
+void create_time_scale_line(const results&, std::vector<std::string>& svg);
 
 std::vector<std::string> create_svg_object(const results&);
 
