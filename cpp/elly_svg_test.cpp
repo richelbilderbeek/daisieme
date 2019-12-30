@@ -305,7 +305,6 @@ void elly::svg_test() //!OCLINT tests may be long
      assert(count_n_lines(svg) >= 4);   //At least 4, time scale and 3 species
      assert(has_time_scale_line(svg));
 
-     #define SHOW_35_OUTPUT
      #ifdef SHOW_35_OUTPUT
             std::ofstream ofs("issue35.svg");
                if (!ofs.is_open())
