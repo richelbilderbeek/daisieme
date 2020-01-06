@@ -204,21 +204,6 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
-
-      //#define SHOW_32_OUTPUT
-      #ifdef SHOW_32_OUTPUT
-        std::ofstream ofs("issue32.svg");
-           if (!ofs.is_open())
-            throw std::runtime_error("Unable to open or create the file. \n");
-
-        for(unsigned int i = 0; i < svg.size(); i++){
-            ofs << svg[i] << "\n";
-          }
-        ofs.close();
-
-        //change path to a suitable program to open .svg files
-        std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue32.svg");
-      #endif
     }
     // 2 mainland species, 1 clade ID, nothing happening
     {
@@ -232,21 +217,6 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 2);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
-
-      //#define SHOW_33_OUTPUT
-      #ifdef SHOW_33_OUTPUT
-        std::ofstream ofs("issue33.svg");
-           if (!ofs.is_open())
-            throw std::runtime_error("Unable to open or create the file. \n");
-
-        for(unsigned int i = 0; i < svg.size(); i++){
-            ofs << svg[i] << "\n";
-          }
-        ofs.close();
-
-        //change path to a suitable program to open .svg files
-        std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue33.svg");
-      #endif
     }
     // 3 mainland species, 1 clade ID, 1 extinction
     {
@@ -262,21 +232,6 @@ void elly::svg_test() //!OCLINT tests may be long
       const std::vector<std::string> svg = to_svg(rs);
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
-
-    //#define SHOW_34_OUTPUT
-    #ifdef SHOW_34_OUTPUT
-    std::ofstream ofs("issue34.svg");
-       if (!ofs.is_open())
-        throw std::runtime_error("Unable to open or create the file. \n");
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-        ofs << svg[i] << "\n";
-      }
-    ofs.close();
-
-    //change path to a suitable program to open .svg files
-    std::system("\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" issue34.svg");
-    #endif
     }
 
     #define FIX_ISSUE_35
@@ -307,7 +262,9 @@ void elly::svg_test() //!OCLINT tests may be long
      assert(has_time_scale_line(svg));
      assert(has_ocean(svg));
      assert(count_n_parents(rs) != 2);
-     #define SHOW_35_OUTPUT
+     assert(count_n_rects(svg) >= 1);
+
+     //#define SHOW_35_OUTPUT
      #ifdef SHOW_35_OUTPUT
             std::ofstream ofs("issue35.svg");
                if (!ofs.is_open())
@@ -319,7 +276,7 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     //std::system("firefox issue35.svg");
+     std::system("firefox issue35.svg");
      #endif
 
 
@@ -328,7 +285,7 @@ void elly::svg_test() //!OCLINT tests may be long
     }
     #endif
 
-    #define FIX_ISSUE_36
+    //#define FIX_ISSUE_36
     #ifdef FIX_ISSUE_36
     // 1 mainland species + 1 island species
     {
@@ -338,7 +295,6 @@ void elly::svg_test() //!OCLINT tests may be long
      const result r_2(island);
      const results rs( { r_1, r_2 } );
      const std::vector<std::string> svg = to_svg(rs);
-
      assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
      assert(has_time_scale_line(svg));
      assert(has_ocean(svg));

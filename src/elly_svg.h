@@ -91,6 +91,8 @@ int count_n_lines(const std::vector<std::string>& svg);
 //count number of parentspecies
 int count_n_parents(const results& rs);
 
+int count_n_rects(const std::vector<std::string>& svg);
+
 } //~namespace elly
 
 #endif // ELLY_SVG_H

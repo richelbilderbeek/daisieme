@@ -30,6 +30,60 @@ bool elly::is_svg_rect(const std::string& s){
 }
 
 
+int elly::count_non_black_lines(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+       if(is_svg_line(svg[i]) && get_svg_line_colour(svg[i]) != "black")
+           count++;
+
+    }
+    return count;
+}
+
+int elly::count_n_text_elements(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+        if(is_svg_text(svg[i])){
+
+            count++;
+        }
+    }
+    return count;
+}
+
+int elly::count_n_lines(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for(unsigned int i = 0; i < svg.size(); i++){
+        if(is_svg_line(svg[i]))
+            count++;
+    }
+    return count;
+}
+
+int elly::count_n_parents(const results &rs){
+    int count = 0;
+
+    for(unsigned int i = 0; i < rs.get().size(); i++){
+        if(rs.get()[i].get_species().get_parent_id().get_id() == 0)
+            count++;
+    }
+    return count;
+}
+
+int elly::count_n_rects(const std::vector<std::string>& svg){
+    int count = 0;
+
+    for (unsigned int i = 0; i < svg.size(); i++){
+        if(is_svg_rect(svg[i]))
+            count++;
+    }
+    return count;
+}
+
+
 bool elly::is_svg(const std::vector<std::string>& svg){
     return (is_xml_declaration(svg[0]) && is_svg_start_tag(svg[1]) && is_svg_close_tag(svg.back())) ;
 }
@@ -145,7 +199,7 @@ float elly::get_svg_line_y2(const std::string &svg)
 
 std::string elly::get_svg_line_colour(const std::string &svg)
 {
-    std::regex rgx(".*stroke=\"(.*?)\".*");
+    std::regex rgx("stroke=\"(.*?)\"");
     std::smatch colour;
     for (unsigned int i = 0; i < svg.size(); i++)
     {
@@ -180,26 +234,29 @@ bool elly::has_time_scale_line(const std::vector<std::string> &svg){
                 get_svg_line_y1(svg[i]) == get_svg_viewbox_height(svg) - 0.5 &&
                 get_svg_line_y2(svg[i]) == get_svg_viewbox_height(svg) - 0.5 &&
                 get_svg_line_x1(svg[i]) >= get_svg_viewbox_xmin(svg) + 0.5
-                ){
+                )
+        {
            return true;
         }
-        else if(is_svg_line(svg[i]) &&
-                        get_svg_line_x1(svg[i]) == 0 &&
-                        get_svg_line_y1(svg[i]) == 1.5 &&
-                        get_svg_line_x2(svg[i]) == 1.0 &&     // can also add input to function (crown age variable?)
-                        get_svg_line_y2(svg[i]) == 1.5 &&
-                        get_svg_line_colour(svg[i]) == "black")
-
-            return is_svg_line(svg[i]);
     }
   return false;
 }
 
 bool elly::has_ocean(const std::vector<std::string> &svg){
     bool water = false;
-    for(unsigned int i = 0; i < svg.size(); ++i){
-        if(is_svg_rect(svg[i]))
-            water = true;
+
+    std::regex rgx("stroke=\"(.*?)\"");
+    std::smatch colour;
+    for (unsigned int i = 0; i < svg.size(); i++)
+    {
+        if (is_svg_rect(svg[i]))
+        {
+            for(unsigned int j = 0; j < svg[i].size(); j++)
+                std::regex_search(svg[i], colour, rgx);
+
+            if(colour[1] == "navy")
+                water = true;
+        }
     }
     return water;
 }
@@ -251,39 +308,38 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
   int n = 1;
   float divider = 1.0;
   if(rs.get().size() != 0)
-    divider = count_n_parents(rs) + 1;
-
+      divider = count_n_parents(rs) + 1;
 
   std::vector<std::string> svg_object;
   for(unsigned int i = 0; i < rs.get().size(); i++){
       std::stringstream ssline, ssid, ssclade;
 
-
-
-    //currently height of line and text is the same as species_id
-    //Need to find different system to be able to differentiate between mainland
-    //and island species
           double ext_x = 14;
           float y = 0.0;
 
-          if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_mainlander(rs.get()[i].get_species())){
+          if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_mainlander(rs.get()[i].get_species()))
+          {
               y += n * ((get_svg_viewbox_height(svg) / 2.0) / divider);
               n++;
-          } else if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_islander(rs.get()[i].get_species())) {
-              y+= n * ((get_svg_viewbox_height(svg)/2) / divider) + (get_svg_viewbox_height(svg) / 2.0);
+          }
+          else if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_islander(rs.get()[i].get_species()))
+          {
+              y+= n * ((get_svg_viewbox_height(svg) / 2.0) / divider) + ((get_svg_viewbox_height(svg) - 1) / 2.0);
               n++;
           }
 
-         //= divider * (i + 1);
-         if(rs.get()[i].get_species().get_parent_id().get_id() != 0){
+
+          if(rs.get()[i].get_species().get_parent_id().get_id() != 0){
     //All lines get ID with species ID
     //Focal species Y coordinate has to be determined by parent species Ycoord
     //If focalspecies_ID % 2 == 0 focal species goes up 1 (even species_ID)
-    //else y goes down 1
-    //need to find a way to get y from line with id == parentID
-        for(unsigned int k = 0; k < svg_object.size(); k++){
-            if(is_svg_line(svg_object[k])){
-                if(rs.get()[i].get_species().get_parent_id().get_id() == get_svg_line_ID(svg_object[k])){
+
+        for(unsigned int k = 0; k < svg_object.size(); k++)
+        {
+            if(is_svg_line(svg_object[k]))
+            {
+                if(rs.get()[i].get_species().get_parent_id().get_id() == get_svg_line_ID(svg_object[k]))
+                {
                     y = get_svg_line_y1(svg_object[k]);
                 }
             }
@@ -394,52 +450,10 @@ void elly::create_ocean(std::vector<std::string> &svg){
     float height = (get_svg_viewbox_height(svg) / 2);
     ocean << "<rect x=\"0.5\" y=\"" << height
           << "\" rx=\"1\" ry=\"1\" width =\"" << (get_svg_viewbox_width(svg) - 2)
-          << "\" height=\"0.2\" id=\"-2\" stroke=\"navy\" stoke-width=\"0.5\"/>";
+          << "\" height=\"0.1\" id=\"-2\" stroke=\"navy\" stroke-width=\"0.5\"/>";
 
     std::string water = ocean.str();
     svg.push_back(water);
-}
-
-int elly::count_non_black_lines(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-       if(is_svg_line(svg[i]) && get_svg_line_colour(svg[i]) != "black") count += 1;
-
-    }
-    return count;
-}
-
-int elly::count_n_text_elements(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-        if(is_svg_text(svg[i])){
-
-            count += 1;
-        }
-    }
-    return count;
-}
-
-int elly::count_n_lines(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-        if(is_svg_line(svg[i]))
-            count += 1;
-    }
-    return count;
-}
-
-int elly::count_n_parents(const results &rs){
-    int n = 0;
-
-    for(unsigned int i = 0; i < rs.get().size(); i++){
-        if(rs.get()[i].get_species().get_parent_id().get_id() == 0)
-            n++;
-    }
-    return n;
 }
 
 
