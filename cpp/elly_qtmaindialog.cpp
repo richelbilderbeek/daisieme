@@ -130,7 +130,12 @@ void elly::qtmaindialog::add_widgets_to_ui() noexcept
   ui->widget_right->layout()->addWidget(m_plot_pop_sizes);
   ui->widget_right->layout()->addWidget(m_plot_rates);
   ui->widget_right->layout()->addWidget(m_parameters);
-  ui->widget_right->layout()->addWidget(m_svg);
+  {
+    QScrollArea * scroll_area{new QScrollArea(this)};
+    scroll_area->setMinimumHeight(400);
+    ui->widget_right->layout()->addWidget(scroll_area);
+    scroll_area->setWidget(m_svg);
+  }
   ui->widget_right->layout()->addWidget(m_svg_text);
   ui->widget_right->layout()->addWidget(m_sim_results);
   ui->widget_right->layout()->addWidget(m_daic_inputs);
