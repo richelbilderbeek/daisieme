@@ -14,17 +14,17 @@ bool is_svg_close_tag(const std::string& s);
 // tests if string is an XML declaration
 bool is_xml_declaration(const std::string& s);
 
-//tests if line is SVG line
+//tests if line is SVG part
 bool is_svg_line(const std::string& s);
-
-//test if line is text element
 bool is_svg_text(const std::string& s);
-
-//tests if line is SVG start tag
+bool is_svg_rect(const std::string& s);
 bool is_svg_start_tag(const std::string& s);
 
 //Test if svg follows the svg conventions
 bool is_svg(const std::vector<std::string>& svg);
+
+//Test if svg contains ocean
+bool has_ocean(const std::vector<std::string>& svg);
 
 
 //gives the width of the SVG
@@ -48,6 +48,9 @@ float get_svg_line_y2(const std::string &svg);
 //gets colour of svg-line
 std::string get_svg_line_colour(const std::string &svg);
 
+//gets ID of svg-line
+int get_svg_line_ID(const std::string &svg);
+
 //Checks if svg has a timescale line
 //Needs to be modified once we implement crown age.
 bool has_time_scale_line(const std::vector<std::string> &svg);
@@ -56,7 +59,17 @@ bool has_time_scale_line(const std::vector<std::string> &svg);
 std::vector<std::string> get_example_svg_1();
 
 ///Functions to create an SVG of a list of DAISIE events
-std::vector<std::string> create_svg_object(const results&);
+void get_xml_declaration(std::vector<std::string>& svg);
+
+void initialize_svg_size(std::vector<std::string>& svg, const results& rs);
+
+void create_time_scale_line(const results&, std::vector<std::string>& svg);
+
+void create_ocean(std::vector<std::string>&svg);
+
+std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg);
+
+
 
 ///Convert the results to the text of an SVG,
 ///each element being a line of text.
@@ -75,6 +88,10 @@ int count_n_text_elements(const std::vector<std::string>& svg);
 //Should be n_species + Timescale
 int count_n_lines(const std::vector<std::string>& svg);
 
+//count number of parentspecies
+int count_n_parents(const results& rs);
+
+int count_n_rects(const std::vector<std::string>& svg);
 
 } //~namespace elly
 
