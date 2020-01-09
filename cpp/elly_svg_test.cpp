@@ -242,7 +242,7 @@ void elly::svg_test() //!OCLINT tests may be long
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
 
-    #define FIX_ISSUE_35
+    //#define FIX_ISSUE_35
     #ifdef FIX_ISSUE_35
     // 1 mainland species + 1 cladogenesis into 2 mainland species
     {
@@ -297,6 +297,7 @@ void elly::svg_test() //!OCLINT tests may be long
     {
      elly::species mainland = create_new_test_species(location::mainland);
      elly::species island = create_new_test_species(location::island);
+     mainland.migrate_to_island(4);
      const result r_1(mainland);
      const result r_2(island);
      const results rs( { r_1, r_2 } );
@@ -318,7 +319,7 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     std::system("firefox issue36.svg");
+     //std::system("firefox issue36.svg");
      #endif
     }
     #endif

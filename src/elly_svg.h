@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "elly_parameters.h"
+#include "elly_result.h"
 
 
 namespace elly {
@@ -68,6 +69,8 @@ void initialize_svg_size(std::vector<std::string>& svg, const results& rs, const
 void create_time_scale_line(const results&, std::vector<std::string>& svg, const parameters& pars);
 
 void create_ocean(std::vector<std::string>&svg);
+
+void draw_svg_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
 
 std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg, const parameters& pars);
 
