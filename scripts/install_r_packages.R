@@ -9,7 +9,7 @@ install.packages("devtools", repos = my_repo)
 # devtools::install_github("richelbilderbeek/DAISIE_1_3", subdir = "DAISIE")
 devtools::install_github("rsetienne/DAISIE")
 
-devtools::install_github("richelbilderbeek/nLTT")
+devtools::install_github("thijsjanzen/nLTT")
 
 devtools::install_github("richelbilderbeek/DDD")
 #devtools::install_github("richelbilderbeek/PBD", subdir = "PBD")

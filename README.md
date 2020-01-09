@@ -28,6 +28,12 @@ Take a look at the vignette.
 
 ## Pictures
 
+![](pics/20200109.png)
+
+![](pics/20200108.png)
+
+![](pics/20200107.png)
+
 ![](pics/20191216.png)
 
 ![](pics/elly_gui_4.png)
