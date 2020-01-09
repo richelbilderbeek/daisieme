@@ -294,7 +294,7 @@ void elly::qtmaindialog::on_start_clicked()
     plot_event_rates(measurements);
     plot_daic_input(get_results(s));
     plot_sim_results(get_results(s));
-    show_results(get_results(s));
+    show_results(get_results(s), p);
 
     const auto end_time = my_clock::now();
     const auto diff = end_time - start_time;
@@ -413,9 +413,9 @@ void elly::qtmaindialog::plot_sim_results(const results& v)
   m_sim_results->setPlainText(s.str().c_str());
 }
 
-void elly::qtmaindialog::show_results(const results& r)
+void elly::qtmaindialog::show_results(const results& r, const parameters& p)
 {
-  const std::vector<std::string> v = to_svg(r);
+  const std::vector<std::string> v = to_svg(r, p);
   std::string s;
   for (const auto& i: v) { s += i + '\n'; }
   m_svg->load(QByteArray(s.c_str()));
@@ -577,7 +577,7 @@ void elly::qtmaindialog::on_run_daisie_clicked()
     plot_event_rates(e.get_sim_measurements());
     plot_daic_input(e.get_sim_results());
     plot_sim_results(e.get_sim_results());
-    show_results(e.get_sim_results());
+    show_results(e.get_sim_results(), p);
     plot_daic_inputs(e);
     plot_daic_outputs(e);
   }

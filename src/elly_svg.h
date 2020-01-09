@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include "elly_parameters.h"
+
 
 namespace elly {
 
@@ -61,20 +63,20 @@ std::vector<std::string> get_example_svg_1();
 ///Functions to create an SVG of a list of DAISIE events
 void get_xml_declaration(std::vector<std::string>& svg);
 
-void initialize_svg_size(std::vector<std::string>& svg, const results& rs);
+void initialize_svg_size(std::vector<std::string>& svg, const results& rs, const parameters& pars);
 
-void create_time_scale_line(const results&, std::vector<std::string>& svg);
+void create_time_scale_line(const results&, std::vector<std::string>& svg, const parameters& pars);
 
 void create_ocean(std::vector<std::string>&svg);
 
-std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg);
+std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg, const parameters& pars);
 
 
 
 ///Convert the results to the text of an SVG,
 ///each element being a line of text.
 ///First line will be the XML declarator
-std::vector<std::string> to_svg(const results& r);
+std::vector<std::string> to_svg(const results& rs, const parameters& pars);
 
 
 //checks number of black lines in the SVG

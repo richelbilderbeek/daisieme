@@ -1,6 +1,6 @@
 #include "elly_svg.h"
-
 #include "elly_results.h"
+#include "elly_parameters.h"
 
 #include <regex>
 #include <iostream>
@@ -266,16 +266,15 @@ void elly::get_xml_declaration(std::vector<std::string>& svg){
  svg.push_back("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
 }
 
-void elly::initialize_svg_size(std::vector<std::string>& svg, const results& rs){
+void elly::initialize_svg_size(std::vector<std::string>& svg, const results& rs, const parameters& pars){
     std::stringstream ss_svg;
     //"<svg width=\"900\" height=\"400\" viewBox=\"-2 0 5 10\" xmlns=\"http://www.w3.org/2000/svg\">");
 
-    int crownage = 14;
-
-    ss_svg << "<svg width=\"900\" height=\"400\" viewBox=\""
+    ss_svg << "<svg height=\"" << rs.get().size() * 150
+           << "\" width=\"900\" viewBox=\""
            << 0 << " "                  //x-min
            << 0  << " "                 //y=min
-           << crownage + 2  << " "      //width = crownage + 2?
+           << pars.get_crown_age() + 2  << " "      //width = crownage + 2?
            << rs.get().size() * 2       //height
            << " \" xmlns=\"http://www.w3.org/2000/svg\">";
 
@@ -283,18 +282,17 @@ void elly::initialize_svg_size(std::vector<std::string>& svg, const results& rs)
 }
 
 
-std::vector<std::string> elly::to_svg(const results& rs)
+std::vector<std::string> elly::to_svg(const results& rs, const parameters& pars)
 {
   std::vector<std::string> svg;
-
   get_xml_declaration(svg);
-  initialize_svg_size(svg, rs);
+  initialize_svg_size(svg, rs, pars);
 
-  std::vector<std::string> svg_object = create_svg_object(rs, svg);
+  std::vector<std::string> svg_object = create_svg_object(rs, svg, pars);
   for(unsigned int i = 0; i < svg_object.size(); i++){
       svg.push_back(svg_object[i]);}
   create_ocean(svg);
-  create_time_scale_line(rs, svg);
+  create_time_scale_line(rs, svg, pars);
   svg.push_back("<rect width=\"100%\" height=\"100%\" fill=\"none\" stroke-width=\"0.1\" stroke=\"purple\" />");
   svg.push_back("</svg>");
   return svg;
@@ -302,7 +300,7 @@ std::vector<std::string> elly::to_svg(const results& rs)
   //return get_example_svg_1();
 }
 
-std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<std::string> &svg)
+std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<std::string> &svg, const parameters& pars)
 {
   //std::cout << rs.get().size() << std::endl;
   int n = 1;
@@ -314,7 +312,7 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
   for(unsigned int i = 0; i < rs.get().size(); i++){
       std::stringstream ssline, ssid, ssclade;
 
-          double ext_x = 14;
+          double ext_x = pars.get_crown_age();
           float y = 0.0;
 
           if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_mainlander(rs.get()[i].get_species()))
@@ -388,20 +386,18 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
 
 
 //Timeline needs to be placed at bottom of viewbox
-void elly::create_time_scale_line(const  results&, std::vector<std::string>& svg){
+void elly::create_time_scale_line(const  results&, std::vector<std::string>& svg, const parameters& pars){
 
     std::stringstream horizontal, vert_left, vert_right, left_digit, right_digit;
 
-int crownage = 14;
-
 horizontal  << "<line x1=\"" <<  0.5
-            << "\" x2=\"" << crownage + 0.5
+            << "\" x2=\"" << pars.get_crown_age() + 0.5
             << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.5
             << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.5
             << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
 
 
-for(int i = 0; i < crownage; i++){
+for(int i = 0; i < pars.get_crown_age(); i++){
     vert_left   << "<line x1=\"" << i + 0.5
                 << "\" x2=\"" << i + 0.5
                 << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.57
@@ -420,7 +416,7 @@ for(int i = 0; i < crownage; i++){
                 << i
                 << "</text>";
 
-    if(i == crownage - 1){
+    if(i == pars.get_crown_age() - 1){
     right_digit     << "<text x=\"" << i + 1.4
                     << "\" y=\"" << get_svg_viewbox_height(svg) - 0.22
                     << "\" font-family=\"sans-serif\" font-size=\"0.2px\" fill=\"black\">"

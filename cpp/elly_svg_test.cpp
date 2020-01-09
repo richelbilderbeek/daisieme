@@ -56,19 +56,22 @@ void elly::svg_test() //!OCLINT tests may be long
     //First line of SVG must be an XML declaration
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_xml_declaration(svg[0]));
     }
     //Second line of SVG must be an SVG opening tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_svg_start_tag(svg[1]));
     }
     //Last line of SVG must be an SVG closing tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_svg_close_tag(svg.back()));
     }
     //Example SVG 1 must be recognized as an SVG
@@ -81,7 +84,8 @@ void elly::svg_test() //!OCLINT tests may be long
      const species a = create_new_test_species(location::mainland);
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
-     const std::vector<std::string> svg = to_svg(sim_results);
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(sim_results, pars);
      assert(is_svg_line(svg[3])); //Brittle test
     }
     // User can specify the crown age. By default this is 1.0
@@ -191,7 +195,8 @@ void elly::svg_test() //!OCLINT tests may be long
     // to_svg must produce an SVG with a timescale line
     {
       const results no_results;
-      const std::vector<std::string> svg = to_svg(no_results);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(no_results, pars);
    assert(has_time_scale_line(svg));
     }
     // 1 mainland species, 1 clade ID, nothing happening
@@ -201,7 +206,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const auto clade_id = create_new_clade_id(); // 57 in picture
       const result r(species(species_id, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
@@ -214,7 +220,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const result r_1(species(species_id_1, parent_id, clade_id, 0.0, location::mainland));
       const result r_2(species(species_id_2, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r_1, r_2 } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 2);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
@@ -229,7 +236,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const result r_2(species(species_id_2, parent_id, clade_id, 0.5, location::mainland));
       const result r_3(species(species_id_3, parent_id, clade_id, 2.6, location::mainland));
       const results rs( { r_1, r_2, r_3 } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
@@ -255,7 +263,8 @@ void elly::svg_test() //!OCLINT tests may be long
      const result r_6(newspec);
      const result r_7(newspec2);
      const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7 } );
-     const std::vector<std::string> svg = to_svg(rs);
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(rs, pars);
 
      //std::cout << "Number of lines= " << count_n_lines(svg) << std::endl;
      assert(count_n_lines(svg) >= 4);   //At least 4, time scale and 6 species
@@ -276,16 +285,13 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     std::system("firefox issue35.svg");
+     //std::system("firefox issue35.svg");
      #endif
-
-
-
 
     }
     #endif
 
-    //#define FIX_ISSUE_36
+    #define FIX_ISSUE_36
     #ifdef FIX_ISSUE_36
     // 1 mainland species + 1 island species
     {
@@ -294,12 +300,13 @@ void elly::svg_test() //!OCLINT tests may be long
      const result r_1(mainland);
      const result r_2(island);
      const results rs( { r_1, r_2 } );
-     const std::vector<std::string> svg = to_svg(rs);
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(rs, pars);
      assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
      assert(has_time_scale_line(svg));
      assert(has_ocean(svg));
      assert(count_n_parents(rs) == 2);
-     #define SHOW_36_OUTPUT
+     //#define SHOW_36_OUTPUT
      #ifdef SHOW_36_OUTPUT
             std::ofstream ofs("issue36.svg");
                if (!ofs.is_open())
@@ -311,7 +318,7 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     //std::system("firefox issue36.svg");
+     std::system("firefox issue36.svg");
      #endif
     }
     #endif

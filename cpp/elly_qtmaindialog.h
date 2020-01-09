@@ -104,7 +104,7 @@ private:
   void plot_sim_results(const results& v);
 
   /// Show the results as an SVG
-  void show_results(const results& v);
+  void show_results(const results& v, const parameters& p);
 
   void setup_widgets() noexcept;
 
