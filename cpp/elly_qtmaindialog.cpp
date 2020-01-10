@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
+#include <QSizePolicy>
 #include <cassert>
 #include <chrono>
 #include <fstream>
@@ -419,6 +420,10 @@ void elly::qtmaindialog::show_results(const results& r, const parameters& p)
   std::string s;
   for (const auto& i: v) { s += i + '\n'; }
   m_svg->load(QByteArray(s.c_str()));
+  m_svg->setMinimumSize(
+    get_svg_width(v),
+    get_svg_height(v)
+  );
   m_svg_text->setPlainText(QString::fromStdString(s));
 }
 
