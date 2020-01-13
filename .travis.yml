@@ -5,6 +5,11 @@ cache: packages
 install: 
   # Needs to be done on bionic for now
   - sudo apt update -qq
+  # GCC 9
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -q
+  - sudo apt-get install g++-9 -y
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 90
   # ImageMagick
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:opencpu/imagemagick; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update; fi
