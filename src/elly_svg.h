@@ -70,7 +70,10 @@ void create_time_scale_line(const results&, std::vector<std::string>& svg, const
 
 void create_ocean(std::vector<std::string>&svg);
 
-void draw_svg_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
+void draw_mainland_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
+
+void draw_island_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
+
 
 std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg, const parameters& pars);
 

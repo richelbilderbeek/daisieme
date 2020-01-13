@@ -315,7 +315,7 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
       col_times = rs.get()[i].get_species().get_times_of_colonization();
 
           double ext_mainland = pars.get_crown_age();
-          double ext_island = pars.get_crown_age();
+          double ext_island =  rs.get()[i].get_species().get_time_of_extinction_island();
           float y = 0.0;
           float y_island = 0.0;
 
@@ -355,12 +355,17 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
           else y -= 0.5;
                }
 
-          if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0)
+          if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0){
               ext_mainland = rs.get()[i].get_species().get_time_of_extinction_mainland();
+          }
 
-          draw_svg_line(svg_object, y, ext_mainland, rs.get()[i]);
+        if(is_mainlander(rs.get()[i].get_species())){
+          draw_mainland_line(svg_object, y, ext_mainland, rs.get()[i]);
           if(y_island > 0)
-              draw_svg_line(svg_object, y_island, ext_island, rs.get()[i]);
+              draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
+        }else {
+            draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
+        }
 
     }
   return svg_object;
@@ -434,7 +439,7 @@ void elly::create_ocean(std::vector<std::string> &svg){
     svg.push_back(water);
 }
 
-void elly::draw_svg_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r ){
+void elly::draw_mainland_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r ){
 
     std::stringstream ssline, ssid, ssclade;
 
@@ -468,6 +473,45 @@ std::string name = ssid.str();
 
 svg_object.push_back(line);
 svg_object.push_back(name);
+}
+
+void elly::draw_island_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r ){
+    std::stringstream ssline, ssid, ssclade;
+    float x1;
+    if(r.get_species().get_times_of_colonization().size() > 0) x1 = r.get_species().get_times_of_colonization()[0];
+    else x1 = r.get_species().get_time_of_birth();
+
+   ssline << "<line x1=\"" << x1 + 0.5
+          << "\" y1=\"" << y
+          << "\" x2=\"" << ext_x + 0.5  //  r.get_species().get_time_of_extinction_island(
+          << "\" y2=\"" << y
+          << "\" id=\"" << r.get_species().get_species_id()
+          << "\" stroke=\"green\" "
+          << "stroke-width=\"0.1\" />";
+
+     ssid << "<text x=\"" << ext_x + 0.6
+          << "\" y=\"" << y + 0.1
+          << "\" font-family=\"sans-serif\" font-size=\"0.4px\" fill=\"black\">"
+          << r.get_species().get_species_id().get_id()
+          <<"</text>";
+
+    if(r.get_species().get_parent_id().get_id() == 0){
+  ssclade << "<text x=\"" <<  0.1
+          << "\" y=\"" << y + 0.1
+          << "\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"0.4px\" fill=\"black\">"
+          << r.get_species().get_clade_id().get_id()
+          <<"</text>";
+
+          std::string clade = ssclade.str();
+          svg_object.push_back(clade);
+              }
+
+std::string line = ssline.str();
+std::string name = ssid.str();
+
+svg_object.push_back(line);
+svg_object.push_back(name);
+
 }
 
 std::vector<std::string> elly::get_example_svg_1(){
