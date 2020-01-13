@@ -72,7 +72,7 @@ int elly::count_n_parents(const results &rs){
     std::count_if(
       std::begin(results),
       std::end(results),
-      [](const auto& r)
+      [](const result& r)
       {
         // is_starting_species
         return r.get_species().get_parent_id().get_id() == 0;
