@@ -5,6 +5,9 @@
 #include <regex>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
+#include <numeric>
+
 
 bool elly::is_xml_declaration(const std::string& s){
     return s.substr(0,5) == "<?xml";}
@@ -54,16 +57,29 @@ int elly::count_n_text_elements(const std::vector<std::string>& svg){
 }
 
 int elly::count_n_lines(const std::vector<std::string>& svg){
-    int count = 0;
-
-    for(unsigned int i = 0; i < svg.size(); i++){
-        if(is_svg_line(svg[i]))
-            count++;
-    }
-    return count;
+  return static_cast<int>(
+    std::count_if(
+      std::begin(svg),
+      std::end(svg),
+      is_svg_line
+    )
+  );
 }
 
 int elly::count_n_parents(const results &rs){
+  const auto& results = rs.get();
+  return static_cast<int>(
+    std::count_if(
+      std::begin(results),
+      std::end(results),
+      [](const auto& r)
+      {
+        // is_starting_species
+        return r.get_species().get_parent_id().get_id() == 0;
+      }
+    )
+  );
+  /*
     int count = 0;
 
     for(unsigned int i = 0; i < rs.get().size(); i++){
@@ -71,6 +87,7 @@ int elly::count_n_parents(const results &rs){
             count++;
     }
     return count;
+  */
 }
 
 int elly::count_n_rects(const std::vector<std::string>& svg){
