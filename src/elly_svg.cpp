@@ -315,7 +315,7 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
       col_times = rs.get()[i].get_species().get_times_of_colonization();
 
           double ext_mainland = pars.get_crown_age();
-          double ext_island =  rs.get()[i].get_species().get_time_of_extinction_island();
+          double ext_island = pars.get_crown_age();
           float y = 0.0;
           float y_island = 0.0;
 
@@ -329,7 +329,7 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
              }
           else if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_islander(rs.get()[i].get_species()))
           {
-              y+= n * ((get_svg_viewbox_height(svg) / 2.0) / divider) + ((get_svg_viewbox_height(svg) - 1) / 2.0);
+              y_island+= n * ((get_svg_viewbox_height(svg) / 2.0) / divider) + ((get_svg_viewbox_height(svg) - 1) / 2.0);
               n++;
           }
 
@@ -350,6 +350,8 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
                   }
               }
 
+
+
           if(rs.get()[i].get_species().get_species_id().get_id() % 2 == 0) y += 0.5;
           //perhaps create scaler for splitting sister species closer at larger t.
           else y -= 0.5;
@@ -358,13 +360,17 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
           if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0){
               ext_mainland = rs.get()[i].get_species().get_time_of_extinction_mainland();
           }
+          if(rs.get()[i].get_species().get_time_of_extinction_island() > 0){
+              ext_island = rs.get()[i].get_species().get_time_of_extinction_island();
+          }
 
         if(is_mainlander(rs.get()[i].get_species())){
           draw_mainland_line(svg_object, y, ext_mainland, rs.get()[i]);
           if(y_island > 0)
               draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
-        }else {
-            draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
+        }
+        else {
+            draw_island_line(svg_object, y, ext_island, rs.get()[i]);
         }
 
     }

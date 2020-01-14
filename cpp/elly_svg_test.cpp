@@ -335,17 +335,24 @@ void elly::svg_test() //!OCLINT tests may be long
      elly::species mainland = create_new_test_species(location::mainland);
      elly::species mainland2 = create_new_test_species(location::mainland);
      mainland.migrate_to_island(4);
+     mainland2.go_extinct(3.2, location::mainland);
      mainland.go_extinct(6.2, location::island);
+     elly::species islandchild1 = create_descendant(mainland, 6.2,location::island);
+     elly::species islandchild2 = create_descendant(mainland, 6.2,location::island);
      const result r_1(mainland);
      const result r_2(mainland2);
-     const results rs( { r_1, r_2 } );
+     const result r_3(islandchild1);
+     const result r_4(islandchild2);
+     assert(is_islander(islandchild1));
+     assert(is_islander(islandchild2));
+     const results rs( { r_1, r_2, r_3, r_4 } );
      const std::vector<std::string> svg = to_svg(rs, pars);
      assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
      assert(has_time_scale_line(svg));
      assert(has_ocean(svg));
      assert(count_n_parents(rs) == 2);
 
-     //#define SHOW_56_OUTPUT
+     #define SHOW_56_OUTPUT
      #ifdef SHOW_56_OUTPUT
             std::ofstream ofs("issue56.svg");
                if (!ofs.is_open())
@@ -357,7 +364,7 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     //std::system("firefox issue56.svg");
+     std::system("firefox issue56.svg");
      #endif
     }
     #endif
