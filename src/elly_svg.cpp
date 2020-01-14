@@ -395,13 +395,13 @@ for(int i = 0; i < pars.get_crown_age(); i++){
                 << "\" x2=\"" << i + 0.5
                 << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.57
                 << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.43
-                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
+                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.04\"/>";
 
     vert_right   << "<line x1=\"" << i + 1.5
                 << "\" x2=\"" << i +  1.5
                 << "\" y1=\"" << get_svg_viewbox_height(svg) - 0.57
                 << "\" y2=\"" << get_svg_viewbox_height(svg) - 0.43
-                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.03\"/>";
+                << "\" stroke=\"black\" id=\"-1\" stroke-width=\"0.04\"/>";
 
     left_digit  << "<text x=\"" << i + 0.4
                 << "\" y=\"" << get_svg_viewbox_height(svg) - 0.22
@@ -438,7 +438,7 @@ void elly::create_ocean(std::vector<std::string> &svg){
     std::stringstream ocean;
     float height = (get_svg_viewbox_height(svg) / 2);
     ocean << "<rect x=\"0.5\" y=\"" << height
-          << "\" rx=\"1\" ry=\"1\" width =\"" << (get_svg_viewbox_width(svg) - 2)
+          << "\" rx=\"0\" ry=\"1\" width =\"" << (get_svg_viewbox_width(svg) - 2)
           << "\" height=\"0.1\" id=\"-2\" stroke=\"navy\" stroke-width=\"0.5\"/>";
 
     std::string water = ocean.str();
@@ -455,18 +455,18 @@ void elly::draw_mainland_line(std::vector<std::string>& svg_object, const float&
           << "\" y2=\"" << y
           << "\" id=\"" << r.get_species().get_species_id()
           << "\" stroke=\"green\" "
-          << "stroke-width=\"0.1\" />";
+          << "stroke-width=\"0.08\" />";
 
      ssid << "<text x=\"" << ext_x + 0.6
           << "\" y=\"" << y + 0.1
-          << "\" font-family=\"sans-serif\" font-size=\"0.4px\" fill=\"black\">"
+          << "\" font-family=\"sans-serif\" font-size=\"0.3px\" fill=\"black\">"
           << r.get_species().get_species_id().get_id()
           <<"</text>";
 
     if(r.get_species().get_parent_id().get_id() == 0){
   ssclade << "<text x=\"" <<  0.1
           << "\" y=\"" << y + 0.1
-          << "\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"0.4px\" fill=\"black\">"
+          << "\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"0.3px\" fill=\"black\">"
           << r.get_species().get_clade_id().get_id()
           <<"</text>";
 
@@ -492,8 +492,8 @@ void elly::draw_island_line(std::vector<std::string>& svg_object, const float& y
           << "\" x2=\"" << ext_x + 0.5
           << "\" y2=\"" << y
           << "\" id=\"" << r.get_species().get_species_id()
-          << "\" stroke=\"green\" "
-          << "stroke-width=\"0.1\" />";
+          << "\" stroke=\"brown\" "
+          << "stroke-width=\"0.08\" />";
 
      ssid << "<text x=\"" << ext_x + 0.6
           << "\" y=\"" << y + 0.1
