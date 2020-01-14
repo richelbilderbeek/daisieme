@@ -352,9 +352,9 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
 
 
 
-          if(rs.get()[i].get_species().get_species_id().get_id() % 2 == 0) y += 0.5;
+          if(rs.get()[i].get_species().get_species_id().get_id() % 2 == 0) y += (2*(1/rs.get()[i].get_species().get_time_of_birth()))  ;//0.5;
           //perhaps create scaler for splitting sister species closer at larger t.
-          else y -= 0.5;
+          else y -= (2*(1/rs.get()[i].get_species().get_time_of_birth())); //0.5;
                }
 
           if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0){
@@ -489,7 +489,7 @@ void elly::draw_island_line(std::vector<std::string>& svg_object, const float& y
 
    ssline << "<line x1=\"" << x1 + 0.5
           << "\" y1=\"" << y
-          << "\" x2=\"" << ext_x + 0.5  //  r.get_species().get_time_of_extinction_island(
+          << "\" x2=\"" << ext_x + 0.5
           << "\" y2=\"" << y
           << "\" id=\"" << r.get_species().get_species_id()
           << "\" stroke=\"green\" "

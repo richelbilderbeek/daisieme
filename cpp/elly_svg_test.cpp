@@ -352,7 +352,7 @@ void elly::svg_test() //!OCLINT tests may be long
      assert(has_ocean(svg));
      assert(count_n_parents(rs) == 2);
 
-     #define SHOW_56_OUTPUT
+     //#define SHOW_56_OUTPUT
      #ifdef SHOW_56_OUTPUT
             std::ofstream ofs("issue56.svg");
                if (!ofs.is_open())
@@ -368,6 +368,53 @@ void elly::svg_test() //!OCLINT tests may be long
      #endif
     }
     #endif
+
+    #define FIX_ISSUE_58
+    #ifdef FIX_ISSUE_58
+    // create scaler for cladogenesis to not have species overlap.
+    {
+     const parameters pars = create_parameters_set1();
+     elly::species testspecies1 = create_new_test_species(location::mainland);
+     testspecies1.go_extinct(4.0, location::mainland);
+     elly::species child1 = create_descendant(testspecies1, 4.0, location::mainland);
+     elly::species child2 = create_descendant(testspecies1, 4.0, location::mainland);
+     child1.go_extinct(6.0, location::mainland);
+     child2.go_extinct(7.0, location::mainland);
+     elly::species child3 = create_descendant(child1, 6.0, location::mainland);
+     elly::species child4 = create_descendant(child1, 6.0, location::mainland);
+     elly::species child5 = create_descendant(child2, 7.0, location::mainland);
+     elly::species child6 = create_descendant(child2, 7.0, location::mainland);
+     const result r_1(testspecies1);
+     const result r_2(child1);
+     const result r_3(child2);
+     const result r_4(child3);
+     const result r_5(child4);
+     const result r_6(child5);
+     const result r_7(child6);
+     const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7 } );
+     const std::vector<std::string> svg = to_svg(rs, pars);
+     assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
+     assert(has_time_scale_line(svg));
+     assert(has_ocean(svg));
+     assert(count_n_parents(rs) != 2);
+
+     //#define SHOW_58_OUTPUT
+     #ifdef SHOW_58_OUTPUT
+            std::ofstream ofs("issue58.svg");
+               if (!ofs.is_open())
+                throw std::runtime_error("Unable to open or create the file. \n");
+
+            for(unsigned int i = 0; i < svg.size(); i++){
+                ofs << svg[i] << "\n";
+              }
+            ofs.close();
+
+     //change path to a suitable program to open .svg files
+     std::system("firefox issue58.svg");
+     #endif
+    }
+    #endif
+
 
     }
 
