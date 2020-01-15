@@ -281,17 +281,19 @@ void elly::initialize_svg_size(std::vector<std::string>& svg, const results& rs,
     svg.push_back(ss_svg.str());
 }
 
+//<line x1="4.5" y1="4.5" x2="7.5" y2="4.5" id="23" stroke="green" stroke-dasharray="0.2, 0.2" stroke-width="0.08" />
+
 
 std::vector<std::string> elly::to_svg(const results& rs, const parameters& pars)
 {
   std::vector<std::string> svg;
   get_xml_declaration(svg);
   initialize_svg_size(svg, rs, pars);
+  create_ocean(svg);
 
   std::vector<std::string> svg_object = create_svg_object(rs, svg, pars);
   for(unsigned int i = 0; i < svg_object.size(); i++){
       svg.push_back(svg_object[i]);}
-  create_ocean(svg);
   create_time_scale_line(rs, svg, pars);
   svg.push_back("<rect width=\"100%\" height=\"100%\" fill=\"none\" stroke-width=\"0.1\" stroke=\"purple\" />");
   svg.push_back("</svg>");
@@ -367,8 +369,10 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
           if(is_mainlander(rs.get()[i].get_species()))
           {
               draw_mainland_line(svg_object, y, ext_mainland, rs.get()[i]);
-              if(y_island > 0)
+              if(y_island > 0){
                   draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
+                  draw_migration_line(svg_object, y, y_island, rs.get()[i]);
+              }
           }
           else draw_island_line(svg_object, y, ext_island, rs.get()[i]);
 
@@ -532,6 +536,21 @@ std::string name = ssid.str();
 
 svg_object.push_back(line);
 svg_object.push_back(name);
+
+}
+void elly::draw_migration_line(std::vector<std::string>& svg_object, const float& y_island, const float& y, const result& r){
+    std::stringstream ssline;
+
+    ssline << "<line x1=\"" << r.get_species().get_times_of_colonization()[0] + 0.5
+           << "\" y1=\""    << y_island
+           << "\" x2=\""    << r.get_species().get_times_of_colonization()[0] + 0.5
+           << "\" y2=\""    << y
+           << "\" id=\"-4\" stroke=\"red\" stroke-dasharray=\"0.2, 0.2\" stroke-width=\"0.08\" />";
+
+    std::string line = ssline.str();
+
+    svg_object.push_back(line);
+
 
 }
 

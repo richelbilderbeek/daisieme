@@ -86,7 +86,7 @@ void elly::svg_test() //!OCLINT tests may be long
      const results sim_results = get_results(population);
      const parameters pars = create_parameters_set1();
      const std::vector<std::string> svg = to_svg(sim_results, pars);
-     assert(is_svg_line(svg[3])); //Brittle test
+     assert(is_svg_line(svg[4])); //Brittle test
     }
     // User can specify the crown age. By default this is 1.0
     {

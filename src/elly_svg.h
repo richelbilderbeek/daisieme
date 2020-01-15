@@ -76,6 +76,7 @@ void draw_speciation_line(std::vector<std::string>& svg_object, const float& y1,
 
 void draw_island_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
 
+void draw_migration_line(std::vector<std::string>& svg_object, const float& y_island, const float& y, const result& r);
 
 std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg, const parameters& pars);
 
