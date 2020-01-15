@@ -319,17 +319,12 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
           float y = 0.0;
           float y_island = 0.0;
 
-          if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_mainlander(rs.get()[i].get_species()))
+          if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && rs.get()[i].get_species().get_location_of_birth() == location::mainland)
           {
               y += n * ((get_svg_viewbox_height(svg) / 2.0) / divider);
 
               if(col_times.size() > 0)
-                  y_island = y + (get_svg_viewbox_height(svg) / 2.0);
-              n++;
-             }
-          else if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && is_islander(rs.get()[i].get_species()))
-          {
-              y_island+= n * ((get_svg_viewbox_height(svg) / 2.0) / divider) + ((get_svg_viewbox_height(svg) - 1) / 2.0);
+                  y_island = (y + (get_svg_viewbox_height(svg) / 2.0));
               n++;
           }
 
@@ -339,39 +334,43 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
 
     //is_islander() function only works for endemic species on the island. since these only follow from colonization this function
     // is not usable for drawing an SVG.
-
+          float y1 = 0.0;
           if(rs.get()[i].get_species().get_parent_id().get_id() != 0){
               for(unsigned int k = 0; k < svg_object.size(); k++)
               {
                   if(is_svg_line(svg_object[k]))
                   {
                       if(rs.get()[i].get_species().get_parent_id().get_id() == get_svg_line_ID(svg_object[k]))
+                      {
                           y = get_svg_line_y1(svg_object[k]);
+                          y1 = get_svg_line_y2(svg_object[k]);
+                      }
                   }
+                  if(col_times.size() > 0)
+                      y_island = (y + (get_svg_viewbox_height(svg) / 2.0));
               }
-
 
 
           if(rs.get()[i].get_species().get_species_id().get_id() % 2 == 0) y += (2*(1/rs.get()[i].get_species().get_time_of_birth()))  ;//0.5;
           //perhaps create scaler for splitting sister species closer at larger t.
           else y -= (2*(1/rs.get()[i].get_species().get_time_of_birth())); //0.5;
-               }
 
-          if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0){
+          draw_speciation_line(svg_object, y1, y, rs.get()[i].get_species().get_time_of_birth());
+          }
+
+          if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0)
               ext_mainland = rs.get()[i].get_species().get_time_of_extinction_mainland();
-          }
-          if(rs.get()[i].get_species().get_time_of_extinction_island() > 0){
-              ext_island = rs.get()[i].get_species().get_time_of_extinction_island();
-          }
 
-        if(is_mainlander(rs.get()[i].get_species())){
-          draw_mainland_line(svg_object, y, ext_mainland, rs.get()[i]);
-          if(y_island > 0)
-              draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
-        }
-        else {
-            draw_island_line(svg_object, y, ext_island, rs.get()[i]);
-        }
+          if(rs.get()[i].get_species().get_time_of_extinction_island() > 0)
+              ext_island = rs.get()[i].get_species().get_time_of_extinction_island();
+
+          if(is_mainlander(rs.get()[i].get_species()))
+          {
+              draw_mainland_line(svg_object, y, ext_mainland, rs.get()[i]);
+              if(y_island > 0)
+                  draw_island_line(svg_object, y_island, ext_island, rs.get()[i]);
+          }
+          else draw_island_line(svg_object, y, ext_island, rs.get()[i]);
 
     }
   return svg_object;
@@ -445,6 +444,22 @@ void elly::create_ocean(std::vector<std::string> &svg){
     svg.push_back(water);
 }
 
+void elly::draw_speciation_line(std::vector<std::string>& svg_object, const float& y1, const float& y2, const float x){
+    std::stringstream ssline;
+
+    ssline << "<line x1=\"" << x + 0.5
+           << "\" y1=\""    << y1
+           << "\" x2=\""    << x + 0.5
+           << "\" y2=\""    << y2
+           << "\" id=\"-3\" stroke=\"green\" stroke-width=\"0.08\" />";
+
+    std::string line = ssline.str();
+
+    svg_object.push_back(line);
+
+
+}
+
 void elly::draw_mainland_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r ){
 
     std::stringstream ssline, ssid, ssclade;
@@ -492,7 +507,7 @@ void elly::draw_island_line(std::vector<std::string>& svg_object, const float& y
           << "\" x2=\"" << ext_x + 0.5
           << "\" y2=\"" << y
           << "\" id=\"" << r.get_species().get_species_id()
-          << "\" stroke=\"brown\" "
+          << "\" stroke=\"green\" "
           << "stroke-width=\"0.08\" />";
 
      ssid << "<text x=\"" << ext_x + 0.6

@@ -72,6 +72,8 @@ void create_ocean(std::vector<std::string>&svg);
 
 void draw_mainland_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
 
+void draw_speciation_line(std::vector<std::string>& svg_object, const float& y1, const float& y2, const float x);
+
 void draw_island_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
 
 

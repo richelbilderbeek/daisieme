@@ -384,6 +384,10 @@ void elly::svg_test() //!OCLINT tests may be long
      elly::species child4 = create_descendant(child1, 6.0, location::mainland);
      elly::species child5 = create_descendant(child2, 7.0, location::mainland);
      elly::species child6 = create_descendant(child2, 7.0, location::mainland);
+     child6.migrate_to_island(8.2);
+     child6.go_extinct(8.5, location::island);
+     elly::species child7 = create_descendant(child6, 8.5, location::island);
+     elly::species child8 = create_descendant(child6, 8.5, location::island);
      const result r_1(testspecies1);
      const result r_2(child1);
      const result r_3(child2);
@@ -391,7 +395,9 @@ void elly::svg_test() //!OCLINT tests may be long
      const result r_5(child4);
      const result r_6(child5);
      const result r_7(child6);
-     const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7 } );
+     const result r_8(child7);
+     const result r_9(child8);
+     const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7, r_8, r_9 } );
      const std::vector<std::string> svg = to_svg(rs, pars);
      assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
      assert(has_time_scale_line(svg));
@@ -410,10 +416,12 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     std::system("firefox issue58.svg");
+     //std::system("firefox issue58.svg");
      #endif
     }
     #endif
+
+
 
 
     }
