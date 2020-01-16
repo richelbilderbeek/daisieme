@@ -56,19 +56,22 @@ void elly::svg_test() //!OCLINT tests may be long
     //First line of SVG must be an XML declaration
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_xml_declaration(svg[0]));
     }
     //Second line of SVG must be an SVG opening tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_svg_start_tag(svg[1]));
     }
     //Last line of SVG must be an SVG closing tag
     {
        const results no_results;
-       const std::vector<std::string> svg = to_svg(no_results);
+       const parameters pars = create_parameters_set1();
+       const std::vector<std::string> svg = to_svg(no_results, pars);
        assert(is_svg_close_tag(svg.back()));
     }
     //Example SVG 1 must be recognized as an SVG
@@ -81,8 +84,9 @@ void elly::svg_test() //!OCLINT tests may be long
      const species a = create_new_test_species(location::mainland);
      const std::vector<species> population = {a};
      const results sim_results = get_results(population);
-     const std::vector<std::string> svg = to_svg(sim_results);
-     assert(is_svg_line(svg[3])); //Brittle test
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(sim_results, pars);
+     assert(is_svg_line(svg[4])); //Brittle test
     }
     // User can specify the crown age. By default this is 1.0
     {
@@ -191,7 +195,8 @@ void elly::svg_test() //!OCLINT tests may be long
     // to_svg must produce an SVG with a timescale line
     {
       const results no_results;
-      const std::vector<std::string> svg = to_svg(no_results);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(no_results, pars);
    assert(has_time_scale_line(svg));
     }
     // 1 mainland species, 1 clade ID, nothing happening
@@ -201,7 +206,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const auto clade_id = create_new_clade_id(); // 57 in picture
       const result r(species(species_id, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 1);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
@@ -214,7 +220,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const result r_1(species(species_id_1, parent_id, clade_id, 0.0, location::mainland));
       const result r_2(species(species_id_2, parent_id, clade_id, 0.0, location::mainland));
       const results rs( { r_1, r_2 } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 2);
       assert(count_n_text_elements(svg) >= 2); //At least 2, as time scale will also get some
     }
@@ -229,7 +236,8 @@ void elly::svg_test() //!OCLINT tests may be long
       const result r_2(species(species_id_2, parent_id, clade_id, 0.5, location::mainland));
       const result r_3(species(species_id_3, parent_id, clade_id, 2.6, location::mainland));
       const results rs( { r_1, r_2, r_3 } );
-      const std::vector<std::string> svg = to_svg(rs);
+      const parameters pars = create_parameters_set1();
+      const std::vector<std::string> svg = to_svg(rs, pars);
       assert(count_non_black_lines(svg) == 3);
       assert(count_n_text_elements(svg) >= 3); //At least 3, as time scale will also get some
     }
@@ -247,6 +255,8 @@ void elly::svg_test() //!OCLINT tests may be long
      elly::species focal3 = create_descendant(focal1, 2.7, location::mainland);
      elly::species focal4 = create_descendant(focal1, 2.7, location::mainland);
      elly::species newspec2 = create_new_test_species(location::mainland);
+     newspec.migrate_to_island(2.0);
+     newspec2.migrate_to_island(6.0);
      const result r_1(parent);
      const result r_2(focal1);
      const result r_3(focal2);
@@ -255,7 +265,8 @@ void elly::svg_test() //!OCLINT tests may be long
      const result r_6(newspec);
      const result r_7(newspec2);
      const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7 } );
-     const std::vector<std::string> svg = to_svg(rs);
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(rs, pars);
 
      //std::cout << "Number of lines= " << count_n_lines(svg) << std::endl;
      assert(count_n_lines(svg) >= 4);   //At least 4, time scale and 6 species
@@ -264,7 +275,7 @@ void elly::svg_test() //!OCLINT tests may be long
      assert(count_n_parents(rs) != 2);
      assert(count_n_rects(svg) >= 1);
 
-     //#define SHOW_35_OUTPUT
+     #define SHOW_35_OUTPUT
      #ifdef SHOW_35_OUTPUT
             std::ofstream ofs("issue35.svg");
                if (!ofs.is_open())
@@ -276,30 +287,29 @@ void elly::svg_test() //!OCLINT tests may be long
             ofs.close();
 
      //change path to a suitable program to open .svg files
-     std::system("firefox issue35.svg");
+     //std::system("firefox issue35.svg");
      #endif
-
-
-
 
     }
     #endif
 
-    //#define FIX_ISSUE_36
+    #define FIX_ISSUE_36
     #ifdef FIX_ISSUE_36
     // 1 mainland species + 1 island species
     {
      elly::species mainland = create_new_test_species(location::mainland);
      elly::species island = create_new_test_species(location::island);
+     mainland.migrate_to_island(4);
      const result r_1(mainland);
      const result r_2(island);
      const results rs( { r_1, r_2 } );
-     const std::vector<std::string> svg = to_svg(rs);
+     const parameters pars = create_parameters_set1();
+     const std::vector<std::string> svg = to_svg(rs, pars);
      assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
      assert(has_time_scale_line(svg));
      assert(has_ocean(svg));
      assert(count_n_parents(rs) == 2);
-     #define SHOW_36_OUTPUT
+     //#define SHOW_36_OUTPUT
      #ifdef SHOW_36_OUTPUT
             std::ofstream ofs("issue36.svg");
                if (!ofs.is_open())
@@ -315,5 +325,105 @@ void elly::svg_test() //!OCLINT tests may be long
      #endif
     }
     #endif
+
+
+    #define FIX_ISSUE_56
+    #ifdef FIX_ISSUE_56
+    // Fix migration drawing
+    {
+     const parameters pars = create_parameters_set1();
+     elly::species mainland = create_new_test_species(location::mainland);
+     elly::species mainland2 = create_new_test_species(location::mainland);
+     mainland.migrate_to_island(4);
+     mainland2.go_extinct(3.2, location::mainland);
+     mainland.go_extinct(6.2, location::island);
+     elly::species islandchild1 = create_descendant(mainland, 6.2,location::island);
+     elly::species islandchild2 = create_descendant(mainland, 6.2,location::island);
+     const result r_1(mainland);
+     const result r_2(mainland2);
+     const result r_3(islandchild1);
+     const result r_4(islandchild2);
+     assert(is_islander(islandchild1));
+     assert(is_islander(islandchild2));
+     const results rs( { r_1, r_2, r_3, r_4 } );
+     const std::vector<std::string> svg = to_svg(rs, pars);
+     assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
+     assert(has_time_scale_line(svg));
+     assert(has_ocean(svg));
+     assert(count_n_parents(rs) == 2);
+
+     //#define SHOW_56_OUTPUT
+     #ifdef SHOW_56_OUTPUT
+            std::ofstream ofs("issue56.svg");
+               if (!ofs.is_open())
+                throw std::runtime_error("Unable to open or create the file. \n");
+
+            for(unsigned int i = 0; i < svg.size(); i++){
+                ofs << svg[i] << "\n";
+              }
+            ofs.close();
+
+     //change path to a suitable program to open .svg files
+     std::system("firefox issue56.svg");
+     #endif
     }
+    #endif
+
+    #define FIX_ISSUE_58
+    #ifdef FIX_ISSUE_58
+    // create scaler for cladogenesis to not have species overlap.
+    {
+     const parameters pars = create_parameters_set1();
+     elly::species testspecies1 = create_new_test_species(location::mainland);
+     testspecies1.go_extinct(4.0, location::mainland);
+     elly::species child1 = create_descendant(testspecies1, 4.0, location::mainland);
+     elly::species child2 = create_descendant(testspecies1, 4.0, location::mainland);
+     child1.go_extinct(6.0, location::mainland);
+     child2.go_extinct(7.0, location::mainland);
+     elly::species child3 = create_descendant(child1, 6.0, location::mainland);
+     elly::species child4 = create_descendant(child1, 6.0, location::mainland);
+     elly::species child5 = create_descendant(child2, 7.0, location::mainland);
+     elly::species child6 = create_descendant(child2, 7.0, location::mainland);
+     child6.migrate_to_island(8.2);
+     child6.go_extinct(8.5, location::island);
+     elly::species child7 = create_descendant(child6, 8.5, location::island);
+     elly::species child8 = create_descendant(child6, 8.5, location::island);
+     const result r_1(testspecies1);
+     const result r_2(child1);
+     const result r_3(child2);
+     const result r_4(child3);
+     const result r_5(child4);
+     const result r_6(child5);
+     const result r_7(child6);
+     const result r_8(child7);
+     const result r_9(child8);
+     const results rs( { r_1, r_2, r_3, r_4, r_5, r_6, r_7, r_8, r_9 } );
+     const std::vector<std::string> svg = to_svg(rs, pars);
+     assert(count_n_lines(svg) >= 3);   //At least 4, time scale and 2 species
+     assert(has_time_scale_line(svg));
+     assert(has_ocean(svg));
+     assert(count_n_parents(rs) != 2);
+
+     //#define SHOW_58_OUTPUT
+     #ifdef SHOW_58_OUTPUT
+            std::ofstream ofs("issue58.svg");
+               if (!ofs.is_open())
+                throw std::runtime_error("Unable to open or create the file. \n");
+
+            for(unsigned int i = 0; i < svg.size(); i++){
+                ofs << svg[i] << "\n";
+              }
+            ofs.close();
+
+     //change path to a suitable program to open .svg files
+     //std::system("firefox issue58.svg");
+     #endif
+    }
+    #endif
+
+
+
+
+    }
+
 }

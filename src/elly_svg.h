@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "elly_parameters.h"
+#include "elly_result.h"
+
 
 namespace elly {
 
@@ -61,20 +64,28 @@ std::vector<std::string> get_example_svg_1();
 ///Functions to create an SVG of a list of DAISIE events
 void get_xml_declaration(std::vector<std::string>& svg);
 
-void initialize_svg_size(std::vector<std::string>& svg, const results& rs);
+void initialize_svg_size(std::vector<std::string>& svg, const results& rs, const parameters& pars);
 
-void create_time_scale_line(const results&, std::vector<std::string>& svg);
+void create_time_scale_line(const results&, std::vector<std::string>& svg, const parameters& pars);
 
 void create_ocean(std::vector<std::string>&svg);
 
-std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg);
+void draw_mainland_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
+
+void draw_speciation_line(std::vector<std::string>& svg_object, const float& y1, const float& y2, const float x);
+
+void draw_island_line(std::vector<std::string>& svg_object, const float& y, const double ext_x, const result& r );
+
+void draw_migration_line(std::vector<std::string>& svg_object, const float& y_island, const float& y, const result& r);
+
+std::vector<std::string> create_svg_object(const results&, std::vector<std::string>& svg, const parameters& pars);
 
 
 
 ///Convert the results to the text of an SVG,
 ///each element being a line of text.
 ///First line will be the XML declarator
-std::vector<std::string> to_svg(const results& r);
+std::vector<std::string> to_svg(const results& rs, const parameters& pars);
 
 
 //checks number of black lines in the SVG
