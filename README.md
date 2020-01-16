@@ -28,6 +28,8 @@ Take a look at the vignette.
 
 ## Pictures
 
+![](pics/20200115.png)
+
 ![](pics/20200109.png)
 
 ![](pics/20200108.png)
