@@ -13,7 +13,7 @@ Description:
     without extinction. 
     This package creates a 'DAISIE' input file that has been
     generated with mainland extinction.
-License: GPL-3 | file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
