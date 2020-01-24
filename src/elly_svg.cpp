@@ -319,8 +319,10 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
           double ext_mainland = pars.get_crown_age();
           double ext_island = pars.get_crown_age();
           float y = 0.0;
+          float y1 = 0.0;
           float y_island = 0.0;
 
+          //sets y coordinate for lines of initial species (both mainland and in the case of colonization island)
           if(rs.get()[i].get_species().get_parent_id().get_id() == 0 && rs.get()[i].get_species().get_location_of_birth() == location::mainland)
           {
               y += n * ((get_svg_viewbox_height(svg) / 2.0) / divider);
@@ -330,13 +332,8 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
               n++;
           }
 
-
-    //If colonization time > -1 draw another line with same species id but negative. to identify mainland over island line.
-    //speciation lines can be drawn like above but the for negative ID.
-
-    //is_islander() function only works for endemic species on the island. since these only follow from colonization this function
-    // is not usable for drawing an SVG.
-          float y1 = 0.0;
+          //finds y coordinate for the parent species
+          //Needs revision for mainland speciations after migration
           if(rs.get()[i].get_species().get_parent_id().get_id() != 0){
               for(unsigned int k = 0; k < svg_object.size(); k++)
               {
@@ -352,14 +349,15 @@ std::vector<std::string> elly::create_svg_object(const results& rs, std::vector<
                       y_island = (y + (get_svg_viewbox_height(svg) / 2.0));
               }
 
-
+          //updates y coordinate in the case of speciation.
+          //currenty increase or decrease in y depends on time of birth. Will need revision
           if(rs.get()[i].get_species().get_species_id().get_id() % 2 == 0) y += (2*(1/rs.get()[i].get_species().get_time_of_birth()))  ;//0.5;
-          //perhaps create scaler for splitting sister species closer at larger t.
-          else y -= (2*(1/rs.get()[i].get_species().get_time_of_birth())); //0.5;
+          else y -= (2*(1/rs.get()[i].get_species().get_time_of_birth()));
 
           draw_speciation_line(svg_object, y1, y, rs.get()[i].get_species().get_time_of_birth());
           }
 
+          //sets extinction times
           if(rs.get()[i].get_species().get_time_of_extinction_mainland() > 0)
               ext_mainland = rs.get()[i].get_species().get_time_of_extinction_mainland();
 
