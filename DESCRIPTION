@@ -19,15 +19,14 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
     dplyr,
-    knitr
+    knitr,
+    Rcpp
 Suggests: 
     knitr,
     stringr,
     testthat,
     rmarkdown
 LinkingTo: 
-    Rcpp
-Imports: 
     Rcpp
 VignetteBuilder: knitr
 
