@@ -2,6 +2,9 @@ language: r
 dist: bionic
 cache: packages
 
+r_packages:
+  - knitr
+
 install: 
   # Needs to be done on bionic for now
   - sudo apt update -qq
