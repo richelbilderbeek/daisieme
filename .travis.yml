@@ -12,7 +12,7 @@ install:
   # Boost
   - sudo apt install -qq libboost-all-dev
   # R packages
-  - sudo apt install -qq r-cran-knitr r-cran-rcpp r-cran-testthat 
+  - sudo apt install -qq r-cran-rcpp r-cran-testthat 
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
   - sudo apt-get install -qq libqt5svg5-dev
