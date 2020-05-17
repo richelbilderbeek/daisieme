@@ -11,8 +11,6 @@ install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y libmagick++-dev; fi
   # Boost
   - sudo apt install -qq libboost-all-dev
-  # R packages
-  - sudo apt install -qq r-cran-rcpp r-cran-testthat 
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
   - sudo apt-get install -qq libqt5svg5-dev
