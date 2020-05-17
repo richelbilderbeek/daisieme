@@ -1,13 +1,13 @@
 Package: daisieme
 Title: Island Diversification With Mainland Extinction
-Version: 0.0.0.9000
+Version: 0.1
 Authors@R: 
     person(given = "Richèl J.C.",
            family = "Bilderbeek",
            role = c("aut", "cre"),
            email = "richel@richelbilderbeek.nl")
 Description: 
-    'DAISIE' is an island diversifiaction model, taking into 
+    'DAISIE' is an island diversification model, taking into 
     account speciation, immigration and extinction. 
     'DAISIE' assume a static mainland, that is, a mainland
     without extinction. 
