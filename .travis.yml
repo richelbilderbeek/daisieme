@@ -20,8 +20,8 @@ install:
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
   # R packages and dependencies
-  - ./travis-tool.sh r_binary_install knitr
-  - ./travis-tool.sh install_deps
+  - travis-tool.sh r_binary_install knitr
+  - travis-tool.sh install_deps
   # cppcheck
   #- sudo apt-get install -qq cppcheck
   # Codecov
