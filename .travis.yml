@@ -19,9 +19,8 @@ install:
   - sudo apt-get install -qq libqt5svg5-dev
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
-  # R packages and dependencies
-  - travis-tool.sh r_binary_install knitr
-  - travis-tool.sh install_deps
+  # R packages
+  - Rscript -e 'install.packages("knitr")'
   # cppcheck
   #- sudo apt-get install -qq cppcheck
   # Codecov
