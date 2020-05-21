@@ -8,7 +8,6 @@ r_packages:
 install: 
   # Needs to be done on bionic for now
   - sudo apt update -qq
-  - apt-cache search r-cran-knitr
   # ImageMagick
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:opencpu/imagemagick; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update; fi
@@ -20,6 +19,9 @@ install:
   - sudo apt-get install -qq libqt5svg5-dev
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
+  # R packages and dependencies
+  - ./travis-tool.sh r_binary_install knitr
+  - ./travis-tool.sh install_deps
   # cppcheck
   #- sudo apt-get install -qq cppcheck
   # Codecov
