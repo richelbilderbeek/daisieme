@@ -20,7 +20,7 @@ install:
   # Qwt
   - sudo apt-get install -qq libqwt-qt5-dev
   # R packages
-  - Rscript -e 'install.packages("knitr")'
+  - Rscript -e 'install.packages(c("dplyr", "knitr", "Rcpp"))'
   # cppcheck
   #- sudo apt-get install -qq cppcheck
   # Codecov
