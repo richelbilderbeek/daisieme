@@ -4,10 +4,14 @@
 \alias{dme_create_daisie_input_cpp}
 \title{Create a parameter file.}
 \usage{
-dme_create_daisie_input_cpp(dme_params_filename,
-  daisie_sim_results_filename, daisie_input_ideal_filename,
-  daisie_input_reality_filename, daisie_output_ideal_filename,
-  daisie_output_reality_filename)
+dme_create_daisie_input_cpp(
+  dme_params_filename,
+  daisie_sim_results_filename,
+  daisie_input_ideal_filename,
+  daisie_input_reality_filename,
+  daisie_output_ideal_filename,
+  daisie_output_reality_filename
+)
 }
 \arguments{
 \item{dme_params_filename}{name of the file with the daisieme parameters}

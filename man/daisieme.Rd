@@ -3,7 +3,6 @@
 \docType{package}
 \name{daisieme}
 \alias{daisieme}
-\alias{daisieme-package}
 \title{'daisieme': DAISIE with mainland extinction}
 \description{
 'daisieme' provides ...

@@ -5,12 +5,27 @@
 \title{This function does nothing. It is intended to inherit is parameters'
 documentation.}
 \usage{
-default_params_doc(filename, ana_psr, clado_is_psr, clado_main_psr,
-  crown_age, daisie_sim_results_filename, daisie_input_ideal_filename,
-  daisie_input_reality_filename, daisie_output_ideal_filename,
-  daisie_output_reality_filename, dme_params_filename, ext_is_psr,
-  ext_main_psr, mig_to_is_psr, carry_cap_is, carry_cap_main, rng_seed,
-  init_n_main_clades, init_n_main_sps)
+default_params_doc(
+  filename,
+  ana_psr,
+  clado_is_psr,
+  clado_main_psr,
+  crown_age,
+  daisie_sim_results_filename,
+  daisie_input_ideal_filename,
+  daisie_input_reality_filename,
+  daisie_output_ideal_filename,
+  daisie_output_reality_filename,
+  dme_params_filename,
+  ext_is_psr,
+  ext_main_psr,
+  mig_to_is_psr,
+  carry_cap_is,
+  carry_cap_main,
+  rng_seed,
+  init_n_main_clades,
+  init_n_main_sps
+)
 }
 \arguments{
 \item{filename}{name of the file}

@@ -4,11 +4,21 @@
 \alias{dme_create_test_params_file}
 \title{Creates a testing daisieme parameter file}
 \usage{
-dme_create_test_params_file(filename = tempfile(), ana_psr = 0.1,
-  clado_is_psr = 0.1, clado_main_psr = 0.1, ext_is_psr = 0.01,
-  ext_main_psr = 0.01, mig_to_is_psr = 0.1, carry_cap_is = 5,
-  carry_cap_main = 20, rng_seed = 42, init_n_main_clades = 1,
-  init_n_main_sps = 10, crown_age = 15)
+dme_create_test_params_file(
+  filename = tempfile(),
+  ana_psr = 0.1,
+  clado_is_psr = 0.1,
+  clado_main_psr = 0.1,
+  ext_is_psr = 0.01,
+  ext_main_psr = 0.01,
+  mig_to_is_psr = 0.1,
+  carry_cap_is = 5,
+  carry_cap_main = 20,
+  rng_seed = 42,
+  init_n_main_clades = 1,
+  init_n_main_sps = 10,
+  crown_age = 15
+)
 }
 \arguments{
 \item{filename}{name of the file}
