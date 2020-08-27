@@ -196,6 +196,10 @@ void elly::simulation::run()
     == m_populations.count_species(location::mainland_only)
   );
 
+  int x = 3;
+  double y = x;
+  assert(y != 0.0);
+
   const double t_end{m_parameters.get_crown_age()};
   while (m_t < t_end)
   {

@@ -20,7 +20,7 @@ std::string create_script_text(
   const std::string& do_filename = "daisie_output.csv"
 );
 
-///Run DAISEE
+///Run DAISIE
 /// @param di_filename DAISIE input filename, the temporary file used to save the DAISIE input
 /// @param do_filename DAISIE output filename, the temporary file used to save the DAISIE output
 /// @param r_script_filename temporary file to store the R script used to run DAISIE
