@@ -1,7 +1,5 @@
 #!/bin/bash
-# Get the code coverage on Travis CI
-
-for filename in `find . | egrep "^.*\.cpp$" | egrep -v "^ribi_main.cpp$" | egrep -v "^.*_test.cpp$"`; 
+for filename in $(find . | egrep '\.cpp$');
 do 
-  gcov -n -o . $filename 
+  gcov -n -o . $filename > /dev/null; 
 done
