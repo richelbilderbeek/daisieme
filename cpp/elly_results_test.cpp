@@ -235,6 +235,17 @@ BOOST_AUTO_TEST_CASE(elly_collect_branching_times_for_non_endemic)
 
 BOOST_AUTO_TEST_CASE(elly_collect_branching_times_single_endemic)
 {
+  /*
+  Times    Mainland     Island
+   0     a
+   |     |
+   1     +-  -  -  -  a
+   |     |            |
+   2     |            + <- anagenesis
+   |     |            |
+   |     a            b
+
+   */
   species a = create_new_test_species(location::mainland);
   const double t_migrate{1.0};
   const double t_anagenesis{2.0};
@@ -245,8 +256,8 @@ BOOST_AUTO_TEST_CASE(elly_collect_branching_times_single_endemic)
   const std::vector<double> v = collect_branching_times(this_clade);
   BOOST_REQUIRE_EQUAL(v.size(), 2);
   BOOST_REQUIRE_EQUAL(a.get_times_of_colonization().size(), 1);
-  BOOST_CHECK_CLOSE(v[0], a.get_times_of_colonization().back(), 0.0001);
-  BOOST_CHECK_CLOSE(v[1], b.get_time_of_birth(), 0.0001);
+  BOOST_CHECK_CLOSE(v[0], a.get_times_of_colonization().back(), 0.0001); // 1.0
+  BOOST_CHECK_CLOSE(v[1], b.get_time_of_birth(), 0.0001); // 2.0
 }
 
 BOOST_AUTO_TEST_CASE(elly_collect_branching_times_with_extinction)
